@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -17,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
     final height = mediaQueryData.size.height;
     final width = mediaQueryData.size.width;
     return Scaffold(
-      backgroundColor: Color(0xffF7F7F7),
+      backgroundColor: const Color(0xffF7F7F7),
       body: Padding(
         padding: const EdgeInsets.only(top: 25.0),
         child: Stack(
@@ -35,7 +37,7 @@ class SettingsScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 15),
               child: IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.favorite_border_outlined,
                   size: 30,
                 ),
@@ -46,7 +48,7 @@ class SettingsScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: 15, left: width * .87),
               child: IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.logout_outlined,
                   size: 30,
                 ),
@@ -62,7 +64,7 @@ class SettingsScreen extends StatelessWidget {
                     'assets/images/cover.png',
                     scale: 4.0,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -105,31 +107,31 @@ class SettingsScreen extends StatelessWidget {
                             function: () {
                               navigateTo(context, EditProfileScreen());
                             },
-                            icon: Icon(CupertinoIcons.person_crop_circle_fill),
+                            icon: const Icon(CupertinoIcons.person_crop_circle_fill),
                             label: 'Edit profile'.tr,
                           ),
                           settingsItem(
                               function: () {},
-                              icon: Icon(CupertinoIcons.lock_fill),
+                              icon: const Icon(CupertinoIcons.lock_fill),
                               label: 'Privacy'.tr),
                           settingsItem(
                               function: () {},
-                              icon: Icon(CupertinoIcons.shield),
+                              icon: const Icon(CupertinoIcons.shield),
                               label: 'Security'.tr),
                           settingsItem(
                               function: () {
                                 navigateTo(context, LanguageScreen());
                               },
-                              icon: Icon(Icons.translate),
+                              icon: const Icon(Icons.translate),
                               label: 'Language'.tr),
                           settingsItem(
                               function: () {},
-                              icon: Icon(CupertinoIcons.bell_solid),
+                              icon: const Icon(CupertinoIcons.bell_solid),
                               isSwitch: true,
                               label: 'Notification'.tr),
                           settingsItem(
                               function: () {},
-                              icon: Icon(CupertinoIcons.moon_fill),
+                              icon: const Icon(CupertinoIcons.moon_fill),
                               isSwitch: true,
                               label: 'Dark mode'.tr),
                           SizedBox(
@@ -147,12 +149,12 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           settingsItem(
                               function: () {},
-                              icon: Icon(
+                              icon: const Icon(
                                   CupertinoIcons.exclamationmark_circle_fill),
                               label: 'Help & Support'.tr),
                           settingsItem(
                               function: () {},
-                              icon: Icon(CupertinoIcons.question_circle_fill),
+                              icon: const Icon(CupertinoIcons.question_circle_fill),
                               isSwitch: false,
                               label: 'Terms and Policies'.tr),
                           SizedBox(
@@ -207,7 +209,7 @@ class SettingsScreen extends StatelessWidget {
         child: Row(
           children: [
             icon,
-            SizedBox(
+            const SizedBox(
               width: 30,
             ),
             Text(label,
@@ -215,13 +217,13 @@ class SettingsScreen extends StatelessWidget {
                     color: Colors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.w500)),
-            Spacer(),
+            const Spacer(),
             isSwitch
                 ? CupertinoSwitch(
                     value: false,
                     onChanged: (bool value) {},
                   )
-                : Icon(Icons.arrow_forward_ios),
+                : const Icon(Icons.arrow_forward_ios),
           ],
         ),
       ),
