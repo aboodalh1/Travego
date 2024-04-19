@@ -6,17 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/core/cubits/general_cubit/gen_cubit.dart';
 import 'package:travego/network/local/cacheHelper.dart';
 import 'package:travego/network/remote/dio_helper.dart';
-import 'package:travego/shared/constant.dart';
 import 'package:travego/shared/locale/localController.dart';
 import 'package:travego/shared/locale/locale.dart';
 import 'package:travego/view/auth/cubits/auth_cubit.dart';
-import 'package:travego/view/auth/cubits/auth_states.dart';
-import 'package:travego/view/auth/login_screen.dart';
-import 'package:travego/view/auth/register_screen.dart';
-import 'package:travego/view/auth/verification_page.dart';
 import 'package:travego/view/layout.dart';
-import 'package:travego/view/navigation_bar_items/Settings/settings_screen.dart';
-import 'package:travego/view/navigation_bar_items/home/home_page.dart';
 
 void main() async {
   Bloc.observer = MyBlocObserver();
