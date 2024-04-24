@@ -4,12 +4,14 @@ import 'package:travego/blocObs.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/core/cubits/general_cubit/gen_cubit.dart';
-import 'package:travego/network/local/cacheHelper.dart';
-import 'package:travego/network/remote/dio_helper.dart';
-import 'package:travego/shared/locale/localController.dart';
-import 'package:travego/shared/locale/locale.dart';
 import 'package:travego/view/auth/cubits/auth_cubit.dart';
 import 'package:travego/view/layout.dart';
+import 'package:travego/view/navigation_bar_items/location/location_cubit/location_cubit.dart';
+
+import 'core/utils/network/local/cacheHelper.dart';
+import 'core/utils/network/remote/dio_helper.dart';
+import 'core/utils/shared/locale/localController.dart';
+import 'core/utils/shared/locale/locale.dart';
 
 void main() async {
   Bloc.observer = MyBlocObserver();
@@ -33,6 +35,11 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => GeneralCubit(),
+          ),
+          BlocProvider(
+            create: (context) => LocationCubit(),
+            
+
           ),
         ],
         child: GetMaterialApp(

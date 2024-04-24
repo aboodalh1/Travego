@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/shared/Widgets/default_button.dart';
-import 'package:travego/shared/components/components.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/view/auth/cubits/auth_cubit.dart';
 import 'package:travego/view/auth/cubits/auth_states.dart';
 import 'package:travego/view/auth/register_screen.dart';
 import 'package:travego/view/layout.dart';
 import 'package:travego/view/navigation_bar_items/home/home_page.dart';
+
+import '../../core/utils/shared/Widgets/default_button.dart';
+import '../../core/utils/shared/components/components.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {

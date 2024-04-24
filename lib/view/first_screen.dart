@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:travego/shared/constant.dart';
 import 'package:travego/view/auth/login_screen.dart';
 import 'package:travego/view/layout.dart';
+
+import '../core/utils/shared/constant.dart';
 
 // ignore: must_be_immutable
 class FirstScreen extends StatelessWidget {

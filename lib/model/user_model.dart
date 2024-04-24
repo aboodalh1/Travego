@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-class Aaa {
+class UserModel {
   bool? status;
   String? message;
   dynamic data;
 
-  Aaa({this.status, this.message, this.data});
+  UserModel({this.status, this.message, this.data});
 
   @override
   String toString() {
     return 'Aaa(status: $status, message: $message, data: $data)';
   }
 
-  factory Aaa.fromMap(Map<String, dynamic> data) => Aaa(
+  factory UserModel.fromMap(Map<String, dynamic> data) => UserModel(
         status: data['status'] as bool?,
         message: data['message'] as String?,
         data: data['data'] as dynamic,
@@ -26,13 +26,13 @@ class Aaa {
 
   /// `dart:convert`
   ///
-  /// Parses the string and returns the resulting Json object as [Aaa].
-  factory Aaa.fromJson(String data) {
-    return Aaa.fromMap(json.decode(data) as Map<String, dynamic>);
+  /// Parses the string and returns the resulting Json object as [UserModel].
+  factory UserModel.fromJson(String data) {
+    return UserModel.fromMap(json.decode(data) as Map<String, dynamic>);
   }
 
   /// `dart:convert`
   ///
-  /// Converts [Aaa] to a JSON string.
+  /// Converts [UserModel] to a JSON string.
   String toJson() => json.encode(toMap());
 }

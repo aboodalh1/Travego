@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:travego/shared/constant.dart';
-import 'package:travego/shared/locale/localController.dart';
+
+import '../../../../../core/utils/shared/constant.dart';
 
 
 class LanguageRadioController extends GetxController {
-  LocalController controllerLang = Get.find();
+  var controllerLang = Get.find();
   var selectedValue = 'On'.obs;
 
   void selectOn() {

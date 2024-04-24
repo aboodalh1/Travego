@@ -25,7 +25,8 @@ class LayoutScreen extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: BlocProvider.of<GeneralCubit>(context).navBarSelectedItem,
       onTap: (value) {
-        BlocProvider.of<GeneralCubit>(context).changeBottomNavBar(value);
+        BlocProvider.of<GeneralCubit>(context)
+            .changeBottomNavBar(value, context);
       },
       type: BottomNavigationBarType.fixed,
       items: [
@@ -33,7 +34,8 @@ class LayoutScreen extends StatelessWidget {
         BottomNavigationBarItem(icon: Icon(Icons.place), label: 'Explore'.tr),
         BottomNavigationBarItem(
             icon: Icon(Icons.home_work_outlined), label: 'hotels'.tr),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'.tr)
+        BottomNavigationBarItem(
+            icon: Icon(Icons.settings), label: 'Settings'.tr)
       ],
     );
   }

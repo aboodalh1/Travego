@@ -5,9 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:travego/shared/components/components.dart';
+import 'package:travego/view/auth/login_screen.dart';
 import 'package:travego/view/navigation_bar_items/Settings/LanguageScreen/LanguageScreen.dart';
 import 'package:travego/view/navigation_bar_items/Settings/edit_profile/edit_profile_screen.dart';
+
+import '../../../core/utils/shared/components/components.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -34,27 +36,30 @@ class SettingsScreen extends StatelessWidget {
                       bottomRight: Radius.circular(50))),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite_border_outlined,
-                  size: 30,
-                ),
-                color: Colors.white,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 15, left: width * .87),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.logout_outlined,
-                  size: 30,
-                ),
-                color: Colors.white,
-              ),
-            ),
+                padding: const EdgeInsets.only(top: 15),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.favorite_border_outlined,
+                        size: 30,
+                      ),
+                      color: Colors.white,
+                    ),
+                    Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        navigateAndFinish(context, LoginScreen());
+                      },
+                      icon: const Icon(
+                        Icons.logout_outlined,
+                        size: 30,
+                      ),
+                      color: Colors.white,
+                    ),
+                  ],
+                )),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: width * .35, vertical: height * .08),
@@ -107,7 +112,8 @@ class SettingsScreen extends StatelessWidget {
                             function: () {
                               navigateTo(context, EditProfileScreen());
                             },
-                            icon: const Icon(CupertinoIcons.person_crop_circle_fill),
+                            icon: const Icon(
+                                CupertinoIcons.person_crop_circle_fill),
                             label: 'Edit profile'.tr,
                           ),
                           settingsItem(
@@ -154,7 +160,8 @@ class SettingsScreen extends StatelessWidget {
                               label: 'Help & Support'.tr),
                           settingsItem(
                               function: () {},
-                              icon: const Icon(CupertinoIcons.question_circle_fill),
+                              icon: const Icon(
+                                  CupertinoIcons.question_circle_fill),
                               isSwitch: false,
                               label: 'Terms and Policies'.tr),
                           SizedBox(

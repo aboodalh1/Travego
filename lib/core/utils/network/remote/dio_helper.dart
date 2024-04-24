@@ -10,7 +10,7 @@ class DioHelper {
 
   static init() {
     dio = Dio(BaseOptions(
-        baseUrl: 'http://10.0.2.2:8070/',
+        baseUrl: 'http://api.geoapify.com/v2/',
         receiveDataWhenStatusError: true,
         headers: {
           "Accept": "application/json",
@@ -21,14 +21,14 @@ class DioHelper {
     required String url,
     var data,
   }) async {
+    print(url);
     return await dio
         .get(
       url,
       data: data,
-    )
-        .catchError((e) {
+    ).catchError((e) {
       SnackBar(content: Text('${e.response?.data['message']}'));
-      print(e.response?.data['message']);
+      print(e.toString());
     });
   }
 

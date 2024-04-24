@@ -1,10 +1,12 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travego/core/util/assets.dart';
-import 'package:travego/shared/components/components.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travego/features/home/trip_details/trip_details.dart';
+
+import '../../../core/utils/assets.dart';
+import '../../../core/utils/shared/components/components.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -280,100 +282,105 @@ class TopTripsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 260,
-      width: double.infinity,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        separatorBuilder: (context, index) => const SizedBox(
-          width: 10,
-        ),
-        itemCount: 15,
-        itemBuilder: (context, index) {
-          return Container(
-            width: 160,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.asset(
-                        AssetsData.trips,
-                        fit: BoxFit.fill,
-                      )),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Lakes',
-                        style: GoogleFonts.inter(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: HexColor('E1D800'),
-                            size: 20,
-                          ),
-                          Text(
-                            '4.5',
-                            style: GoogleFonts.inter(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w400),
-                          )
-                        ],
-                      )
-                    ],
+    return GestureDetector(
+      onTap: (){
+        navigateTo(context, TripDetailScreen());
+      },
+      child: SizedBox(
+        height: 260,
+        width: double.infinity,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          separatorBuilder: (context, index) => const SizedBox(
+            width: 10,
+          ),
+          itemCount: 15,
+          itemBuilder: (context, index) {
+            return Container(
+              width: 160,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.asset(
+                          AssetsData.trips,
+                          fit: BoxFit.fill,
+                        )),
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on_sharp,
-                      color: Colors.grey,
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Lakes',
+                          style: GoogleFonts.inter(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        const Spacer(),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Color(0XFFE1D800),
+                              size: 20,
+                            ),
+                            Text(
+                              '4.5',
+                              style: GoogleFonts.inter(
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        )
+                      ],
                     ),
-                    Text(
-                      'location',
-                      style: GoogleFonts.inter(color: Colors.black87),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
                     children: [
-                      const Text('\$40/ visit'),
-                      const Spacer(),
-                      Icon(
-                        Icons.favorite,
-                        size: 30,
-                        color: defaultColor,
+                      const Icon(
+                        Icons.location_on_sharp,
+                        color: Colors.grey,
+                      ),
+                      Text(
+                        'location',
+                        style: GoogleFonts.inter(color: Colors.black87),
                       )
                     ],
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        const Text('\$40/ visit'),
+                        const Spacer(),
+                        Icon(
+                          Icons.favorite,
+                          size: 30,
+                          color: defaultColor,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

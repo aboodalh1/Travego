@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:travego/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import 'colors.dart';
 
 ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: HexColor('333739'),

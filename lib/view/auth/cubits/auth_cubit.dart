@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travego/network/remote/dio_helper.dart';
-import 'package:travego/shared/components/components.dart';
 import 'package:travego/view/auth/cubits/auth_states.dart';
 import 'package:travego/view/auth/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/view/auth/verification_page.dart';
+
+import '../../../core/utils/network/remote/dio_helper.dart';
+import '../../../core/utils/shared/components/components.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
