@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
+import 'package:travego/core/utils/shared/components/components.dart';
 
 class TripDetailScreen extends StatelessWidget {
   const TripDetailScreen({super.key});
@@ -19,7 +20,7 @@ class TripDetailScreen extends StatelessWidget {
               style: GoogleFonts.inter(fontWeight: FontWeight.w500)),
         ),
         body: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               Container(
@@ -35,33 +36,56 @@ class TripDetailScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Text('Lake',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.bold,
-                        fontSize: 20)),
-                    Spacer(),
-                    Icon(Icons.star, color: Color(0XFFE1D800)),
-                    Text('4.5',style: GoogleFonts.inter(color:Color(0xff636363),fontSize: 15,fontWeight: FontWeight.w500),),
+                        style: GoogleFonts.inter(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                    const Spacer(),
+                    const Icon(Icons.star, color: Color(0XFFE1D800)),
+                    Text(
+                      '4.5',
+                      style: GoogleFonts.inter(
+                          color: const Color(0xff636363),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ],
                 ),
               ),
               Row(
                 children: [
-                  Icon(Icons.place,color: Color(0xff636363),),
-                  Text('location',style: GoogleFonts.inter(color:Color(0xff636363),
-                  fontWeight: FontWeight.w500,fontSize:15),),
+                  const Icon(
+                    Icons.place,
+                    color: Color(0xff636363),
+                  ),
+                  Text(
+                    'location',
+                    style: GoogleFonts.inter(
+                        color: const Color(0xff636363),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
+                  ),
                 ],
               ),
-              Container(
+              SizedBox(
                 height: 200,
-                child: Text('description',style:GoogleFonts.inter(fontSize: 20),),
+                child: Text(
+                  'description',
+                  style: GoogleFonts.inter(fontSize: 20),
+                ),
               ),
-              Spacer(),
-              Row(
-                children: [
-                DefaultElevated(label: 'Booking now \$40', fill: false, onPressed:(){})
-                  ]
-                  ),)
-                ],
-              )
+              const Spacer(),
+              Row(children: [
+                Expanded(
+                  child: DefaultElevated(
+                      label: 'Booking now \$40', fill: true, onPressed: () {}),
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.favorite_border,
+                      size: 35,
+                      color: defaultColor,
+                    ))
+              ])
             ],
           ),
         ));

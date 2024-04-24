@@ -2,95 +2,97 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hexcolor/hexcolor.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'package:travego/core/utils/shared/components/components.dart';
 import 'colors.dart';
 
 ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: HexColor('333739'),
-    appBarTheme: AppBarTheme(
-      iconTheme: const IconThemeData(color: Colors.white, size: 26),
-      backgroundColor: HexColor('333739'),
-      elevation: 0.0,
-      systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: HexColor('333739'),
-          statusBarIconBrightness: Brightness.light),
-      titleTextStyle: const TextStyle(
-          color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
-    ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: HexColor('333739'),
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: defaultSecondColor,
-        unselectedItemColor: Colors.white,
-        elevation: 20),
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: Colors.white,
-      ),
-      bodyMedium:
-          TextStyle(fontFamily: 'Poppins', color: Colors.white, fontSize: 15),
-      bodySmall: TextStyle(
-        fontFamily: 'Poppins',
-        color: Colors.white60,
-        fontSize: 15,
-      ),
-      labelMedium: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-      ),
-      labelLarge: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 25,
-          fontWeight: FontWeight.w400,
-          color: Colors.white),
-    ),
-    primaryColor: Colors.white,
-    buttonTheme: const ButtonThemeData(
-      buttonColor: Colors.white,
-    ),
-    iconTheme: const IconThemeData(color: Colors.white));
-ThemeData lightTheme = ThemeData(
   textTheme: TextTheme(
-    bodyLarge: const TextStyle(
-      fontFamily: 'Poppins',
+    bodyLarge: GoogleFonts.inter(
       fontSize: 18,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.bold,
+      color: Colors.grey.shade300,
+    ),
+    labelSmall: GoogleFonts.inter(
+      color: Colors.grey.shade300,
+      fontSize: 15,
+      fontWeight: FontWeight.w500,
+    ),
+    bodyMedium: GoogleFonts.inter(
+      color: Colors.white,
+      fontSize: 15,
+    ),
+    labelMedium: GoogleFonts.inter(
+      color: Colors.grey.shade400,
+      fontSize: 16,
+    ),
+    labelLarge: GoogleFonts.inter(
+      fontSize: 25,
+      fontWeight: FontWeight.w400,
+      color: Colors.white.withOpacity(0.7),
+    ),
+  ),
+  scaffoldBackgroundColor: Colors.grey.shade900,
+  appBarTheme: AppBarTheme(
+    iconTheme: const IconThemeData(color: Colors.white, size: 26),
+    backgroundColor: Colors.grey.shade900,
+    foregroundColor: Colors.grey.shade900,
+    elevation: 0.0,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.grey.shade900,
+      statusBarIconBrightness: Brightness.light,
+    ),
+    titleTextStyle: GoogleFonts.inter(
+      color: Colors.white,
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: Colors.grey.shade800,
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: Colors.white,
+    unselectedItemColor: Colors.grey.shade900,
+    elevation: 20,
+  ),
+  iconTheme: const IconThemeData(
+    color: Colors.white,
+  ),
+);
+
+ThemeData lightTheme = ThemeData(
+  colorScheme: const ColorScheme.light(primary: Colors.white),
+  textTheme: TextTheme(
+    bodyLarge: GoogleFonts.inter(
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
       color: Colors.black,
     ),
-    bodySmall: const TextStyle(
-        fontFamily: 'Poppins', color: Colors.grey, fontSize: 15),
-    bodyMedium: const TextStyle(
-        fontFamily: 'Poppins', color: Colors.black, fontSize: 15),
-    labelMedium: TextStyle(
-      fontFamily: 'Poppins',
+    labelSmall: GoogleFonts.inter(
+        color: Colors.grey, fontSize: 15, fontWeight: FontWeight.w500),
+    bodyMedium: GoogleFonts.inter(color: Colors.black, fontSize: 15),
+    labelMedium: GoogleFonts.inter(
       color: defaultSecondColor,
       fontSize: 16,
     ),
-    labelLarge: const TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 25,
-        fontWeight: FontWeight.w400,
-        color: Colors.black54),
+    labelLarge: GoogleFonts.inter(
+        fontSize: 25, fontWeight: FontWeight.w400, color: Colors.black54),
   ),
-  primarySwatch: Colors.blue,
-  scaffoldBackgroundColor: Colors.white,
-  appBarTheme: const AppBarTheme(
-    iconTheme: IconThemeData(color: Colors.black, size: 26),
-    backgroundColor: Colors.white,
+  scaffoldBackgroundColor: const Color(0xFFF7F7F7),
+  appBarTheme: AppBarTheme(
+    iconTheme: const IconThemeData(color: Colors.black, size: 26),
+    backgroundColor: const Color(0xFFF7F7F7),
     elevation: 0.0,
-    systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark),
-    titleTextStyle: TextStyle(
+    systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Color(0xFFF7F7F7),
+        statusBarIconBrightness: Brightness.dark),
+    titleTextStyle: GoogleFonts.inter(
         color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: defaultSecondColor,
+      selectedItemColor: defaultColor,
       unselectedItemColor: Colors.grey,
       elevation: 20),
   iconTheme: const IconThemeData(

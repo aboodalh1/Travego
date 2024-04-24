@@ -2,14 +2,17 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:travego/core/cubits/general_cubit/gen_cubit.dart';
 import 'package:travego/view/auth/login_screen.dart';
-import 'package:travego/view/navigation_bar_items/Settings/LanguageScreen/LanguageScreen.dart';
-import 'package:travego/view/navigation_bar_items/Settings/edit_profile/edit_profile_screen.dart';
+import 'package:travego/features/Settings/views/LanguageScreen/LanguageScreen.dart';
+import 'package:travego/features/Settings/views/edit_profile/edit_profile_screen.dart';
 
 import '../../../core/utils/shared/components/components.dart';
+import '../../../core/utils/shared/constant.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -21,7 +24,6 @@ class SettingsScreen extends StatelessWidget {
     final height = mediaQueryData.size.height;
     final width = mediaQueryData.size.width;
     return Scaffold(
-      backgroundColor: const Color(0xffF7F7F7),
       body: Padding(
         padding: const EdgeInsets.only(top: 25.0),
         child: Stack(
@@ -87,8 +89,9 @@ class SettingsScreen extends StatelessWidget {
               child: Container(
                   height: height * 0.6,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                    color: isDark ? Colors.blueGrey[900] : Colors.white,
+                  ),
                   width: double.infinity,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -101,9 +104,7 @@ class SettingsScreen extends StatelessWidget {
                           Text(
                             'Account'.tr,
                             style: GoogleFonts.inter(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             height: height * 0.01,
@@ -130,15 +131,26 @@ class SettingsScreen extends StatelessWidget {
                               },
                               icon: const Icon(Icons.translate),
                               label: 'Language'.tr),
-                          settingsItem(
-                              function: () {},
+                          settingsSwitchItem(
+                              switchFunction: (bool value) {
+                                BlocProvider.of<GeneralCubit>(context)
+                                    .themeToggleSwitch();
+                              },
+                              switchValue:
+                                  BlocProvider.of<GeneralCubit>(context)
+                                      .notificationSwitchValue,
                               icon: const Icon(CupertinoIcons.bell_solid),
-                              isSwitch: true,
                               label: 'Notification'.tr),
-                          settingsItem(
-                              function: () {},
+                          settingsSwitchItem(
+                              context: context,
+                              switchValue:
+                                  BlocProvider.of<GeneralCubit>(context)
+                                      .themeSwitchValue,
+                              switchFunction: (bool value) {
+                                BlocProvider.of<GeneralCubit>(context)
+                                    .themeToggleSwitch();
+                              },
                               icon: const Icon(CupertinoIcons.moon_fill),
-                              isSwitch: true,
                               label: 'Dark mode'.tr),
                           SizedBox(
                             height: height * 0.02,
@@ -146,9 +158,7 @@ class SettingsScreen extends StatelessWidget {
                           Text(
                             'About & Support'.tr,
                             style: GoogleFonts.inter(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             height: height * 0.01,
@@ -162,7 +172,6 @@ class SettingsScreen extends StatelessWidget {
                               function: () {},
                               icon: const Icon(
                                   CupertinoIcons.question_circle_fill),
-                              isSwitch: false,
                               label: 'Terms and Policies'.tr),
                           SizedBox(
                             height: height * 0.02,
@@ -207,8 +216,7 @@ class SettingsScreen extends StatelessWidget {
   GestureDetector settingsItem(
       {required Icon icon,
       required String label,
-      bool isSwitch = false,
-      required void function()}) {
+      required void Function() function}) {
     return GestureDetector(
       onTap: function,
       child: Padding(
@@ -221,16 +229,37 @@ class SettingsScreen extends StatelessWidget {
             ),
             Text(label,
                 style: GoogleFonts.inter(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500)),
+                    fontSize: 14, fontWeight: FontWeight.w500)),
             const Spacer(),
-            isSwitch
-                ? CupertinoSwitch(
-                    value: false,
-                    onChanged: (bool value) {},
-                  )
-                : const Icon(Icons.arrow_forward_ios),
+            const Icon(Icons.arrow_forward_ios),
+          ],
+        ),
+      ),
+    );
+  }
+
+  GestureDetector settingsSwitchItem({
+    required Icon icon,
+    context,
+    required String label,
+    switchFunction,
+    required bool switchValue,
+  }) {
+    return GestureDetector(
+      // onTap: function,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
+        child: Row(
+          children: [
+            icon,
+            const SizedBox(
+              width: 30,
+            ),
+            Text(label,
+                style: GoogleFonts.inter(
+                    fontSize: 14, fontWeight: FontWeight.w500)),
+            const Spacer(),
+            CupertinoSwitch(value: switchValue, onChanged: switchFunction),
           ],
         ),
       ),

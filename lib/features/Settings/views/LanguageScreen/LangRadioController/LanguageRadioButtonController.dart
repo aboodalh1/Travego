@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 import '../../../../../core/utils/shared/constant.dart';
 
-
 class LanguageRadioController extends GetxController {
   var controllerLang = Get.find();
   var selectedValue = 'On'.obs;

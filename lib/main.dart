@@ -4,6 +4,8 @@ import 'package:travego/blocObs.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/core/cubits/general_cubit/gen_cubit.dart';
+import 'package:travego/core/utils/shared/constant.dart';
+import 'package:travego/core/utils/shared/styles/Styles.dart';
 import 'package:travego/view/auth/cubits/auth_cubit.dart';
 import 'package:travego/view/layout.dart';
 import 'package:travego/view/navigation_bar_items/location/location_cubit/location_cubit.dart';
@@ -38,11 +40,10 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => LocationCubit(),
-            
-
           ),
         ],
         child: GetMaterialApp(
+          theme: isDark ? darkTheme : lightTheme,
           translations: MyLocale(),
           locale: Get.deviceLocale,
           home: LayoutScreen(),
