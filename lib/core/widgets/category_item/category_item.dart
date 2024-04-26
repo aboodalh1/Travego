@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/utils/shared/components/components.dart';
+import '../../utils/shared/components/components.dart';
 
 class CategoriesItems extends StatelessWidget {
   const CategoriesItems({

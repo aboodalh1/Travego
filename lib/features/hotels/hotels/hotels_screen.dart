@@ -5,14 +5,15 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:travego/core/widgets/group_trip_item/group_trip_item.dart';
 import 'package:travego/core/widgets/top_trip_item/top_trip_item.dart';
 import 'package:travego/core/widgets/category_item/category_item.dart';
-import '../../core/utils/shared/components/components.dart';
-import '../../core/widgets/search_text_form/search_text_form_field.dart';
+import '../../../core/utils/shared/components/components.dart';
+import '../../../core/widgets/hotels_item/hotels_item.dart';
+import '../../../core/widgets/search_text_form/search_text_form_field.dart';
 
 // ignore: must_be_immutable
-class HomeScreen extends StatelessWidget {
+class HotelsScreen extends StatelessWidget {
   TextEditingController searchController = TextEditingController();
 
-  HomeScreen({super.key});
+  HotelsScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.labelSmall)),
                 ],
               ),
-              const GroupTripItem(),
+              const HotelsItem(),
             ],
           ),
         ),

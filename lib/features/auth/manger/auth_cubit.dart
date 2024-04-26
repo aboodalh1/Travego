@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travego/view/auth/cubits/auth_states.dart';
-import 'package:travego/view/auth/login_screen.dart';
+import 'package:travego/features/auth/manger/auth_states.dart';
+import 'package:travego/features/auth/views/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/view/auth/verification_page.dart';
+import 'package:travego/features/auth/views/verification_page.dart';
 
 import '../../../core/utils/network/remote/dio_helper.dart';
 import '../../../core/utils/shared/components/components.dart';

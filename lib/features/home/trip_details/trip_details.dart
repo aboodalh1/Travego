@@ -11,6 +11,7 @@ class TripDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
 
+    // ignore: unused_local_variable
     final horizontalPadding = mediaQueryData.size.width;
 
     final verticalPadding = mediaQueryData.size.height;

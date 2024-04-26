@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/model/place_model.dart';
-import 'package:travego/view/navigation_bar_items/location/location_cubit/location_states.dart';
+import 'package:travego/features/location/manger/location_states.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../../core/utils/network/remote/dio_helper.dart';
-import '../../../../core/utils/shared/constant.dart';
+import '../../../core/utils/network/remote/dio_helper.dart';
+import '../../../core/utils/shared/constant.dart';
 
 class LocationCubit extends Cubit<LocationStates> {
   LocationCubit() : super(LocationInitState());

@@ -3,14 +3,14 @@ import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:travego/model/place_model.dart';
-import 'package:travego/view/navigation_bar_items/location/location_cubit/location_cubit.dart';
-import 'package:travego/view/navigation_bar_items/location/location_cubit/location_states.dart';
+import 'package:travego/features/location/manger/location_cubit.dart';
+import 'package:travego/features/location/manger/location_states.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/utils/shared/constant.dart';
 
+// ignore: must_be_immutable
 class LocationScreen extends StatelessWidget {
   LocationScreen({super.key});
   List<String> categories = [
@@ -61,8 +61,8 @@ class LocationScreen extends StatelessWidget {
               circles: cubit.circles,
               initialCameraPosition:
                   const CameraPosition(target: LatLng(31, 39), zoom: 4),
-              polygons: cubit.polygons,
-              markers: cubit.markers,
+              // polygons: cubit.polygons,
+              // markers: cubit.markers,
               onMapCreated: (controller) {
                 googleMapController = controller;
               },
@@ -204,11 +204,11 @@ class LocationScreen extends StatelessWidget {
     }
   }
 
-  void initPolygones() {
-    Polygon poly = const Polygon(
-        polygonId: PolygonId('12'),
-        points: [LatLng(31.149768388707795, 29.946787543594834)]);
-  }
+  // void initPolygones() {
+  //   Polygon poly = const Polygon(
+  //       polygonId: PolygonId('12'),
+  //       points: [LatLng(31.149768388707795, 29.946787543594834)]);
+  // }
 
   void initCircles(context, {required double lat, required double long}) {
     Circle Gg = Circle(

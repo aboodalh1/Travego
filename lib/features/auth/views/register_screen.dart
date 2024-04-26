@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travego/view/auth/cubits/auth_states.dart';
-import 'package:travego/view/auth/cubits/auth_cubit.dart';
+import 'package:travego/features/auth/manger/auth_states.dart';
+import 'package:travego/features/auth/manger/auth_cubit.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/view/auth/login_screen.dart';
+import 'package:travego/features/auth/views/login_screen.dart';
 
-import '../../core/utils/shared/Widgets/default_button.dart';
-import '../../core/utils/shared/components/components.dart';
+import '../../../core/utils/shared/Widgets/default_button.dart';
+import '../../../core/utils/shared/components/components.dart';
 
 // ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
@@ -116,8 +116,10 @@ class RegisterScreen extends StatelessWidget {
                                       child: child, scale: animation);
                                 },
                                 child: Icon(
-                                  BlocProvider.of<AuthCubit>(context).authInfoIconData,
-                                  key: ValueKey<IconData>(BlocProvider.of<AuthCubit>(context)
+                                  BlocProvider.of<AuthCubit>(context)
+                                      .authInfoIconData,
+                                  key: ValueKey<IconData>(BlocProvider.of<
+                                          AuthCubit>(context)
                                       .authInfoIconData), // This is important for the animation to work
                                 ),
                               )),

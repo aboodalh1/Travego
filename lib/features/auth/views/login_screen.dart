@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travego/view/auth/cubits/auth_cubit.dart';
-import 'package:travego/view/auth/cubits/auth_states.dart';
-import 'package:travego/view/auth/register_screen.dart';
-import 'package:travego/view/layout.dart';
-import 'package:travego/view/navigation_bar_items/home/home_page.dart';
+import 'package:travego/features/auth/manger/auth_cubit.dart';
+import 'package:travego/features/auth/manger/auth_states.dart';
+import 'package:travego/features/auth/views/register_screen.dart';
+import 'package:travego/features/layout.dart';
 
-import '../../core/utils/shared/Widgets/default_button.dart';
-import '../../core/utils/shared/components/components.dart';
+import '../../../core/utils/shared/Widgets/default_button.dart';
+import '../../../core/utils/shared/components/components.dart';
+import '../../../core/widgets/circled_form_field/circled_form_field.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
@@ -177,37 +177,6 @@ class LoginScreen extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class deafultCircleTextField extends StatelessWidget {
-  const deafultCircleTextField({
-    super.key,
-    required this.usernameController,
-    required this.prefix,
-    required this.fill,
-    required this.secure,
-  });
-
-  final TextEditingController usernameController;
-  final Icon prefix;
-  final bool fill;
-  final bool secure;
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoTextField(
-      obscureText: secure,
-      controller: usernameController,
-      prefix: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: prefix,
-      ),
-      style: TextStyle(color: fill ? Colors.white : Colors.black),
-      decoration: BoxDecoration(
-          color: fill ? defaultColor : Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: defaultColor)),
     );
   }
 }

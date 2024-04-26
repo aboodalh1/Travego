@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:travego/blocObs.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/core/cubits/general_cubit/gen_cubit.dart';
+import 'package:travego/features/home/home_cubit/home_cubit.dart';
 import 'package:travego/core/utils/shared/constant.dart';
 import 'package:travego/core/utils/shared/styles/Styles.dart';
-import 'package:travego/view/auth/cubits/auth_cubit.dart';
-import 'package:travego/view/layout.dart';
-import 'package:travego/view/navigation_bar_items/location/location_cubit/location_cubit.dart';
+import 'package:travego/features/auth/manger/auth_cubit.dart';
+import 'package:travego/features/hotels/hotel_details/hotel_details.dart';
+import 'package:travego/features/layout.dart';
+import 'package:travego/features/location/manger/location_cubit.dart';
 
 import 'core/utils/network/local/cacheHelper.dart';
 import 'core/utils/network/remote/dio_helper.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
           theme: isDark ? darkTheme : lightTheme,
           translations: MyLocale(),
           locale: Get.deviceLocale,
-          home: LayoutScreen(),
+          home: HotelDetails(),
         ));
   }
 }

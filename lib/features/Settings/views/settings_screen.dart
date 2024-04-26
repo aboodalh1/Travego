@@ -1,15 +1,15 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:travego/core/cubits/general_cubit/gen_cubit.dart';
-import 'package:travego/view/auth/login_screen.dart';
+import 'package:travego/features/Settings/views/manger/settings_cubit.dart';
+import 'package:travego/features/favorite/favorite_screen.dart';
+import 'package:travego/features/auth/views/login_screen.dart';
 import 'package:travego/features/Settings/views/LanguageScreen/LanguageScreen.dart';
 import 'package:travego/features/Settings/views/edit_profile/edit_profile_screen.dart';
+import 'package:travego/features/home/home_cubit/home_cubit.dart';
 
 import '../../../core/utils/shared/components/components.dart';
 import '../../../core/utils/shared/constant.dart';
@@ -19,6 +19,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GeneralCubit cubit = GeneralCubit.get(context);
     final mediaQueryData = MediaQuery.of(context);
 
     final height = mediaQueryData.size.height;
@@ -42,14 +43,16 @@ class SettingsScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        navigateTo(context, const FavoriteScreen());
+                      },
                       icon: const Icon(
                         Icons.favorite_border_outlined,
                         size: 30,
                       ),
                       color: Colors.white,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
                       onPressed: () {
                         navigateAndFinish(context, LoginScreen());
@@ -133,22 +136,16 @@ class SettingsScreen extends StatelessWidget {
                               label: 'Language'.tr),
                           settingsSwitchItem(
                               switchFunction: (bool value) {
-                                BlocProvider.of<GeneralCubit>(context)
-                                    .themeToggleSwitch();
+                                cubit.themeToggleSwitch();
                               },
-                              switchValue:
-                                  BlocProvider.of<GeneralCubit>(context)
-                                      .notificationSwitchValue,
+                              switchValue: cubit.notificationSwitchValue,
                               icon: const Icon(CupertinoIcons.bell_solid),
                               label: 'Notification'.tr),
                           settingsSwitchItem(
                               context: context,
-                              switchValue:
-                                  BlocProvider.of<GeneralCubit>(context)
-                                      .themeSwitchValue,
+                              switchValue: cubit.themeSwitchValue,
                               switchFunction: (bool value) {
-                                BlocProvider.of<GeneralCubit>(context)
-                                    .themeToggleSwitch();
+                                cubit.themeToggleSwitch();
                               },
                               icon: const Icon(CupertinoIcons.moon_fill),
                               label: 'Dark mode'.tr),

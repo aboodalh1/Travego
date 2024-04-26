@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
@@ -12,7 +13,7 @@ class EditProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xffF7F7F7),
         title: Text(
-          'Edit profile information',
+          'Edit profile information'.tr,
           style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),

@@ -1,15 +1,15 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
-import 'package:travego/view/auth/cubits/auth_cubit.dart';
-import 'package:travego/view/auth/cubits/auth_states.dart';
+import 'package:travego/features/auth/manger/auth_cubit.dart';
+import 'package:travego/features/auth/manger/auth_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travego/view/auth/register_screen.dart';
+import 'package:travego/features/auth/views/register_screen.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../core/utils/shared/Widgets/default_button.dart';
-import '../../core/utils/shared/components/components.dart';
+import '../../../core/utils/shared/Widgets/default_button.dart';
+import '../../../core/utils/shared/components/components.dart';
 
 // ignore: must_be_immutable
 class VerificationScreen extends StatelessWidget {

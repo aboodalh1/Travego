@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travego/paypal.dart';
+import 'package:travego/features/paypal/paypal.dart';
 
 class MyApp1 extends StatelessWidget {
   const MyApp1({super.key});

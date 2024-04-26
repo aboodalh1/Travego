@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:travego/core/cubits/general_cubit/gen_cubit.dart';
-import 'package:travego/core/cubits/general_cubit/gen_states.dart';
+import 'package:travego/features/home/home_cubit/home_cubit.dart';
+import 'package:travego/features/home/home_cubit/home_states.dart';
 import 'package:travego/features/Settings/views/LanguageScreen/LangRadioController/LanguageRadioButtonController.dart';
 
 class LanguageScreen extends StatelessWidget {
