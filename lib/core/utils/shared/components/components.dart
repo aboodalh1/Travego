@@ -25,7 +25,7 @@ Widget defaultTextField({
             : null,
         prefixIcon: prefix,
         suffix: suffix,
-        border: UnderlineInputBorder(borderRadius: BorderRadius.circular(40)),
+        border: UnderlineInputBorder(borderSide: BorderSide(width: .4)),
       ));
 }
 

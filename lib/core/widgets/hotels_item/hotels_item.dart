@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
-import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:travego/core/utils/shared/constant.dart';
 import 'package:travego/features/hotels/hotel_details/hotel_details.dart';

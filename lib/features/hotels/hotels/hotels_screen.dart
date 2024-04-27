@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:travego/core/widgets/group_trip_item/group_trip_item.dart';
 import 'package:travego/core/widgets/top_trip_item/top_trip_item.dart';
 import 'package:travego/core/widgets/category_item/category_item.dart';
 import '../../../core/utils/shared/components/components.dart';

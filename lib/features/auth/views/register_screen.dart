@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 //ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travego/core/widgets/country_drop_list/country_drop_down_list.dart';
 import 'package:travego/features/auth/manger/auth_states.dart';
 import 'package:travego/features/auth/manger/auth_cubit.dart';
 // ignore: depend_on_referenced_packages
@@ -96,6 +98,48 @@ class RegisterScreen extends StatelessWidget {
                                   Image.asset('assets/images/ion_earth.png')),
                           const SizedBox(
                             height: 10,
+                          ),
+                          Text(
+                            'Phone',
+                            style: GoogleFonts.inter(
+                                fontSize: 12,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                padding:EdgeInsets.only(top:20),
+                                  decoration: BoxDecoration(
+                                  color:Colors.white12,
+                            borderRadius: BorderRadius.circular(20),
+                              ),child: CountryDropdown()),
+                              Expanded(
+                                child: defaultTextField(
+                                    inputType: TextInputType.emailAddress,
+                                    controller: usernameController,
+                                    prefix: const Icon(CupertinoIcons.phone),
+                                    suffix: AnimatedSwitcher(
+                                      duration: const Duration(milliseconds: 300),
+                                      transitionBuilder: (Widget child,
+                                          Animation<double> animation) {
+                                        return ScaleTransition(
+                                            child: child, scale: animation);
+                                      },
+                                      child: Icon(
+                                        BlocProvider.of<AuthCubit>(context)
+                                            .authInfoIconData,
+                                        key: ValueKey<IconData>(BlocProvider.of<
+                                            AuthCubit>(context)
+                                            .authInfoIconData), // This is important for the animation to work
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(
+                            height: 20,
                           ),
                           Text(
                             'Username',

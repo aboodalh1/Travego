@@ -9,7 +9,7 @@ import 'colors.dart';
 ThemeData darkTheme = ThemeData(
   textTheme: TextTheme(
     bodyLarge: GoogleFonts.inter(
-      fontSize: 18,
+      fontSize: 25,
       fontWeight: FontWeight.bold,
       color: Colors.grey.shade300,
     ),
@@ -64,15 +64,18 @@ ThemeData lightTheme = ThemeData(
   colorScheme: const ColorScheme.light(primary: Colors.white),
   textTheme: TextTheme(
     bodyLarge: GoogleFonts.inter(
-      fontSize: 18,
-      fontWeight: FontWeight.w700,
+      fontSize: 25,
+      fontWeight: FontWeight.bold,
       color: Colors.black,
     ),
     labelSmall: GoogleFonts.inter(
         color: Colors.grey, fontSize: 15, fontWeight: FontWeight.w500),
-    bodyMedium: GoogleFonts.inter(color: Colors.black, fontSize: 15),
+    displaySmall: GoogleFonts.inter(
+        color: Colors.black45, fontSize: 15, fontWeight: FontWeight.bold),
+    bodyMedium: GoogleFonts.inter(color: Colors.black, fontSize: 20,fontWeight:FontWeight.w500),
+    bodySmall: GoogleFonts.inter(color: Colors.black, fontSize: 15,fontWeight:FontWeight.w500),
     labelMedium: GoogleFonts.inter(
-      color: defaultSecondColor,
+      color: Colors.black45,
       fontSize: 16,
     ),
     labelLarge: GoogleFonts.inter(

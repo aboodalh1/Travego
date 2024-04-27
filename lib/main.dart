@@ -7,7 +7,6 @@ import 'package:travego/features/home/home_cubit/home_cubit.dart';
 import 'package:travego/core/utils/shared/constant.dart';
 import 'package:travego/core/utils/shared/styles/Styles.dart';
 import 'package:travego/features/auth/manger/auth_cubit.dart';
-import 'package:travego/features/hotels/hotel_details/hotel_details.dart';
 import 'package:travego/features/layout.dart';
 import 'package:travego/features/location/manger/location_cubit.dart';
 
@@ -47,7 +46,7 @@ class MyApp extends StatelessWidget {
           theme: isDark ? darkTheme : lightTheme,
           translations: MyLocale(),
           locale: Get.deviceLocale,
-          home: HotelDetails(),
+          home: const LayoutScreen(),
         ));
   }
 }

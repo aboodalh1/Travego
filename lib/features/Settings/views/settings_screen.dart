@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:travego/features/Settings/views/manger/settings_cubit.dart';
 import 'package:travego/features/favorite/favorite_screen.dart';
 import 'package:travego/features/auth/views/login_screen.dart';
 import 'package:travego/features/Settings/views/LanguageScreen/LanguageScreen.dart';
