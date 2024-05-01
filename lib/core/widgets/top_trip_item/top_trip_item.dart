@@ -65,7 +65,7 @@ class TopTripsItem extends StatelessWidget {
                             ),
                             Text(
                               '4.5',
-                              style: Theme.of(context).textTheme.bodyMedium,
+                              style: Theme.of(context).textTheme.labelMedium,
                             )
                           ],
                         )
@@ -93,7 +93,10 @@ class TopTripsItem extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
                       children: [
-                        const Text('\$40/ visit'),
+                        Text(
+                          '\$40/ visit',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
                         const Spacer(),
                         Icon(
                           Icons.favorite,

@@ -5,16 +5,17 @@ class SearchTextField extends StatelessWidget {
   const SearchTextField({
     super.key,
     required this.searchController,
+    required this.label,
   });
 
   final TextEditingController searchController;
-
+  final String label;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: searchController,
       decoration: InputDecoration(
-        hintText: 'Search by category'.tr,
+        hintText: label.tr,
         hintStyle: const TextStyle(color: Colors.grey),
         prefixIcon: const Padding(
           padding: EdgeInsets.only(left: 10.0),

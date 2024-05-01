@@ -14,6 +14,7 @@ import 'core/utils/network/local/cacheHelper.dart';
 import 'core/utils/network/remote/dio_helper.dart';
 import 'core/utils/shared/locale/localController.dart';
 import 'core/utils/shared/locale/locale.dart';
+import 'features/parsonnes_information/personnes_cubit/person_cubit.dart';
 
 void main() async {
   Bloc.observer = MyBlocObserver();
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (BuildContext context) => AuthCubit(),
+          ),
+          BlocProvider(
+            create: (BuildContext context) => PersonCubit(),
           ),
           BlocProvider(
             create: (context) => GeneralCubit(),

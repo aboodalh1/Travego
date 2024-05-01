@@ -33,8 +33,10 @@ class HotelsScreen extends StatelessWidget {
                         border: Border.all(color: HexColor('E9E9E9')),
                         borderRadius: BorderRadius.circular(35),
                       ),
-                      child:
-                          SearchTextField(searchController: searchController),
+                      child: SearchTextField(
+                        searchController: searchController,
+                        label: 'Search for hotels',
+                      ),
                     ),
                   ),
                   const SizedBox(

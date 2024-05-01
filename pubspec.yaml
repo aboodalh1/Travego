@@ -51,6 +51,7 @@ dev_dependencies:
   hexcolor: ^3.0.1
   intl: ^0.19.0
   scroll_bottom_navigation_bar: ^4.0.0
+  calendar_date_picker2: ^0.5.6
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.

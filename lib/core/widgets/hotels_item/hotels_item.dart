@@ -13,7 +13,7 @@ class HotelsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigateTo(context, HotelDetails());
+        navigateTo(context, const HotelDetails());
       },
       child: SizedBox(
         height: 600,

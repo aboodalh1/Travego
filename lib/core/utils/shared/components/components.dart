@@ -25,9 +25,12 @@ Widget defaultTextField({
             : null,
         prefixIcon: prefix,
         suffix: suffix,
-        border: UnderlineInputBorder(borderSide: BorderSide(width: .4)),
+        border: const UnderlineInputBorder(borderSide: BorderSide(width: .4)),
       ));
 }
+
+// ignore: non_constant_identifier_names
+Widget PersonCard() => const Card();
 
 void navigateTo(context, widget) => Navigator.push(
       context,

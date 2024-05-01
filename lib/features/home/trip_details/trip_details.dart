@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
@@ -24,7 +23,7 @@ class TripDetailScreen extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: verticalPadding * 0.5,
                 child: ClipRect(
                     child: Image.asset(
