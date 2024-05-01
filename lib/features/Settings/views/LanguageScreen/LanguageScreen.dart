@@ -9,6 +9,8 @@ class LanguageScreen extends StatelessWidget {
   final LanguageRadioController radioController =
       Get.put(LanguageRadioController());
 
+   LanguageScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GeneralCubit, GeneralState>(

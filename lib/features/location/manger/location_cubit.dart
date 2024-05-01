@@ -11,7 +11,6 @@ class LocationCubit extends Cubit<LocationStates> {
   LocationCubit() : super(LocationInitState());
   LocationCubit get(context) => BlocProvider.of(context);
   Set<Marker> markers = {};
-
   Set<Polygon> polygons = {};
   Set<Circle> circles = {};
 

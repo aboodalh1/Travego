@@ -16,7 +16,6 @@ class PersonnesInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PersonCubit cubit = PersonCubit.get(context);
     final mediaQueryData = MediaQuery.of(context);
 
     final horizontalPadding = mediaQueryData.size.width;
@@ -54,7 +53,7 @@ class PersonnesInformation extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                const Text('Start date:'),
+                                const Text('End date:'),
                                 Container(
                                   padding: const EdgeInsets.all(5),
                                   margin: const EdgeInsets.all(10),
@@ -89,17 +88,17 @@ class PersonnesInformation extends StatelessWidget {
                         separatorBuilder: (context, index) => SizedBox(
                           height: verticalPadding * .01,
                         ),
-                        itemCount: cubit.personNumber,
+                        itemCount: BlocProvider.of<PersonCubit>(context).personNumber,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(28.0),
                       child: GestureDetector(
                         onTap: () {
-                          cubit.removePerson();
+                        BlocProvider.of<PersonCubit>(context).addPerson();
                           print(
-                              'cubit.passportNumber :${cubit.passportNumber}');
-                          print(cubit.passportNumber);
+                              'cubit.passportNumber :${BlocProvider.of<PersonCubit>(context).passportNumber}');
+                          print(BlocProvider.of<PersonCubit>(context).passportNumber);
                         },
                         child: Container(
                             padding: const EdgeInsets.all(10),

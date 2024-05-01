@@ -42,85 +42,88 @@ class LocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LocationCubit cubit = LocationCubit().get(context);
-    return BlocConsumer<LocationCubit, LocationStates>(
-      listener: (context, state) {
-        if (state is LocationInitState) {
-          initialCameraPosition = const CameraPosition(
-              zoom: 14, target: LatLng(31.187084851056554, 29.928110526889437));
-        }
-        if (state is LocationClosedState) {
-          googleMapController.dispose();
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-          key: scaffoldKey,
-          appBar: AppBar(),
-          body: Stack(children: [
-            GoogleMap(
-              circles: cubit.circles,
-              initialCameraPosition:
-                  const CameraPosition(target: LatLng(31, 39), zoom: 4),
-              // polygons: cubit.polygons,
-              // markers: cubit.markers,
-              onMapCreated: (controller) {
-                googleMapController = controller;
-              },
-              onLongPress: (LatLng location) {
-                googleMapController
-                    .animateCamera(CameraUpdate.newCameraPosition(
-                  CameraPosition(target: location, zoom: 8.0),
-                ));
-                cubit.markers.add(Marker(
-                    markerId: const MarkerId('1'),
-                    position: LatLng(location.latitude, location.longitude)));
-                cubit.addMarker();
-                initCircles(
-                    lat: location.latitude, long: location.longitude, context);
-                cubit.addMarker();
-                selectedLat = location.longitude;
-                selectedLon = location.latitude;
-              },
-              onTap: (LatLng location) {
-                cubit.markers.add(Marker(
-                    markerId: const MarkerId('1'),
-                    position: LatLng(location.latitude, location.longitude)));
-                cubit.addMarker();
-                initCircles(
-                    lat: location.latitude, long: location.longitude, context);
-                cubit.addMarker();
-                selectedLat = location.longitude;
-                selectedLon = location.latitude;
-              },
-            ),
-            Positioned(
-                bottom: 16,
-                left: 16,
-                right: 49,
-                child: ElevatedButton(
-                  onPressed: () {
-                    cubit.getPlaces(context,
-                        categories: 'commercial.supermarket',
-                        limit: '10',
-                        lon: selectedLon,
-                        lat: selectedLat);
-                    if (!isBottomSheetShown) {
-                      isBottomSheetShown = true;
-                      scaffoldKey.currentState!
-                          .showBottomSheet((context) {
-                            return bottomSheet(context);
-                          })
-                          .closed
-                          .then((value) {
-                            isBottomSheetShown = false;
-                          });
-                    }
-                  },
-                  child: const Text("Explore Places"),
-                )),
-          ]),
-        );
-      },
+    return BlocProvider(
+      create: (context)=>LocationCubit(),
+      child: BlocConsumer<LocationCubit, LocationStates>(
+        listener: (context, state) {
+          if (state is LocationInitState) {
+            initialCameraPosition = const CameraPosition(
+                zoom: 14, target: LatLng(31.187084851056554, 29.928110526889437));
+          }
+          if (state is LocationClosedState) {
+            googleMapController.dispose();
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+            key: scaffoldKey,
+            appBar: AppBar(),
+            body: Stack(children: [
+              GoogleMap(
+                circles: cubit.circles,
+                initialCameraPosition:
+                    const CameraPosition(target: LatLng(31, 39), zoom: 4),
+                // polygons: cubit.polygons,
+                // markers: cubit.markers,
+                onMapCreated: (controller) {
+                  googleMapController = controller;
+                },
+                onLongPress: (LatLng location) {
+                  googleMapController
+                      .animateCamera(CameraUpdate.newCameraPosition(
+                    CameraPosition(target: location, zoom: 8.0),
+                  ));
+                  cubit.markers.add(Marker(
+                      markerId: const MarkerId('1'),
+                      position: LatLng(location.latitude, location.longitude)));
+                  cubit.addMarker();
+                  initCircles(
+                      lat: location.latitude, long: location.longitude, context);
+                  cubit.addMarker();
+                  selectedLat = location.longitude;
+                  selectedLon = location.latitude;
+                },
+                onTap: (LatLng location) {
+                  cubit.markers.add(Marker(
+                      markerId: const MarkerId('1'),
+                      position: LatLng(location.latitude, location.longitude)));
+                  cubit.addMarker();
+                  initCircles(
+                      lat: location.latitude, long: location.longitude, context);
+                  cubit.addMarker();
+                  selectedLat = location.longitude;
+                  selectedLon = location.latitude;
+                },
+              ),
+              Positioned(
+                  bottom: 16,
+                  left: 16,
+                  right: 49,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      cubit.getPlaces(context,
+                          categories: 'commercial.supermarket',
+                          limit: '10',
+                          lon: selectedLon,
+                          lat: selectedLat);
+                      if (!isBottomSheetShown) {
+                        isBottomSheetShown = true;
+                        scaffoldKey.currentState!
+                            .showBottomSheet((context) {
+                              return bottomSheet(context);
+                            })
+                            .closed
+                            .then((value) {
+                              isBottomSheetShown = false;
+                            });
+                      }
+                    },
+                    child: const Text("Explore Places"),
+                  )),
+            ]),
+          );
+        },
+      ),
     );
   }
 

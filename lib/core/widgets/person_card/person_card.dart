@@ -12,7 +12,6 @@ class PersonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PersonCubit cubit = PersonCubit.get(context);
     var horizontalPadding = MediaQuery.of(context).size.width;
     var verticalPadding = MediaQuery.of(context).size.height;
     return BlocConsumer<PersonCubit, PersonState>(
@@ -20,7 +19,7 @@ class PersonCard extends StatelessWidget {
       builder: (context, state) {
         return Container(
           width: horizontalPadding,
-          height: verticalPadding * .4,
+          height: verticalPadding * .45,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -50,34 +49,72 @@ class PersonCard extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        icon: cubit.editOrConfirm
-                            ? const Icon(Icons.done)
-                            : const Icon(Icons.edit),
+                        icon:
+                            BlocProvider.of<PersonCubit>(context).editOrConfirm
+                                ? const Icon(Icons.done)
+                                : const Icon(Icons.edit),
                         onPressed: () {
-                          cubit.editOrConfirm = !cubit.editOrConfirm;
-                          if (cubit.editOrConfirm == true) {
-                            cubit.personnes.add(UserInformation(
-                                firstName: cubit.personFirstName.text,
-                                lastName: cubit.personLastName.text,
-                                motherName: cubit.motherName.text,
-                                email: cubit.personEmail.text,
-                                fatherName: cubit.fatherName.text,
-                                passport: cubit.passportNumber.text));
-                            cubit.personFirstName.clear();
-                            cubit.personLastName.clear();
-                            cubit.personEmail.clear();
-                            cubit.fatherName.clear();
-                            cubit.motherName.clear();
-                            cubit.passportNumber.clear();
-                            cubit.additionalPassport.clear();
+                          BlocProvider.of<PersonCubit>(context).editOrConfirm =
+                              !BlocProvider.of<PersonCubit>(context)
+                                  .editOrConfirm;
+                          if (BlocProvider.of<PersonCubit>(context)
+                                  .editOrConfirm ==
+                              true) {
+                            BlocProvider.of<PersonCubit>(context).personnes.add(
+                                UserInformation(
+                                    firstName:
+                                        BlocProvider.of<PersonCubit>(context)
+                                            .personFirstName
+                                            .text,
+                                    lastName:
+                                        BlocProvider.of<PersonCubit>(context)
+                                            .personLastName
+                                            .text,
+                                    motherName:
+                                        BlocProvider.of<PersonCubit>(context)
+                                            .motherName
+                                            .text,
+                                    email: BlocProvider.of<PersonCubit>(context)
+                                        .personEmail
+                                        .text,
+                                    fatherName:
+                                        BlocProvider.of<PersonCubit>(context)
+                                            .fatherName
+                                            .text,
+                                    passport:
+                                        BlocProvider.of<PersonCubit>(context)
+                                            .passportNumber
+                                            .text));
+                            BlocProvider.of<PersonCubit>(context)
+                                .personFirstName
+                                .clear();
+                            BlocProvider.of<PersonCubit>(context)
+                                .personLastName
+                                .clear();
+                            BlocProvider.of<PersonCubit>(context)
+                                .personEmail
+                                .clear();
+                            BlocProvider.of<PersonCubit>(context)
+                                .fatherName
+                                .clear();
+                            BlocProvider.of<PersonCubit>(context)
+                                .motherName
+                                .clear();
+                            BlocProvider.of<PersonCubit>(context)
+                                .passportNumber
+                                .clear();
+                            BlocProvider.of<PersonCubit>(context)
+                                .additionalPassport
+                                .clear();
                           }
                         },
                       ),
                       IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () {
-                          cubit.removePerson();
-                          print(cubit.personNumber);
+                          BlocProvider.of<PersonCubit>(context).removePerson();
+                          print(BlocProvider.of<PersonCubit>(context)
+                              .personNumber);
                         },
                       ),
                     ],
@@ -93,49 +130,74 @@ class PersonCard extends StatelessWidget {
               // 3 //----------------------
 
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  "Email:".tr,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Email:".tr,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Expanded(child: DefaultInputTextField())
+                  ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  "father name: khaled".tr,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "father name: ".tr,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Expanded(child: DefaultInputTextField())
+                  ],
                 ),
               ),
               // // 5 //----------------------
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  "mother name: none".tr,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "mother name: ".tr,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Expanded(child: DefaultInputTextField())
+                  ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  "passport number: 1354234".tr,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "passport number: ".tr,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Expanded(child: DefaultInputTextField())
+                  ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  "additional passport: none".tr,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "additional passport: ".tr,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Expanded(child: DefaultInputTextField())
+                  ],
                 ),
               ),
             ],
@@ -144,4 +206,16 @@ class PersonCard extends StatelessWidget {
       },
     );
   }
+
+  Container DefaultInputTextField() => Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      height: 40,
+      decoration: const BoxDecoration(
+          border: BorderDirectional(bottom: BorderSide(width: 1))),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+        ),
+      ),
+    );
 }

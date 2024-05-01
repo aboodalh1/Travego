@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/features/parsonnes_information/personnes_cubit/person_state.dart';
 
 import '../../../model/user_information.dart';
-
 class PersonCubit extends Cubit<PersonState> {
   PersonCubit() : super(PersonInit());
-  static PersonCubit get(context) => BlocProvider.of(context);
   int personNumber = 1;
 
   final TextEditingController personFirstName = TextEditingController();

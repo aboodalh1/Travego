@@ -37,13 +37,7 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => AuthCubit(),
           ),
           BlocProvider(
-            create: (BuildContext context) => PersonCubit(),
-          ),
-          BlocProvider(
             create: (context) => GeneralCubit(),
-          ),
-          BlocProvider(
-            create: (context) => LocationCubit(),
           ),
         ],
         child: GetMaterialApp(

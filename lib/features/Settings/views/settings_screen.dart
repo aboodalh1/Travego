@@ -1,9 +1,10 @@
-// ignore_for_file: depend_on_referenced_packages
-
+import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:travego/features/Settings/views/manger/settings_cubit.dart';
 import 'package:travego/features/favorite/favorite_screen.dart';
 import 'package:travego/features/auth/views/login_screen.dart';
 import 'package:travego/features/Settings/views/LanguageScreen/LanguageScreen.dart';
@@ -18,7 +19,6 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GeneralCubit cubit = GeneralCubit.get(context);
     final mediaQueryData = MediaQuery.of(context);
 
     final height = mediaQueryData.size.height;
@@ -135,16 +135,16 @@ class SettingsScreen extends StatelessWidget {
                               label: 'Language'.tr),
                           settingsSwitchItem(
                               switchFunction: (bool value) {
-                                cubit.themeToggleSwitch();
+                                BlocProvider.of<GeneralCubit>(context).themeToggleSwitch();
                               },
-                              switchValue: cubit.notificationSwitchValue,
+                              switchValue: BlocProvider.of<GeneralCubit>(context).notificationSwitchValue,
                               icon: const Icon(CupertinoIcons.bell_solid),
                               label: 'Notification'.tr),
                           settingsSwitchItem(
                               context: context,
-                              switchValue: cubit.themeSwitchValue,
+                              switchValue: BlocProvider.of<GeneralCubit>(context).themeSwitchValue,
                               switchFunction: (bool value) {
-                                cubit.themeToggleSwitch();
+                                BlocProvider.of<GeneralCubit>(context).themeToggleSwitch();
                               },
                               icon: const Icon(CupertinoIcons.moon_fill),
                               label: 'Dark mode'.tr),
