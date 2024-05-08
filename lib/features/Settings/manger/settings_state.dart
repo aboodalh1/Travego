@@ -1,3 +1,4 @@
+part of 'settings_cubit.dart';
 abstract class SettingsState {}
 
 class SettingsInitial extends SettingsState {}
@@ -9,3 +10,7 @@ class EditInformationState extends SettingsState {}
 class EditInformationSuccessState extends SettingsState {}
 
 class EditInformationFailureState extends SettingsState {}
+
+class ChangeThemeState extends SettingsState{}
+
+class ChangeNotificationState extends SettingsState{}

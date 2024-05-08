@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:travego/features/location/manger/location_cubit.dart';
-import 'package:travego/features/location/manger/location_states.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -41,7 +40,6 @@ class LocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LocationCubit cubit = LocationCubit().get(context);
     return BlocProvider(
       create: (context)=>LocationCubit(),
       child: BlocConsumer<LocationCubit, LocationStates>(
@@ -55,12 +53,14 @@ class LocationScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
+          var locationCubit = BlocProvider.of<LocationCubit>(context);
+
           return Scaffold(
             key: scaffoldKey,
             appBar: AppBar(),
             body: Stack(children: [
               GoogleMap(
-                circles: cubit.circles,
+                circles: locationCubit.circles,
                 initialCameraPosition:
                     const CameraPosition(target: LatLng(31, 39), zoom: 4),
                 // polygons: cubit.polygons,
@@ -73,24 +73,24 @@ class LocationScreen extends StatelessWidget {
                       .animateCamera(CameraUpdate.newCameraPosition(
                     CameraPosition(target: location, zoom: 8.0),
                   ));
-                  cubit.markers.add(Marker(
+                  locationCubit.markers.add(Marker(
                       markerId: const MarkerId('1'),
                       position: LatLng(location.latitude, location.longitude)));
-                  cubit.addMarker();
+                  locationCubit.addMarker();
                   initCircles(
                       lat: location.latitude, long: location.longitude, context);
-                  cubit.addMarker();
+                  locationCubit.addMarker();
                   selectedLat = location.longitude;
                   selectedLon = location.latitude;
                 },
                 onTap: (LatLng location) {
-                  cubit.markers.add(Marker(
+                  locationCubit.markers.add(Marker(
                       markerId: const MarkerId('1'),
                       position: LatLng(location.latitude, location.longitude)));
-                  cubit.addMarker();
+                  locationCubit.addMarker();
                   initCircles(
                       lat: location.latitude, long: location.longitude, context);
-                  cubit.addMarker();
+                  locationCubit.addMarker();
                   selectedLat = location.longitude;
                   selectedLon = location.latitude;
                 },
@@ -101,7 +101,7 @@ class LocationScreen extends StatelessWidget {
                   right: 49,
                   child: ElevatedButton(
                     onPressed: () {
-                      cubit.getPlaces(context,
+                      locationCubit.getPlaces(context,
                           categories: 'commercial.supermarket',
                           limit: '10',
                           lon: selectedLon,

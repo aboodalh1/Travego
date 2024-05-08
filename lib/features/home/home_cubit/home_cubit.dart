@@ -12,7 +12,6 @@ import '../../hotels/hotels/hotels_screen.dart';
 
 class GeneralCubit extends Cubit<GeneralState> {
   GeneralCubit() : super(GeneralInitState());
-
   static GeneralCubit get(context) => BlocProvider.of(context);
   List<Widget> screens = [
     HomeScreen(),
@@ -29,29 +28,4 @@ class GeneralCubit extends Cubit<GeneralState> {
     emit(ChangeBottomNavBar());
   }
 
-  bool notificationSwitchValue = false;
-  bool themeSwitchValue = false;
-
-  void themeToggleSwitch() {
-    themeSwitchValue = !themeSwitchValue;
-    if (themeSwitchValue == true) {
-      Get.changeTheme(ThemeData.dark());
-    }
-    if (themeSwitchValue == false) {
-      Get.changeTheme(ThemeData.light());
-    }
-    isDark = !isDark;
-    emit(ChangeThemeState());
-  }
-
-  void notificationToggleSwitch() {
-    notificationSwitchValue = !notificationSwitchValue;
-    if (notificationSwitchValue == true) {
-      Get.changeTheme(ThemeData.dark());
-    }
-    if (notificationSwitchValue == false) {
-      Get.changeTheme(ThemeData.light());
-    }
-    emit(ChangeNotificationState());
-  }
 }

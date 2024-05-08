@@ -2,24 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
-import 'package:travego/features/parsonnes_information/personnes_cubit/person_cubit.dart';
-import 'package:travego/model/user_information.dart';
-
-import '../../../features/parsonnes_information/personnes_cubit/person_state.dart';
+import 'package:travego/features/create_trip/parsonnes_information/personnes_cubit/person_cubit.dart';
 
 class PersonCard extends StatelessWidget {
   const PersonCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var horizontalPadding = MediaQuery.of(context).size.width;
-    var verticalPadding = MediaQuery.of(context).size.height;
+    final personCubit = BlocProvider.of<PersonCubit>(context);
+    final horizontalPadding = MediaQuery.of(context).size.width;
+    final verticalPadding = MediaQuery.of(context).size.height;
     return BlocConsumer<PersonCubit, PersonState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
           width: horizontalPadding,
-          height: verticalPadding * .45,
+          height: verticalPadding * .40,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -38,10 +36,10 @@ class PersonCard extends StatelessWidget {
                   Expanded(
                     child: ListTile(
                       leading: CircleAvatar(
-                        child: Image.asset("assets/images/lakes.png"),
+                        child: Image.asset("assets/images/cover.png"),
                       ),
-                      title: const Text(
-                        'Kareem alMosafi',
+                      title:  Text(
+                        'اسم الزلمة',
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -49,71 +47,22 @@ class PersonCard extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        icon:
-                            BlocProvider.of<PersonCubit>(context).editOrConfirm
-                                ? const Icon(Icons.done)
-                                : const Icon(Icons.edit),
+                        icon: personCubit.isConfirm
+                            ? const Icon(Icons.done)
+                            : const Icon(Icons.edit),
                         onPressed: () {
-                          BlocProvider.of<PersonCubit>(context).editOrConfirm =
-                              !BlocProvider.of<PersonCubit>(context)
-                                  .editOrConfirm;
-                          if (BlocProvider.of<PersonCubit>(context)
-                                  .editOrConfirm ==
-                              true) {
-                            BlocProvider.of<PersonCubit>(context).personnes.add(
-                                UserInformation(
-                                    firstName:
-                                        BlocProvider.of<PersonCubit>(context)
-                                            .personFirstName
-                                            .text,
-                                    lastName:
-                                        BlocProvider.of<PersonCubit>(context)
-                                            .personLastName
-                                            .text,
-                                    motherName:
-                                        BlocProvider.of<PersonCubit>(context)
-                                            .motherName
-                                            .text,
-                                    email: BlocProvider.of<PersonCubit>(context)
-                                        .personEmail
-                                        .text,
-                                    fatherName:
-                                        BlocProvider.of<PersonCubit>(context)
-                                            .fatherName
-                                            .text,
-                                    passport:
-                                        BlocProvider.of<PersonCubit>(context)
-                                            .passportNumber
-                                            .text));
-                            BlocProvider.of<PersonCubit>(context)
-                                .personFirstName
-                                .clear();
-                            BlocProvider.of<PersonCubit>(context)
-                                .personLastName
-                                .clear();
-                            BlocProvider.of<PersonCubit>(context)
-                                .personEmail
-                                .clear();
-                            BlocProvider.of<PersonCubit>(context)
-                                .fatherName
-                                .clear();
-                            BlocProvider.of<PersonCubit>(context)
-                                .motherName
-                                .clear();
-                            BlocProvider.of<PersonCubit>(context)
-                                .passportNumber
-                                .clear();
-                            BlocProvider.of<PersonCubit>(context)
-                                .additionalPassport
-                                .clear();
-                          }
+                          personCubit.isConfirm
+                              ? personCubit
+                                  .editPerson()
+                              : personCubit
+                                  .confirmPerson();
                         },
                       ),
                       IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () {
-                          BlocProvider.of<PersonCubit>(context).removePerson();
-                          print(BlocProvider.of<PersonCubit>(context)
+                          personCubit.removePerson();
+                          print(personCubit
                               .personNumber);
                         },
                       ),
@@ -139,7 +88,8 @@ class PersonCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Expanded(child: DefaultInputTextField())
+                    Expanded(child: DefaultInputTextField(context,
+                    textInputType: TextInputType.emailAddress))
                   ],
                 ),
               ),
@@ -153,7 +103,7 @@ class PersonCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Expanded(child: DefaultInputTextField())
+                    Expanded(child: DefaultInputTextField(context))
                   ],
                 ),
               ),
@@ -168,7 +118,7 @@ class PersonCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Expanded(child: DefaultInputTextField())
+                    Expanded(child: DefaultInputTextField(context))
                   ],
                 ),
               ),
@@ -182,7 +132,9 @@ class PersonCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Expanded(child: DefaultInputTextField())
+                    Expanded(
+                        child: DefaultInputTextField(context,
+                            textInputType: TextInputType.number))
                   ],
                 ),
               ),
@@ -196,7 +148,9 @@ class PersonCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Expanded(child: DefaultInputTextField())
+                    Expanded(
+                        child: DefaultInputTextField(context,
+                            textInputType: TextInputType.number))
                   ],
                 ),
               ),
@@ -207,15 +161,21 @@ class PersonCard extends StatelessWidget {
     );
   }
 
-  Container DefaultInputTextField() => Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      height: 40,
-      decoration: const BoxDecoration(
-          border: BorderDirectional(bottom: BorderSide(width: 1))),
-      child: TextFormField(
-        decoration: const InputDecoration(
-          border: InputBorder.none,
+  Container DefaultInputTextField(context, {TextInputType? textInputType}) =>
+      Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        height: 40,
+        decoration: BoxDecoration(
+            border: BorderDirectional(
+                bottom: BlocProvider.of<PersonCubit>(context).isConfirm
+                    ? BorderSide(width: 1)
+                    : BorderSide.none)),
+        child: TextFormField(
+          enabled: BlocProvider.of<PersonCubit>(context).isConfirm,
+          keyboardType: textInputType,
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+          ),
         ),
-      ),
-    );
+      );
 }

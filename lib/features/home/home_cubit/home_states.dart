@@ -7,3 +7,5 @@ class ChangeBottomNavBar extends GeneralState {}
 class ChangeThemeState extends GeneralState {}
 
 class ChangeNotificationState extends GeneralState {}
+
+class ChangeEditProfileState extends GeneralState {}

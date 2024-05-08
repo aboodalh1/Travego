@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -10,7 +10,7 @@ import '../../core/widgets/search_text_form/search_text_form_field.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
-  TextEditingController searchController = TextEditingController();
+  final TextEditingController searchController = TextEditingController();
 
   HomeScreen({super.key});
   @override
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(35),
                       ),
                       child: SearchTextField(
-                        searchController: searchController,
+                        searchController: searchController!,
                         label: 'Search for Trip',
                       ),
                     ),

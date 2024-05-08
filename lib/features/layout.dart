@@ -4,11 +4,16 @@ import 'package:get/get.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:travego/features/home/home_cubit/home_cubit.dart';
 import 'package:travego/features/home/home_cubit/home_states.dart';
-
+import 'package:animations/animations.dart';
 import 'create_trip/create_trip.dart';
 
 class LayoutScreen extends StatelessWidget {
-  const LayoutScreen({super.key});
+   LayoutScreen({super.key});
+
+   double _fabDimension = 56;
+
+
+  ContainerTransitionType _transitionType = ContainerTransitionType.fadeThrough;
 
   @override
   Widget build(BuildContext context) {
@@ -18,22 +23,42 @@ class LayoutScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: FloatingActionButton(
-            shape: CircleBorder(),
-            onPressed: () {
-              navigateTo(context, CreateTrip());
-            },
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-              size: 35,
+          FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: OpenContainer(
+              transitionType: _transitionType,
+              transitionDuration: Duration(milliseconds: 500),
+              openBuilder: (context, openContainer) => CreateTrip(),
+              closedElevation: 6,
+              closedShape:  RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(_fabDimension / 2),
+                ),
+              ),
+              closedColor: defaultColor,
+              closedBuilder: (context, openContainer) {
+                return SizedBox(
+                  height: _fabDimension,
+                  width: _fabDimension,
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                );
+              },
             ),
-            backgroundColor: defaultColor,
-            elevation: 0,
-          ),
+
           bottomNavigationBar: customBottomNavBar(context),
-          body: cubit.screens[cubit.navBarSelectedItem],
+          body: PageTransitionSwitcher(
+              transitionBuilder: (Widget child,
+                  Animation<double> primaryAnimation,
+                  Animation<double> secondaryAnimation) {
+                return FadeThroughTransition(animation: primaryAnimation,
+                  secondaryAnimation: secondaryAnimation,
+                  child: child,);
+              },
+              child: cubit.screens[cubit.navBarSelectedItem]),
         );
       },
     );
@@ -58,3 +83,13 @@ class LayoutScreen extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+

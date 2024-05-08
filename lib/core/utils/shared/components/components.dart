@@ -30,7 +30,6 @@ Widget defaultTextField({
 }
 
 // ignore: non_constant_identifier_names
-Widget PersonCard() => const Card();
 
 void navigateTo(context, widget) => Navigator.push(
       context,

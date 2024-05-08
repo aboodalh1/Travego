@@ -1,3 +1,4 @@
+part of 'location_cubit.dart';
 abstract class LocationStates {}
 
 class LocationInitState extends LocationStates {}

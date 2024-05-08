@@ -6,9 +6,7 @@ import 'package:travego/features/home/home_cubit/home_states.dart';
 import 'package:travego/features/Settings/views/LanguageScreen/LangRadioController/LanguageRadioButtonController.dart';
 
 class LanguageScreen extends StatelessWidget {
-  final LanguageRadioController radioController =
-      Get.put(LanguageRadioController());
-
+  final LanguageRadioController radioController = Get.put(LanguageRadioController());
    LanguageScreen({super.key});
 
   @override
