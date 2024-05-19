@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
+import 'package:travego/core/widgets/circled_form_field/circled_form_field.dart';
 import 'package:travego/features/Settings/manger/settings_cubit.dart';
 
 // ignore: must_be_immutable
@@ -35,27 +36,45 @@ class EditProfileScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const SizedBox(height: 10,),
-                editTextForm(settingsCubit.userNameController),
+                defaultCircleTextField(
+                    controller: settingsCubit.userNameController,
+                    prefix: Icon(Icons.person,color: Colors.grey,),
+                    fill: false,
+                    secure: false),
                 const Text(
                   'Email',
                 ),
                 const SizedBox(height: 10,),
-                editTextForm(settingsCubit.emailController),
+                defaultCircleTextField(
+                    controller: settingsCubit.emailController,
+                    prefix: Icon(Icons.email,color: Colors.grey,),
+                    fill: false,
+                    secure: false),
                 const Text(
                   'Current password',
                 ),
                 const SizedBox(height: 10,),
-                editTextForm(settingsCubit.currentPasswordController),
-                const Text(
+                defaultCircleTextField(
+                    controller: settingsCubit.currentPasswordController,
+                    prefix: Icon(Icons.lock,color: Colors.grey,),
+                    fill: false,
+                    secure: false),const Text(
                   'New password',
                 ),
                 const SizedBox(height: 10,),
-                editTextForm(settingsCubit.newPasswordController),
-                const Text(
+                defaultCircleTextField(
+                    controller: settingsCubit.newPasswordController,
+                    prefix: Icon(Icons.lock,color: Colors.grey,),
+                    fill: false,
+                    secure: false),const Text(
                   'Confirm password',
                 ),
                 const SizedBox(height: 10,),
-                editTextForm(settingsCubit.passwordConfrimController),
+                defaultCircleTextField(
+                    controller: settingsCubit.passwordConfrimController,
+                    prefix: Icon(Icons.lock,color: Colors.grey,),
+                    fill: false,
+                    secure: false),
                 const SizedBox(height: 20,),
                 DefaultElevated(
                     label: 'Save',

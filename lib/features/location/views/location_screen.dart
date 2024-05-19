@@ -101,22 +101,22 @@ class LocationScreen extends StatelessWidget {
                   right: 49,
                   child: ElevatedButton(
                     onPressed: () {
-                      locationCubit.getPlaces(context,
-                          categories: 'commercial.supermarket',
-                          limit: '10',
-                          lon: selectedLon,
-                          lat: selectedLat);
-                      if (!isBottomSheetShown) {
-                        isBottomSheetShown = true;
-                        scaffoldKey.currentState!
-                            .showBottomSheet((context) {
-                              return bottomSheet(context);
-                            })
-                            .closed
-                            .then((value) {
-                              isBottomSheetShown = false;
-                            });
-                      }
+                      // locationCubit.getPlaces(context,
+                      //     categories: 'commercial.supermarket',
+                      //     limit: '10',
+                      //     lon: selectedLon,
+                      //     lat: selectedLat);
+                      // if (!isBottomSheetShown) {
+                      //   isBottomSheetShown = true;
+                      //   scaffoldKey.currentState!
+                      //       .showBottomSheet((context) {
+                      //         return bottomSheet(context);
+                      //       })
+                      //       .closed
+                      //       .then((value) {
+                      //         isBottomSheetShown = false;
+                      //       });
+                      // }
                     },
                     child: const Text("Explore Places"),
                   )),
@@ -182,12 +182,12 @@ class LocationScreen extends StatelessWidget {
       onChanged: (String? newValue) {
         dropController = newValue!;
         print(dropController);
-        BlocProvider.of<LocationCubit>(context).getPlaces(context,
-            categories: 'commercial.$dropController',
-            limit: '10',
-            lon: selectedLon,
-            lat: selectedLat);
-      },
+      //   BlocProvider.of<LocationCubit>(context).getPlaces(context,
+      //       categories: 'commercial.$dropController',
+      //       limit: '10',
+      //       lon: selectedLon,
+      //       lat: selectedLat);
+       },
     );
   }
 

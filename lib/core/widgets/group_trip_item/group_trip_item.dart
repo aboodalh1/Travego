@@ -10,10 +10,14 @@ class GroupTripItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mediaQueryData = MediaQuery.of(context);
+    var verticalSize = mediaQueryData.size.height;
+    var horizontalSize = mediaQueryData.size.width;
     return SizedBox(
-      height: 600,
       width: double.infinity,
       child: ListView.separated(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         scrollDirection: Axis.vertical,
         separatorBuilder: (context, index) => const SizedBox(
           height: 20,
@@ -22,7 +26,7 @@ class GroupTripItem extends StatelessWidget {
         itemBuilder: (context, index) {
           return Container(
             width: double.infinity,
-            height: 133,
+            height: verticalSize * 0.135,
             decoration: BoxDecoration(
                 color: isDark ? Colors.blueGrey[900] : Colors.white,
                 borderRadius: BorderRadius.circular(20)),
@@ -39,11 +43,15 @@ class GroupTripItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Mountain Trip',
-                          style: Theme.of(context).textTheme.bodyLarge),
-                      Text(
-                        'Seelisburg',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                          style:  Theme.of(context).textTheme.headlineLarge),
+                      SizedBox(height: verticalSize*0.01),
+                      Expanded(
+                        child: Text(
+                          'Seelisburg',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
+                      SizedBox(height: verticalSize * .01,),
                       Row(
                         children: [
                           const Icon(

@@ -28,11 +28,12 @@ class LoginScreen extends StatelessWidget {
     final mediaQueryData = MediaQuery.of(context);
 
     final horizontalPadding = mediaQueryData.size.width;
-    // var cubit = AuthCubit.get(context);
+
     final verticalPadding = mediaQueryData.size.height;
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        var cubit = BlocProvider.of<AuthCubit>(context);
         return Scaffold(
           backgroundColor: defaultColor,
           resizeToAvoidBottomInset: false,
@@ -56,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                 left: 19.0,
                 top: verticalPadding * 0.06,
                 child: Text(
-                  "Welcome Back!",
+                  "Travego",
                   style: GoogleFonts.inter(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -107,10 +108,10 @@ class LoginScreen extends StatelessWidget {
                       child: Center(
                           child: Image.asset('assets/images/ion_earth.png')),
                     ),
-                    deafultCircleTextField(
+                    defaultCircleTextField(
                       secure: false,
                       fill: true,
-                      usernameController: usernameController,
+                      controller: usernameController,
                       prefix: const Icon(
                         CupertinoIcons.mail,
                         color: Colors.white,
@@ -119,10 +120,16 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    deafultCircleTextField(
-                      secure: true,
+                    defaultCircleTextField(
+                      secure: cubit.loginIsSecure,
                       fill: false,
-                      usernameController: passwordController,
+                      suffix: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                            onTap: cubit.loginChangeSecure,
+                            child: cubit.loginSecureIcon),
+                      ),
+                      controller: passwordController,
                       prefix: Icon(
                         CupertinoIcons.lock,
                         color: defaultColor,

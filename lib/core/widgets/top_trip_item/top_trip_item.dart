@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/features/home/trip_details/trip_details.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
@@ -7,20 +8,22 @@ import '../../utils/shared/components/components.dart';
 import '../../utils/shared/constant.dart';
 
 class TopTripsItem extends StatelessWidget {
+  final bool isFavorite= false;
   const TopTripsItem({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    // ScreenSizeUtil.initSize(context);
     return GestureDetector(
       onTap: () {
         navigateTo(context, const TripDetailScreen());
       },
       child: SizedBox(
-        height: 260,
-        width: double.infinity,
+        height: ScreenSizeUtil.screenHeight *.28,
         child: ListView.separated(
+          shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           separatorBuilder: (context, index) => const SizedBox(
             width: 10,
@@ -50,10 +53,14 @@ class TopTripsItem extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        Text(
-                          'Lakes',
-                          style: GoogleFonts.inter(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                        Expanded(
+                          child: Text(
+                            'Lakesfdfddffdfs',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.inter(
+                                fontSize: 13, fontWeight: FontWeight.w600),
+                          ),
                         ),
                         const Spacer(),
                         Row(
@@ -79,27 +86,26 @@ class TopTripsItem extends StatelessWidget {
                     children: [
                       const Icon(
                         Icons.location_on_sharp,
+                        size: 22,
                       ),
                       Text(
                         'location',
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.labelSmall,
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5),
                     child: Row(
                       children: [
                         Text(
                           '\$40/ visit',
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const Spacer(),
                         Icon(
-                          Icons.favorite,
+                          isFavorite? Icons.favorite:Icons.favorite_border,
                           size: 30,
                           color: defaultColor,
                         )

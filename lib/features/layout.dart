@@ -21,44 +21,47 @@ class LayoutScreen extends StatelessWidget {
     return BlocConsumer<GeneralCubit, GeneralState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Scaffold(
-          floatingActionButtonLocation:
-          FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: OpenContainer(
-              transitionType: _transitionType,
-              transitionDuration: Duration(milliseconds: 500),
-              openBuilder: (context, openContainer) => CreateTrip(),
-              closedElevation: 6,
-              closedShape:  RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(_fabDimension / 2),
-                ),
-              ),
-              closedColor: defaultColor,
-              closedBuilder: (context, openContainer) {
-                return SizedBox(
-                  height: _fabDimension,
-                  width: _fabDimension,
-                  child: Center(
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
+        return SafeArea(
+          child: Scaffold(
+            floatingActionButtonLocation:
+            FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: OpenContainer(
+                clipBehavior: Clip.none,
+                transitionType: _transitionType,
+                transitionDuration: Duration(milliseconds: 500),
+                openBuilder: (context, openContainer) => CreateTrip(),
+                closedElevation: 6,
+                closedShape:  RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(_fabDimension / 2),
                   ),
-                );
-              },
-            ),
-
-          bottomNavigationBar: customBottomNavBar(context),
-          body: PageTransitionSwitcher(
-              transitionBuilder: (Widget child,
-                  Animation<double> primaryAnimation,
-                  Animation<double> secondaryAnimation) {
-                return FadeThroughTransition(animation: primaryAnimation,
-                  secondaryAnimation: secondaryAnimation,
-                  child: child,);
-              },
-              child: cubit.screens[cubit.navBarSelectedItem]),
+                ),
+                closedColor: defaultColor,
+                closedBuilder: (context, openContainer) {
+                  return SizedBox(
+                    height: _fabDimension,
+                    width: _fabDimension,
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
+                },
+              ),
+          
+            bottomNavigationBar: customBottomNavBar(context),
+            body: PageTransitionSwitcher(
+                transitionBuilder: (Widget child,
+                    Animation<double> primaryAnimation,
+                    Animation<double> secondaryAnimation) {
+                  return FadeThroughTransition(animation: primaryAnimation,
+                    secondaryAnimation: secondaryAnimation,
+                    child: child,);
+                },
+                child: cubit.screens[cubit.navBarSelectedItem]),
+          ),
         );
       },
     );

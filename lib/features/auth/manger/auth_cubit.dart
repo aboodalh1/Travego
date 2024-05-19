@@ -1,26 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travego/features/auth/manger/auth_states.dart';
-import 'package:travego/features/auth/views/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/features/auth/views/verification_page.dart';
-
-import '../../../core/utils/network/remote/dio_helper.dart';
-import '../../../core/utils/shared/components/components.dart';
+import 'package:travego/features/presentation/auth_manger/auth_repo.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
-  // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-  AuthCubit() : super(AuthInitState());
+  AuthCubit(this.authRepo) : super(AuthInitState());
+  final AuthRepo authRepo;
+
   // static AuthCubit get(context) => BlocProvider.of(context);
-  bool isSecure = true;
-  late Icon secureIcon = isSecure
-      ? const Icon(Icons.remove_red_eye_outlined)
-      : const Icon(Icons.visibility_off_outlined);
+  bool registerIsSecure = true;
+  bool loginIsSecure = true;
+  late Icon registerSecureIcon = registerIsSecure
+      ? const Icon(
+    Icons.remove_red_eye_outlined,
+    color: Colors.white,
+  )
+      : const Icon(
+    Icons.visibility_off_outlined,
+    color: Colors.white,
+  );
+  late Icon loginSecureIcon = loginIsSecure
+      ? const Icon(
+    Icons.remove_red_eye_outlined,
+    color: Colors.white,
+  )
+      : const Icon(
+    Icons.visibility_off_outlined,
+    color: Colors.white,
+  );
+
   String code = '';
   bool onEditing = false;
 
-  void changeSecure() {
-    isSecure = !isSecure;
+  void registerChangeSecure() {
+    registerIsSecure = !registerIsSecure;
+    emit(ChangeSecure());
+  }
+
+  void loginChangeSecure() {
+    loginIsSecure = !loginIsSecure;
     emit(ChangeSecure());
   }
 
@@ -30,58 +49,43 @@ class AuthCubit extends Cubit<AuthStates> {
     context,
   }) async {
     emit(AuthLodingState());
-    DioHelper().postDataWithAuth(
-        url: 'url', data: {"": username, "": password}).then((value) {
-      ///code....
-      emit(AuthSuccessState());
-      navigateAndFinish(context, LoginScreen());
-    }).catchError((e) {
-      emit(AuthFailureState());
-    });
+
   }
 
-  Future<void> register(
-      {required String username,
-      required String email,
-      required String password,
-      required String passwordConfirmation,
-      context}) async {
+  Future<void> register({required String firstName,
+    required String lastName,
+    required String username,
+    required String phone,
+    required String email,
+    required String password,
+    required String confirmPassword,
+    context}) async {
     emit(AuthLodingState());
-    DioHelper().postDataWithAuth(url: 'BaseUser/Register', data: {
-      "name": "abdallah",
-      "email": "abdallahalharisy@gmail.com",
-      "password": "password",
-    }).then((value) {
-      ///code....
-      //
-      print(value.data);
+    var result = await authRepo.register(
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        email: email,
+        phone: phone,
+        password: password,
+        confirmPassword: confirmPassword);
+    result.fold((failure){
+      emit(AuthFailureState(failure.errMessage));
+    },(userModel)
+    {
       emit(AuthSuccessState());
-      navigateAndFinish(context, VerificationScreen());
-    }).catchError((e) {
-      emit(AuthFailureState());
-      print('gg');
-      print(e.toString());
     });
   }
 
   Future<void> verifyCode(
       {required String code, required String userId, context}) async {
     emit(AuthLodingState());
-    DioHelper().postDataWithAuth(url: 'BaseUser/send_Confirmation_Code', data: {
-      "codeNumber": code,
-      "user_Id": userId,
-    }).then((value) {
-      print(value.data);
-      emit(AuthSuccessState());
-      navigateAndFinish(context, LoginScreen());
-    }).catchError((e) {
-      emit(AuthFailureState());
-      print('gg');
-      print(e.toString());
-    });
+
+
   }
 
   IconData authInfoIconData = CupertinoIcons.check_mark_circled;
+
   void verifyAuthInfo(bool isAuthCorrect) {
     if (isAuthCorrect) {
       emit(AuthInfoVerifySuccess());

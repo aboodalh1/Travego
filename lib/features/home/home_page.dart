@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -18,6 +19,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('سفريات'),
+        actions: [
+          GestureDetector(
+            child: Icon(Icons.wallet),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('543543'),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -43,7 +53,23 @@ class HomeScreen extends StatelessWidget {
                     width: 10,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      showDialog(context: context, builder: (context){
+                        return AlertDialog(
+                          content: Container(
+                            width: 200,
+                            height: 200,
+                            child: Column(
+                              children: [
+                                Text('Search filtering'),
+                                  
+                              ],
+                            ),
+                          ),
+
+                        );
+                      });
+                    },
                     child: Container(
                       width: 45,
                       height: 44,
@@ -52,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                         color: defaultColor,
                       ),
                       child: const Icon(
-                        Icons.filter_list_outlined,
+                        Icons.filter_list_outlined,color:Colors.white,
                         size: 30,
                       ),
                     ),

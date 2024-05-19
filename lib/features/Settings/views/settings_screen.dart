@@ -8,13 +8,10 @@ import 'package:travego/features/favorite/favorite_screen.dart';
 import 'package:travego/features/auth/views/login_screen.dart';
 import 'package:travego/features/Settings/views/LanguageScreen/LanguageScreen.dart';
 import 'package:travego/features/Settings/views/edit_profile/edit_profile_screen.dart';
-import 'package:travego/features/home/home_cubit/home_cubit.dart';
-import 'package:travego/features/home/home_cubit/home_states.dart';
 
 import '../../../core/utils/shared/components/components.dart';
 import '../../../core/utils/shared/constant.dart';
 import '../../../core/utils/shared/locale/localController.dart';
-import 'LanguageScreen/LangRadioController/LanguageRadioButtonController.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

@@ -31,7 +31,18 @@ ThemeData darkTheme = ThemeData(
       fontWeight: FontWeight.w400,
       color: Colors.white.withOpacity(0.7),
     ),
+    headlineMedium: GoogleFonts.inter(
+      fontSize: 13,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    headlineLarge: GoogleFonts.inter(
+      fontSize: 17,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
   ),
+
   scaffoldBackgroundColor: Colors.grey.shade900,
   appBarTheme: AppBarTheme(
     iconTheme: const IconThemeData(color: Colors.white, size: 26),
@@ -63,23 +74,28 @@ ThemeData darkTheme = ThemeData(
 ThemeData lightTheme = ThemeData(
   colorScheme: const ColorScheme.light(primary: Colors.white),
   textTheme: TextTheme(
+
     bodyLarge: GoogleFonts.inter(
       fontSize: 25,
       fontWeight: FontWeight.bold,
       color: Colors.black,
     ),
+    bodyMedium: GoogleFonts.inter(color: Colors.black, fontSize: 12,fontWeight:FontWeight.w500),
+    bodySmall: GoogleFonts.inter(color: Colors.black, fontSize: 10,fontWeight:FontWeight.w500),
     labelSmall: GoogleFonts.inter(
-        color: Colors.grey, fontSize: 15, fontWeight: FontWeight.w500),
+        color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),
     displaySmall: GoogleFonts.inter(
         color: Colors.black45, fontSize: 15, fontWeight: FontWeight.bold),
-    bodyMedium: GoogleFonts.inter(color: Colors.black, fontSize: 20,fontWeight:FontWeight.w500),
-    bodySmall: GoogleFonts.inter(color: Colors.black, fontSize: 15,fontWeight:FontWeight.w500),
     labelMedium: GoogleFonts.inter(
       color: Colors.black45,
       fontSize: 16,
     ),
     labelLarge: GoogleFonts.inter(
         fontSize: 25, fontWeight: FontWeight.w400, color: Colors.black54),
+    headlineMedium: GoogleFonts.inter(
+        fontSize: 13, fontWeight: FontWeight.w600,color: Colors.black),
+    headlineLarge: GoogleFonts.inter(
+        fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black),
   ),
   scaffoldBackgroundColor: const Color(0xFFF7F7F7),
   appBarTheme: AppBarTheme(

@@ -3,16 +3,21 @@ import 'package:flutter/material.dart';
 
 import '../../utils/shared/components/components.dart';
 
-class deafultCircleTextField extends StatelessWidget {
-  const deafultCircleTextField({
+class defaultCircleTextField extends StatelessWidget {
+  const defaultCircleTextField({
+    this.suffix,
+    this.keyboardType,
+    this.hintText,
     super.key,
-    required this.usernameController,
+    required this.controller,
     required this.prefix,
     required this.fill,
     required this.secure,
   });
-
-  final TextEditingController usernameController;
+  final Widget? suffix;
+  final String? hintText;
+  final TextInputType? keyboardType;
+  final TextEditingController controller;
   final Icon prefix;
   final bool fill;
   final bool secure;
@@ -20,15 +25,20 @@ class deafultCircleTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTextField(
       obscureText: secure,
-      controller: usernameController,
+      controller: controller,
+
       prefix: Padding(
         padding: const EdgeInsets.all(8.0),
         child: prefix,
       ),
+      suffix: suffix ?? null,
+      keyboardType: keyboardType,
+      placeholder: hintText,
+      placeholderStyle: TextStyle(fontSize: 14,color: Colors.white.withOpacity(.4)),
       style: TextStyle(color: fill ? Colors.white : Colors.black),
       decoration: BoxDecoration(
-          color: fill ? defaultColor : Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          color: fill ? defaultColor : Colors.grey[200],
+          borderRadius: BorderRadius.circular(15),
           border: Border.all(color: defaultColor)),
     );
   }

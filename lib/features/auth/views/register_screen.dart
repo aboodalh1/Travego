@@ -1,11 +1,14 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
+
 //ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travego/core/widgets/circled_form_field/circled_form_field.dart';
 import 'package:travego/core/widgets/country_drop_list/country_drop_down_list.dart';
 import 'package:travego/features/auth/manger/auth_states.dart';
 import 'package:travego/features/auth/manger/auth_cubit.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/features/auth/views/login_screen.dart';
@@ -15,6 +18,10 @@ import '../../../core/utils/shared/components/components.dart';
 
 // ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
+
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -22,9 +29,9 @@ class RegisterScreen extends StatelessWidget {
       TextEditingController();
 
   RegisterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    // var cubit = AuthCubit.get(context);
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is AuthLodingState) {
@@ -47,12 +54,23 @@ class RegisterScreen extends StatelessWidget {
         }
         if (state is AuthFailureState) {
           Navigator.pop(context);
-          const SnackBar(content: Text('GGg00'));
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar( backgroundColor: Colors.grey,
+                content: Row(
+                  children: [
+                    Expanded(child: Text(state.error.toString())),
+                    Spacer(),
+                    CircularProgressIndicator(
+                      color: Colors.white24,
+                    ),
+                  ],
+                ),)
+          );
         }
       },
       builder: (context, state) {
+        var cubit = BlocProvider.of<AuthCubit>(context);
         return Scaffold(
-            // resizeToAvoidBottomInset: false,
             backgroundColor: const Color.fromARGB(255, 255, 255, 255),
             body: SingleChildScrollView(
               child: Stack(children: [
@@ -69,227 +87,270 @@ class RegisterScreen extends StatelessWidget {
                       'assets/images/bottom_earth_login.png',
                       scale: 0.9,
                     )),
-                Container(
-                  decoration: const BoxDecoration(),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 30.0, horizontal: 30),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.symmetric(vertical: 20),
-                            width: 258,
-                            height: 80,
-                            child: Text(
-                              "Let's start your Journey together!",
-                              textAlign: TextAlign.start,
-                              //style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                              style: GoogleFonts.inter(
-                                  fontSize: 25, fontWeight: FontWeight.w700),
-                              // fontSize: 35, fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 30.0, horizontal: 30),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Let's start your\nJourney together!",
+                          textAlign: TextAlign.start,
+                          //style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          style: GoogleFonts.inter(
+                              fontSize: 25, fontWeight: FontWeight.w700),
+                          // fontSize: 35, fontWeight: FontWeight.bold),
+                        ),
+                        Center(
+                            child:
+                                Image.asset('assets/images/ion_earth.png')),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Phone',
+                          style: GoogleFonts.inter(
+                              fontSize: 12,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Gap(6),
+                        Row(
+                          children: [
+                            Expanded(child: CountryDropdown()),
+                            Gap(5),
+                            Expanded(
+                              flex: 2,
+                              child: defaultCircleTextField(
+                                  controller: phoneController,
+                                  prefix: Icon(
+                                    Icons.phone,
+                                    color: Colors.grey[700],
+                                  ),
+                                  fill: false,
+                                  secure: false),
                             ),
-                          ),
-                          Center(
-                              child:
-                                  Image.asset('assets/images/ion_earth.png')),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Phone',
-                            style: GoogleFonts.inter(
-                                fontSize: 12,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                padding:EdgeInsets.only(top:20),
-                                  decoration: BoxDecoration(
-                                  color:Colors.white12,
-                            borderRadius: BorderRadius.circular(20),
-                              ),child: CountryDropdown()),
-                              Expanded(
-                                child: defaultTextField(
-                                    inputType: TextInputType.emailAddress,
-                                    controller: usernameController,
-                                    prefix: const Icon(CupertinoIcons.phone),
-                                    suffix: AnimatedSwitcher(
-                                      duration: const Duration(milliseconds: 300),
-                                      transitionBuilder: (Widget child,
-                                          Animation<double> animation) {
-                                        return ScaleTransition(
-                                            child: child, scale: animation);
-                                      },
-                                      child: Icon(
-                                        BlocProvider.of<AuthCubit>(context)
-                                            .authInfoIconData,
-                                        key: ValueKey<IconData>(BlocProvider.of<
-                                            AuthCubit>(context)
-                                            .authInfoIconData), // This is important for the animation to work
-                                      ),
-                                    )),
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'Username',
-                            style: GoogleFonts.inter(
-                                fontSize: 12,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          defaultTextField(
-                              inputType: TextInputType.emailAddress,
-                              controller: usernameController,
-                              prefix: const Icon(CupertinoIcons.person),
-                              suffix: AnimatedSwitcher(
-                                duration: const Duration(milliseconds: 300),
-                                transitionBuilder: (Widget child,
-                                    Animation<double> animation) {
-                                  return ScaleTransition(
-                                      child: child, scale: animation);
-                                },
-                                child: Icon(
-                                  BlocProvider.of<AuthCubit>(context)
-                                      .authInfoIconData,
-                                  key: ValueKey<IconData>(BlocProvider.of<
-                                          AuthCubit>(context)
-                                      .authInfoIconData), // This is important for the animation to work
-                                ),
-                              )),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'Email',
-                            style: GoogleFonts.inter(
-                                fontSize: 12,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          defaultTextField(
-                            controller: emailController,
-                            prefix: const Icon(CupertinoIcons.mail),
-                            suffix: const Icon(
-                                CupertinoIcons.check_mark_circled,
-                                color: Color.fromRGBO(0, 143, 160, 1)),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'Password',
-                            style: GoogleFonts.inter(
-                                fontSize: 12,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          defaultTextField(
-                            controller: passwordController,
-                            prefix: const Icon(CupertinoIcons.lock),
-                            suffix: const Icon(CupertinoIcons.eye_fill,
-                                color: Color.fromRGBO(0, 143, 160, 1)),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'Confirm Password',
-                            style: GoogleFonts.inter(
-                                fontSize: 12,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          defaultTextField(
-                            controller: passwordConfirmationController,
-                            prefix: const Icon(CupertinoIcons.lock_fill),
-                            suffix: const Icon(CupertinoIcons.eye_fill,
-                                color: Color.fromRGBO(0, 143, 160, 1)),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: [
-                              RadioMenuButton(
-                                groupValue: true,
-                                value: false,
-                                onChanged: (value) {},
-                                child: Text(
-                                  'Remember me',
-                                  style: GoogleFonts.inter(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey),
-                                ),
-                              ),
-                              const Spacer(),
-                              TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    "Forget password",
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'First name',
                                     style: GoogleFonts.inter(
                                         fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey),
-                                  ))
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          SizedBox(
-                            height: 50,
-                            child: DefaultElevated(
-                              onPressed: () {
-                                BlocProvider.of<AuthCubit>(context).register(
-                                    username:
-                                        usernameController.text.toString(),
-                                    email: emailController.text.toString(),
-                                    password:
-                                        passwordController.text.toString(),
-                                    passwordConfirmation:
-                                        passwordConfirmationController.text,
-                                    context: context);
-                              },
-                              label: "Create Account",
-                              fill: true,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(25.0),
-                            child: Center(
-                              child: Text(
-                                "already have account?",
-                                style: GoogleFonts.inter(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500),
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const Gap(6),
+                                  defaultCircleTextField(
+                                    hintText: 'AbdAllah',
+                                    secure: false,
+                                    controller: firstNameController,
+                                    prefix: const Icon(
+                                      Icons.person_pin_rounded,
+                                      color: Colors.white,
+                                    ),
+                                    fill: true,
+                                  ),
+                                ],
                               ),
                             ),
+                            Gap(5),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Last name',
+                                    style: GoogleFonts.inter(
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const Gap(6),
+                                  defaultCircleTextField(
+                                    hintText: 'Gg',
+                                    secure: false,
+                                    controller: lastNameController,
+                                    prefix: const Icon(
+                                      Icons.person_pin_rounded,
+                                      color: Colors.white,
+                                    ),
+                                    fill: true,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Username',
+                          style: GoogleFonts.inter(
+                              fontSize: 12,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Gap(6),
+                        defaultCircleTextField(
+                          secure: false,
+                          hintText: 'your username in this app',
+                          controller: usernameController,
+                          prefix: const Icon(
+                            Icons.person,
+                            color: Colors.white,
                           ),
-                          SizedBox(
-                            height: 50,
-                            child: DefaultElevated(
-                              onPressed: () {
-                                navigateAndFinish(context, LoginScreen());
-                              },
-                              label: 'Sign in',
-                              fill: false,
+                          fill: true,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Email',
+                          style: GoogleFonts.inter(
+                              fontSize: 12,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Gap(6),
+                        defaultCircleTextField(
+                          hintText: 'example@gmail.com',
+                          secure: false,
+                          controller: emailController,
+                          prefix: const Icon(
+                            Icons.email,
+                            color: Colors.white,
+                          ),
+                          fill: true,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Password',
+                          style: GoogleFonts.inter(
+                              fontSize: 12,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Gap(6),
+                        defaultCircleTextField(
+                          hintText: '********',
+                          secure: cubit.registerIsSecure,
+                          controller: passwordController,
+                          prefix: const Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                          ),
+                          suffix: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                                onTap: cubit.registerChangeSecure,
+                                child: cubit.registerSecureIcon),
+                          ),
+                          fill: true,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Confirm Password',
+                          style: GoogleFonts.inter(
+                              fontSize: 12,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Gap(6),
+                        defaultCircleTextField(
+                          hintText: '********',
+                          secure: cubit.registerIsSecure,
+                          controller: passwordConfirmationController,
+                          prefix: const Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                          ),
+                          suffix: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                                onTap: cubit.registerChangeSecure,
+                                child: cubit.registerSecureIcon),
+                          ),
+                          fill: true,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        RadioMenuButton(
+                          groupValue: true,
+                          value: false,
+                          onChanged: (value) {},
+                          child: Text(
+                            'Remember me',
+                            style: GoogleFonts.inter(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          height: 50,
+                          child: DefaultElevated(
+                            onPressed: () {
+                              cubit.register(
+                                firstName: firstNameController.text,
+                                  lastName: lastNameController.text,
+                                  username:
+                                      usernameController.text,
+                                  email: emailController.text,
+                                  phone: phoneController.text,
+                                  password:
+                                      passwordController.text,
+                                  confirmPassword:
+                                      passwordConfirmationController.text,
+                                  context: context);
+                            },
+                            label: "Create Account",
+                            fill: true,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Center(
+                            child: Text(
+                              "already have account?",
+                              style: GoogleFonts.inter(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 50,
+                          child: DefaultElevated(
+                            onPressed: () {
+                              navigateAndFinish(context, LoginScreen());
+                            },
+                            label: 'Sign in',
+                            fill: false,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

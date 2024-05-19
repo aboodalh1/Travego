@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:travego/core/utils/shared/components/components.dart';
 
 import '../../../model/counrties_phone.dart';
-
+import 'package:dropdown_button2/dropdown_button2.dart';
 class CountryDropdown extends StatefulWidget {
   @override
   _CountryDropdownState createState() => _CountryDropdownState();
@@ -263,41 +264,98 @@ class _CountryDropdownState extends State<CountryDropdown> {
    Country( name: "Zambia", code: "ZM", phone: 260 ),
    Country( name: "Zimbabwe", code: "ZW", phone: 263 )
   ];
-  Country? selectedCountry;
+  Country? selectedValue;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<Country>(
-      value: selectedCountry,
-      icon: Icon(Icons.arrow_downward),
-      iconSize: 15,
-      style: TextStyle(color: Colors.deepPurple),
-      onChanged: (Country? newValue) {
-        setState(() {
-          selectedCountry = newValue;
-        });
+   return Form(
+     key: _formKey,
+     child: DropdownButtonFormField2<Country>(
+
+      isExpanded: true,
+      decoration: InputDecoration(
+       contentPadding: const EdgeInsets.symmetric(vertical: 1),
+       border: OutlineInputBorder(
+        borderSide: BorderSide(color: defaultColor),
+        borderRadius: BorderRadius.circular(40),
+       ),
+      ),
+      items: countries
+          .map((item) => DropdownMenuItem<Country>(
+       value: item,
+       child: Text(
+        '${item.code} +${item.phone}',
+        style: const TextStyle(
+         fontSize: 12,
+        ),
+       ),
+      ))
+          .toList(),
+      validator: (value) {
+       if (value == null) {
+        return 'Please select your country.';
+       }
+       return null;
       },
-      items: countries.map<DropdownMenuItem<Country>>((Country country) {
-        return DropdownMenuItem<Country>(
-          value: country,
-          child: Container(
-            width: 90,
-            child: Row(
-            children: <Widget>[
-                Text(
-                  country.code,
-                  style: TextStyle(color: Colors.black),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  "+${country.phone}",
-                  style: TextStyle(color: Colors.black),
-                ),
-              ],
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-}
+      onChanged: (value) {
+       selectedValue = value;
+      },
+      onSaved: (value) {
+       selectedValue = value;
+      },
+      hint: Text('country?'),
+      buttonStyleData: const ButtonStyleData(
+       padding: EdgeInsets.only(right: 1),
+      ),
+      iconStyleData: const IconStyleData(
+       icon: Icon(
+        Icons.arrow_drop_down,
+        color: Colors.black45,
+       ),
+       iconSize: 25
+      ),
+      dropdownStyleData: DropdownStyleData(
+       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+       ),
+      ),
+      menuItemStyleData: const MenuItemStyleData(
+      ),
+     ),
+   );
+  }}
+
+// return DropdownButton2<Country>(
+//   value: selectedCountry,
+//   icon: Icon(Icons.arrow_downward),
+//   iconSize: 15,
+//   style: TextStyle(color: Colors.deepPurple),
+//   onChanged: (Country? newValue) {
+//     setState(() {
+//       selectedCountry = newValue;
+//     });
+//   },
+//   items: countries.map<DropdownMenuItem<Country>>((Country country) {
+//     return DropdownMenuItem<Country>(
+//       value: country,
+//       child: Container(
+//         width: 90,
+//         child: Row(
+//         children: <Widget>[
+//             Text(
+//               country.code,
+//               style: TextStyle(color: Colors.black),
+//             ),
+//             SizedBox(width: 10),
+//             Text(
+//               "+${country.phone}",
+//               style: TextStyle(color: Colors.black),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }).toList(),
+// );

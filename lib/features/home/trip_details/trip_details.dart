@@ -20,7 +20,7 @@ class TripDetailScreen extends StatelessWidget {
               style: GoogleFonts.inter(fontWeight: FontWeight.w500)),
         ),
         body: Container(
-          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           child: Column(
             children: [
               SizedBox(
@@ -66,7 +66,6 @@ class TripDetailScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 200,
                 child: Text(
                   'description',
                   style: GoogleFonts.inter(fontSize: 20),

@@ -14,27 +14,27 @@ class LocationCubit extends Cubit<LocationStates> {
   Set<Polygon> polygons = {};
   Set<Circle> circles = {};
 
-  void getPlaces(context,
-      {required String categories,
-      required String limit,
-      required double lon,
-      required double lat}) {
-    emit(LoadingPlacesState());
-    DioHelper()
-        .getData(
-            url:
-                'places?limit=$limit&filter=circle:${lat.toString()},${lon.toString()},5000&categories=$categories&apiKey=cc6c182c370c4e73be0971ed1cb8e26d')
-        .then((value) {
-      placeModel = PlaceModel.fromJson(value.data);
-      print(value.data);
-      //  LocationScreen().initCircles(context, lat: lat, long: lon);
-      // LocationScreen().initMarker(context);
-      emit(GetPlacesSuccessState());
-    }).catchError((e) {
-      print(e.toString());
-      emit(GetPlacesFaliureState());
-    });
-  }
+  // void getPlaces(context,
+  //     {required String categories,
+  //     required String limit,
+  //     required double lon,
+  //     required double lat}) {
+  //   emit(LoadingPlacesState());
+  //   DioHelper()
+  //       .getData(
+  //           url:
+  //               'places?limit=$limit&filter=circle:${lat.toString()},${lon.toString()},5000&categories=$categories&apiKey=cc6c182c370c4e73be0971ed1cb8e26d')
+  //       .then((value) {
+  //     placeModel = PlaceModel.fromJson(value.data);
+  //     print(value.data);
+  //     //  LocationScreen().initCircles(context, lat: lat, long: lon);
+  //     // LocationScreen().initMarker(context);
+  //     emit(GetPlacesSuccessState());
+  //   }).catchError((e) {
+  //     print(e.toString());
+  //     emit(GetPlacesFaliureState());
+  //   });
+  // }
 
   void addMarker() {
     emit(GetPlacesSuccessState());

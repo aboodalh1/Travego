@@ -38,7 +38,7 @@ class PersonCard extends StatelessWidget {
                       leading: CircleAvatar(
                         child: Image.asset("assets/images/cover.png"),
                       ),
-                      title:  Text(
+                      title:  const Text(
                         'اسم الزلمة',
                         style: TextStyle(fontSize: 20),
                       ),

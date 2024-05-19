@@ -3,24 +3,24 @@ import 'package:get/get.dart';
 import 'package:travego/blocObs.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/features/Settings/views/LanguageScreen/LangRadioController/LanguageRadioButtonController.dart';
-import 'package:travego/features/home/home_cubit/home_cubit.dart';
+import 'package:travego/core/utils/screen_size_util.dart';
+import 'package:travego/features/auth/views/register_screen.dart';
 import 'package:travego/core/utils/shared/constant.dart';
 import 'package:travego/core/utils/shared/styles/Styles.dart';
 import 'package:travego/features/auth/manger/auth_cubit.dart';
-import 'package:travego/features/layout.dart';
-import 'package:travego/features/location/manger/location_cubit.dart';
-
+import 'core/utils/network/remote/service_locator.dart';
+import 'features/create_trip/parsonnes_information/personnes_cubit/person_cubit.dart';
+import 'features/home/home_cubit/home_cubit.dart';
+import 'features/presentation/auth_manger/auth_repo_impl.dart';
 import 'core/utils/network/local/cacheHelper.dart';
 import 'core/utils/network/remote/dio_helper.dart';
-import 'core/utils/shared/locale/localController.dart';
 import 'core/utils/shared/locale/locale.dart';
-
+import 'package:dio/dio.dart';
 void main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-  await DioHelper.init();
+  setupServiceLocator();
   // token = CacheHelper.getData(key: 'token');
   runApp(const MyApp());
 }
@@ -31,10 +31,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    ScreenSizeUtil.initSize(context);
+
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (BuildContext context) => AuthCubit(),
+            create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
+            ),
+          BlocProvider(
+            create: (BuildContext context) => PersonCubit(),
           ),
           BlocProvider(
             create: (context) => GeneralCubit(),
@@ -44,47 +49,8 @@ class MyApp extends StatelessWidget {
           theme: isDark ? darkTheme : lightTheme,
           translations: MyLocale(),
           locale: Get.deviceLocale,
-          home:  LayoutScreen(),
+          debugShowCheckedModeBanner: false,
+          home:  RegisterScreen(),
         ));
   }
 }
-// class AnimatedWid extends StatefulWidget {
-//   @override
-//   State<AnimatedWid> createState() => _AnimatedWidState();
-// }
-//
-// class _AnimatedWidState extends State<AnimatedWid> {
-//   double w = 200.0;
-//   double op = 0 ;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(),
-//       body: ListView(
-//         children: [
-//           InkWell(
-//             onTap: (){
-//              setState(() {
-//                if(w<300){
-//                w=300;
-//                op = 1;}
-//                else {w=200;
-//                op = 0;}
-//              });
-//             },
-//             child: Center(child:
-//               AnimatedOpacity(
-//                 duration: const Duration(seconds: 1),
-//                 opacity: op,
-//                 child: Container(
-//                   width: w,
-//                   height: 200,
-//                   color: Colors.red,
-//                 ),
-//               ),),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
