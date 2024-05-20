@@ -27,6 +27,7 @@ class VerificationScreen extends StatelessWidget {
   );
 
   VerificationScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // var cubit = AuthCubit.get(context);
@@ -37,6 +38,7 @@ class VerificationScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        var cubit = BlocProvider.of<AuthCubit>(context);
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -50,7 +52,7 @@ class VerificationScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   "A verify code sent to your email: \n ",
                   style:
-                      GoogleFonts.inter(fontSize: 15, color: Colors.black87)),
+                  GoogleFonts.inter(fontSize: 15, color: Colors.black87)),
               TextButton(
                 onPressed: () async {
                   const url = 'mailto:abdallahalharisy@gmail.com';
@@ -73,7 +75,7 @@ class VerificationScreen extends StatelessWidget {
                     digitsOnly: true,
                     fullBorder: true,
                     textStyle:
-                        const TextStyle(fontSize: 20.0, color: Colors.black),
+                    const TextStyle(fontSize: 20.0, color: Colors.black),
                     keyboardType: TextInputType.number,
                     underlineColor: Colors.amber,
                     length: 6,
@@ -83,20 +85,19 @@ class VerificationScreen extends StatelessWidget {
                       child: Text(
                         'clear all',
                         style:
-                            TextStyle(fontSize: 14.0, color: Colors.blue[700]),
+                        TextStyle(fontSize: 14.0, color: Colors.blue[700]),
                       ),
                     ),
                     onCompleted: (String value) {
-                      BlocProvider.of<AuthCubit>(context).code = value;
-                      BlocProvider.of<AuthCubit>(context).verifyCode(
-                          code: BlocProvider.of<AuthCubit>(context)
-                              .code
+                      cubit.code = value;
+                      cubit.verifyCode(
+                          code: cubit.code
                               .toString(),
-                          userId: '2');
+                          email: '2');
                     },
                     onEditing: (bool value) {
-                      BlocProvider.of<AuthCubit>(context).onEditing = value;
-                      if (!BlocProvider.of<AuthCubit>(context).onEditing)
+                      cubit.onEditing = value;
+                      if (!cubit.onEditing)
                         FocusScope.of(context).unfocus();
                     },
                   ),
@@ -111,11 +112,10 @@ class VerificationScreen extends StatelessWidget {
                         label: 'Confirm',
                         fill: true,
                         onPressed: () {
-                          BlocProvider.of<AuthCubit>(context).verifyCode(
-                              code: BlocProvider.of<AuthCubit>(context)
-                                  .code
+                          cubit.verifyCode(
+                              code: cubit.code
                                   .toString(),
-                              userId: '2');
+                              email: cubit.emailController.text);
                         }),
                     const SizedBox(width: 10),
                     DefaultElevated(

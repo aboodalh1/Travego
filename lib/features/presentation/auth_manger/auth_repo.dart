@@ -24,5 +24,5 @@ abstract class AuthRepo{
   Future<Either<Failure, UserModel>> getUserInfo(
       {required String token});
   Future<Either<Failure, UserModel>> verificationCode(
-      {required String code});
+      {required String code, required String email});
 }

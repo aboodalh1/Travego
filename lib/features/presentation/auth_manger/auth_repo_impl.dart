@@ -1,3 +1,4 @@
+
 import 'package:dartz/dartz.dart';
 import 'package:travego/core/utils/network/remote/dio_helper.dart';
 import 'package:travego/model/user_model.dart';
@@ -21,20 +22,22 @@ class AuthRepoImpl implements AuthRepo {
     required String confirmPassword,
   }) async {
     try {
-      var response = await dioHelper.postData(endPoint: 'Auth', data: {
-        "first_name": firstName,
-        "last_name": lastName,
-        "username": username,
-        "phone_number": phone,
-        "email": email,
-        "password": password,
-        "confirmation_password": confirmPassword
+      var response = await dioHelper.postData(endPoint: 'Auth/Client_Register', data: {
+
+        "first_name": "string",
+        "last_name": "string",
+        "username": "string",
+        "phone_number": "bff",
+        "email": "string@gmail.com",
+        "password": "strindsadA@1g",
+        "confirmation_password": "strigmsfds@A1G"
       });
       UserModel userModel;
       userModel = UserModel.fromJson(response.data);
       return right(userModel);
     } catch (e) {
       if (e is DioException) {
+
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));
@@ -79,7 +82,7 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, UserModel>> verificationCode(
-      {required String code}) async {
+      {required String code, required String email}) async {
     try {
       var response = await dioHelper.postData(endPoint: 'url', data: {
         "": "",

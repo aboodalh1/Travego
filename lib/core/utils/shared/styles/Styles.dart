@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
-import 'colors.dart';
 
 ThemeData darkTheme = ThemeData(
   textTheme: TextTheme(

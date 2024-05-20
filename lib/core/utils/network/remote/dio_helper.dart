@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 class DioHelper {
   final baseUrl = 'http://10.0.2.2:8070/api/';
   final Dio dio;
-  DioHelper(this.dio);
+    DioHelper(this.dio);
 
   Future<Response> getData({
     required String endPoint,
@@ -21,7 +21,7 @@ class DioHelper {
         .get(
       '$baseUrl$endPoint',
       options: Options(
-        headers: headers
+        headers: headers,
       )
     );
   }
@@ -40,6 +40,9 @@ class DioHelper {
       '$baseUrl$endPoint',
       data: data,
         options: Options(
+          sendTimeout: Duration(milliseconds: 3000),
+          receiveTimeout: Duration(milliseconds: 3000),
+
           headers: headers
         )
     );

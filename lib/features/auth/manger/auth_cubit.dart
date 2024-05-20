@@ -33,23 +33,20 @@ class AuthCubit extends Cubit<AuthStates> {
   String code = '';
   bool onEditing = false;
 
+
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordConfirmationController =
+  TextEditingController();
+
+
   void registerChangeSecure() {
     registerIsSecure = !registerIsSecure;
     emit(ChangeSecure());
-  }
-
-  void loginChangeSecure() {
-    loginIsSecure = !loginIsSecure;
-    emit(ChangeSecure());
-  }
-
-  Future<void> login({
-    required String username,
-    required String password,
-    context,
-  }) async {
-    emit(AuthLodingState());
-
   }
 
   Future<void> register({required String firstName,
@@ -61,6 +58,7 @@ class AuthCubit extends Cubit<AuthStates> {
     required String confirmPassword,
     context}) async {
     emit(AuthLodingState());
+    print(lastName);
     var result = await authRepo.register(
         firstName: firstName,
         lastName: lastName,
@@ -69,19 +67,41 @@ class AuthCubit extends Cubit<AuthStates> {
         phone: phone,
         password: password,
         confirmPassword: confirmPassword);
-    result.fold((failure){
+    result.fold((failure) {
       emit(AuthFailureState(failure.errMessage));
-    },(userModel)
-    {
+    }, (userModel) {
+      emit(AuthSuccessState());
+    });
+  }
+
+  void loginChangeSecure() {
+    loginIsSecure = !loginIsSecure;
+    emit(ChangeSecure());
+  }
+
+  Future<void> login({
+    required String email,
+    required String password,
+    context,
+  }) async {
+    emit(AuthLodingState());
+    var result = await authRepo.login(email: email, password: password);
+    result.fold((failure) {
+      emit(AuthFailureState(failure.errMessage));
+    }, (token) {
       emit(AuthSuccessState());
     });
   }
 
   Future<void> verifyCode(
-      {required String code, required String userId, context}) async {
+      {required String code, required String email, context}) async {
     emit(AuthLodingState());
-
-
+    var result = await authRepo.verificationCode(code: code, email: email);
+    result.fold((failure) {
+      emit(AuthFailureState(failure.errMessage));
+    }, (userModel) {
+      emit(AuthSuccessState());
+    });
   }
 
   IconData authInfoIconData = CupertinoIcons.check_mark_circled;
