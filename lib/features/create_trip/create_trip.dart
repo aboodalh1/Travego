@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -10,9 +9,9 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:travego/features/create_trip/parsonnes_information/personnes_cubit/person_cubit.dart';
 import 'parsonnes_information/personnes_information.dart';
 
-//ignore:must_be_immutable
+
 class CreateTrip extends StatelessWidget {
-  CreateTrip({super.key});
+  const CreateTrip({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +29,8 @@ class CreateTrip extends StatelessWidget {
               lastDate: DateFormat.MEd().format(cubit.dateController2).toString(),
             ));
               },
-              child: Icon(Icons.arrow_forward),
               backgroundColor: defaultColor,
+              child: const Icon(Icons.arrow_forward),
             ),
             appBar: AppBar(
               title: Text('Create trip'.tr),
@@ -77,3 +76,9 @@ class CreateTrip extends StatelessWidget {
     );
   }
 }
+
+
+/*
+eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmRhbGxhaGFsaGFyaXN5QGdt
+YWlsLmNvbSIsImlhdCI6MTcxNjM2NjIzNCwiZXhwIjoxNzE3ODgxMzMyfQ.O8ps1A0Wh6oe6KzOOVJ-NOaJ-1a2-fyhGSXSkSg6Ldc
+ */

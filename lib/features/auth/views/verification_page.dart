@@ -36,6 +36,13 @@ class VerificationScreen extends StatelessWidget {
         if (state is AuthLodingState) {
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
+        if(state is AuthFailureState){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(backgroundColor: Colors.grey,
+              content: Text(state.error.toString()),)
+          );
+
+        }
       },
       builder: (context, state) {
         var cubit = BlocProvider.of<AuthCubit>(context);
@@ -55,15 +62,15 @@ class VerificationScreen extends StatelessWidget {
                   GoogleFonts.inter(fontSize: 15, color: Colors.black87)),
               TextButton(
                 onPressed: () async {
-                  const url = 'mailto:abdallahalharisy@gmail.com';
+                   var url = 'mailto:${cubit.emailController}';
                   if (await canLaunchUrlString(url)) {
                     await launchUrlString(url);
                   } else {
                     throw 'Could not launch $url';
                   }
                 },
-                child: const Text(
-                  "abdallahalharisy@gmail.com",
+                child:  Text(
+                  cubit.emailController.text,
                   style: TextStyle(color: Colors.blue),
                 ),
               ),

@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:travego/features/auth/manger/auth_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travego/features/auth/views/verification_page.dart';
+import 'package:travego/features/layout.dart';
 import 'package:travego/features/presentation/auth_manger/auth_repo.dart';
+
+import '../../../core/utils/shared/constant.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit(this.authRepo) : super(AuthInitState());
@@ -23,11 +28,11 @@ class AuthCubit extends Cubit<AuthStates> {
   late Icon loginSecureIcon = loginIsSecure
       ? const Icon(
     Icons.remove_red_eye_outlined,
-    color: Colors.white,
+    color: Colors.grey,
   )
       : const Icon(
     Icons.visibility_off_outlined,
-    color: Colors.white,
+    color: Colors.grey,
   );
 
   String code = '';
@@ -42,6 +47,11 @@ class AuthCubit extends Cubit<AuthStates> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmationController =
   TextEditingController();
+
+
+  TextEditingController loginEmailController = TextEditingController();
+
+  TextEditingController loginPasswordController = TextEditingController();
 
 
   void registerChangeSecure() {
@@ -71,6 +81,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(AuthFailureState(failure.errMessage));
     }, (userModel) {
       emit(AuthSuccessState());
+      navigateAndFinish(context, VerificationScreen());
     });
   }
 
@@ -88,8 +99,10 @@ class AuthCubit extends Cubit<AuthStates> {
     var result = await authRepo.login(email: email, password: password);
     result.fold((failure) {
       emit(AuthFailureState(failure.errMessage));
-    }, (token) {
+    }, (tok) {
+      token = tok;
       emit(AuthSuccessState());
+      navigateAndFinish(context, LayoutScreen());
     });
   }
 
@@ -99,8 +112,10 @@ class AuthCubit extends Cubit<AuthStates> {
     var result = await authRepo.verificationCode(code: code, email: email);
     result.fold((failure) {
       emit(AuthFailureState(failure.errMessage));
-    }, (userModel) {
+    }, (tok) {
+      token=tok;
       emit(AuthSuccessState());
+      navigateAndFinish(context, LayoutScreen());
     });
   }
 

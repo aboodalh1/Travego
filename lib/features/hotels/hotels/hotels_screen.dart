@@ -62,24 +62,24 @@ class HotelsScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Row(
-                children: [
-                  Text('Categories'.tr,
-                      style: Theme.of(context).textTheme.bodyLarge),
-                  const Spacer(),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("See All",
-                          style: Theme.of(context).textTheme.labelSmall)),
-                ],
-              ),
-              const CategoriesItems(),
+              // Row(
+              //   children: [
+              //     Text('Categories'.tr,
+              //         style: Theme.of(context).textTheme.bodyLarge),
+              //     const Spacer(),
+              //     TextButton(
+              //         onPressed: () {},
+              //         child: Text("See All",
+              //             style: Theme.of(context).textTheme.labelSmall)),
+              //   ],
+              // ),
+              // const CategoriesItems(),
               const SizedBox(
                 height: 10,
               ),
               Row(
                 children: [
-                  Text('Top Trips',
+                  Text('Top Hotels',
                       style: Theme.of(context).textTheme.bodyLarge),
                   const Spacer(),
                   TextButton(
@@ -94,7 +94,7 @@ class HotelsScreen extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text('Top Trips',
+                  Text('Hotels',
                       style: Theme.of(context).textTheme.bodyLarge),
                   const Spacer(),
                   TextButton(

@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
-import 'package:travego/features/home/home_cubit/home_cubit.dart';
-import 'package:travego/features/home/home_cubit/home_states.dart';
 import 'package:animations/animations.dart';
 import 'create_trip/create_trip.dart';
+import 'home/general_cubit/layout_cubit.dart';
 
 class LayoutScreen extends StatelessWidget {
-   LayoutScreen({super.key});
+   const LayoutScreen({super.key});
 
-   double _fabDimension = 56;
+   final double _fabDimension = 56;
 
 
-  ContainerTransitionType _transitionType = ContainerTransitionType.fadeThrough;
+  final ContainerTransitionType _transitionType = ContainerTransitionType.fadeThrough;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:travego/core/utils/screen_size_util.dart';
 // ignore: depend_on_referenced_packages
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:travego/core/utils/shared/constant.dart';
@@ -13,18 +14,15 @@ class HotelsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
-    var verticalSize = mediaQueryData.size.height;
-    var horizontalSize = mediaQueryData.size.width;
     return GestureDetector(
       onTap: () {
         navigateTo(context, const HotelDetails());
       },
       child: SizedBox(
-        height: 600,
         width: double.infinity,
         child: ListView.separated(
-          scrollDirection: Axis.vertical,
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
           separatorBuilder: (context, index) => const SizedBox(
             height: 20,
           ),
@@ -32,7 +30,7 @@ class HotelsItem extends StatelessWidget {
           itemBuilder: (context, index) {
             return Container(
               width: double.infinity,
-              height: verticalSize * 0.135,
+              height: ScreenSizeUtil.screenHeight * 0.135,
               decoration: BoxDecoration(
                   color: isDark ? Colors.blueGrey[900] : Colors.white,
                   borderRadius: BorderRadius.circular(20)),
@@ -50,14 +48,14 @@ class HotelsItem extends StatelessWidget {
                       children: [
                         Text('Hotel name',
                             style: Theme.of(context).textTheme.headlineLarge),
-                        SizedBox(height: verticalSize * .01,),
+                        SizedBox(height: ScreenSizeUtil.screenHeight * .01,),
                         Expanded(
                           child: Text(
                             'something',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
-                        SizedBox(height: verticalSize * .01,),
+                        SizedBox(height: ScreenSizeUtil.screenHeight * .01,),
                         Row(
                           children: [
                             const Icon(

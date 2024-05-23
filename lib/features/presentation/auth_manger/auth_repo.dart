@@ -5,7 +5,7 @@ import '../../../core/errors/failure.dart';
 
 abstract class AuthRepo{
 
-  Future<Either<Failure, UserModel>> register(
+  Future<Either<Failure, String>> register(
   {
     required String firstName,
     required String lastName,
@@ -23,6 +23,6 @@ abstract class AuthRepo{
 });
   Future<Either<Failure, UserModel>> getUserInfo(
       {required String token});
-  Future<Either<Failure, UserModel>> verificationCode(
+  Future<Either<Failure, String >> verificationCode(
       {required String code, required String email});
 }

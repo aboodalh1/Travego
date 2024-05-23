@@ -1,49 +1,49 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:travego/features/home/home_cubit/home_cubit.dart';
-import 'package:travego/features/home/home_cubit/home_states.dart';
-import 'package:travego/features/Settings/views/LanguageScreen/LangRadioController/LanguageRadioButtonController.dart';
+import 'package:travego/features/Settings/manger/settings_cubit.dart';
+
+import '../../../../translations/locale_keys.g.dart';
 
 class LanguageScreen extends StatelessWidget {
-  final LanguageRadioController radioController = Get.put(LanguageRadioController());
-   LanguageScreen({super.key});
+ const LanguageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GeneralCubit, GeneralState>(
+    return BlocConsumer<SettingsCubit, SettingsState>(
       listener: (context, state) {},
       builder: (context, state) {
+        final  settingCubit = BlocProvider.of<SettingsCubit>(context);
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              "Choose a language".tr,
+              LocaleKeys.Choose_a_language.tr(),
             ),
           ),
           body: Column(
             children: <Widget>[
-              Obx(() => RadioListTile<String>(
+               RadioListTile(
                     title: Text(
                       'English',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     value: 'On',
-                    groupValue: radioController.selectedValue.value,
+                    groupValue: settingCubit.selectedValue,
                     onChanged: (value) {
-                      radioController.selectOn();
+                      settingCubit.selectOn(context);
                     },
-                  )),
-              Obx(() => RadioListTile<String>(
+                  ),
+                RadioListTile(
                     title: Text(
                       'العربية',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     value: 'Off',
-                    groupValue: radioController.selectedValue.value,
+                    groupValue: settingCubit.selectedValue,
                     onChanged: (value) {
-                      radioController.selectOff();
+                      settingCubit.selectOff(context);
                     },
-                  )),
+                  )
             ],
           ),
         );

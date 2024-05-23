@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
+
 abstract class Failure {
   final String errMessage;
   const Failure(this.errMessage);
 }
+
 class ServerFailure extends Failure {
   ServerFailure(super.errMessage);
   factory ServerFailure.fromDioError(DioException dioError) {
@@ -24,12 +26,12 @@ class ServerFailure extends Failure {
         }
         return ServerFailure('Unexpected Error, Please try again!');
       default:
-        return ServerFailure('Opps There was an Error, Please try again');
+        return ServerFailure(dioError.toString());
     }
   }
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(response['message']?? 'something went wrong');
+      return ServerFailure(response['message'] ?? 'something went wrong');
     } else if (statusCode == 404) {
       return ServerFailure('Your request not found, Please try later!');
     } else if (statusCode == 500) {

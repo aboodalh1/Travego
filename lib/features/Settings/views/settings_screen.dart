@@ -1,28 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:travego/core/utils/screen_size_util.dart';
+import 'package:travego/core/widgets/settings_container/settings_container.dart';
 import 'package:travego/features/Settings/manger/settings_cubit.dart';
 import 'package:travego/features/favorite/favorite_screen.dart';
 import 'package:travego/features/auth/views/login_screen.dart';
-import 'package:travego/features/Settings/views/LanguageScreen/LanguageScreen.dart';
 import 'package:travego/features/Settings/views/edit_profile/edit_profile_screen.dart';
 
 import '../../../core/utils/shared/components/components.dart';
 import '../../../core/utils/shared/constant.dart';
-import '../../../core/utils/shared/locale/localController.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(LocalController());
-    final mediaQueryData = MediaQuery.of(context);
 
-    final height = mediaQueryData.size.height;
-    final width = mediaQueryData.size.width;
     return BlocProvider(
       create: (context) => SettingsCubit(),
       child: BlocBuilder<SettingsCubit, SettingsState>(
@@ -35,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: height * 0.35,
+                    height: ScreenSizeUtil.screenHeight * 0.35,
                     decoration: BoxDecoration(
                         color: defaultColor,
                         borderRadius: const BorderRadius.only(
@@ -71,7 +66,8 @@ class SettingsScreen extends StatelessWidget {
                       )),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: width * .35, vertical: height * .08),
+                        horizontal: ScreenSizeUtil.screenWidth * .35,
+                        vertical: ScreenSizeUtil.screenHeight * .08),
                     child: Column(
                       children: [
                         Image.asset(
@@ -82,7 +78,7 @@ class SettingsScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          'MRMR',
+                          'Gg',
                           style: GoogleFonts.inter(
                               color: Colors.white,
                               fontSize: 18,
@@ -92,10 +88,10 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 250, right: 20, left: 20),
+                    padding:
+                        const EdgeInsets.only(top: 250, right: 20, left: 20),
                     child: Container(
-                        height: height * 0.6,
+                        height: ScreenSizeUtil.screenHeight * 0.6,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: isDark ? Colors.blueGrey[900] : Colors.white,
@@ -108,109 +104,7 @@ class SettingsScreen extends StatelessWidget {
                             scrollDirection: Axis.vertical,
                             child: cubit.isEditProfile
                                 ? EditProfileScreen()
-                                : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Account'.tr,
-                                  style: GoogleFonts.inter(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: height * 0.01,
-                                ),
-                                settingsItem(
-                                  function: () {
-                                    cubit.editProfile();
-                                  },
-                                  icon: const Icon(
-                                      CupertinoIcons.person_crop_circle_fill),
-                                  label: 'Edit profile'.tr,
-                                ),
-                                settingsItem(
-                                    function: () {},
-                                    icon: const Icon(CupertinoIcons.lock_fill),
-                                    label: 'Privacy'.tr),
-                                settingsItem(
-                                    function: () {},
-                                    icon: const Icon(CupertinoIcons.shield),
-                                    label: 'Security'.tr),
-                                settingsItem(
-                                    function: () {
-                                      navigateTo(context, LanguageScreen());
-                                    },
-                                    icon: const Icon(Icons.translate),
-                                    label: 'Language'.tr),
-                                settingsSwitchItem(
-                                    switchFunction: (bool value) {
-                                      cubit.notificationToggleSwitch();
-                                    },
-                                    switchValue: cubit.notificationSwitchValue,
-                                    icon: const Icon(CupertinoIcons.bell_solid),
-                                    label: 'Notification'.tr),
-                                settingsSwitchItem(
-                                    context: context,
-                                    switchValue: cubit.themeSwitchValue,
-                                    switchFunction: (bool value) {
-                                      cubit
-                                          .themeToggleSwitch();
-                                    },
-                                    icon: const Icon(CupertinoIcons.moon_fill),
-                                    label: 'Dark mode'.tr),
-                                SizedBox(
-                                  height: height * 0.02,
-                                ),
-                                Text(
-                                  'About & Support'.tr,
-                                  style: GoogleFonts.inter(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: height * 0.01,
-                                ),
-                                settingsItem(
-                                    function: () {},
-                                    icon: const Icon(
-                                        CupertinoIcons
-                                            .exclamationmark_circle_fill),
-                                    label: 'Help & Support'.tr),
-                                settingsItem(
-                                    function: () {},
-                                    icon: const Icon(
-                                        CupertinoIcons.question_circle_fill),
-                                    label: 'Terms and Policies'.tr),
-                                SizedBox(
-                                  height: height * 0.02,
-                                ),
-                                Text(
-                                  'Actions'.tr,
-                                  style: GoogleFonts.inter(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: height * 0.01,
-                                ),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 12.0, horizontal: 20),
-                                    child: Row(
-                                      children: [
-                                        Text('delete my account'.tr,
-                                            style: GoogleFonts.inter(
-                                                color: Colors.red,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w500)),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
+                                : SettingsContainer(cubit: cubit),
                           ),
                         )),
                   )
@@ -222,13 +116,13 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
-
-
 }
 
-GestureDetector settingsItem({required Icon icon,
-  required String label,
-  required void Function() function}) {
+
+GestureDetector settingsItem(
+    {required Icon icon,
+    required String label,
+    required void Function() function}) {
   return GestureDetector(
     onTap: function,
     child: Padding(
@@ -240,8 +134,8 @@ GestureDetector settingsItem({required Icon icon,
             width: 30,
           ),
           Text(label,
-              style: GoogleFonts.inter(
-                  fontSize: 14, fontWeight: FontWeight.w500)),
+              style:
+                  GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
           const Spacer(),
           const Icon(Icons.arrow_forward_ios),
         ],
@@ -268,8 +162,8 @@ GestureDetector settingsSwitchItem({
             width: 30,
           ),
           Text(label,
-              style: GoogleFonts.inter(
-                  fontSize: 14, fontWeight: FontWeight.w500)),
+              style:
+                  GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
           const Spacer(),
           CupertinoSwitch(value: switchValue, onChanged: switchFunction),
         ],

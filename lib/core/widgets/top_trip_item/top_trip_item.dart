@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
-import 'package:travego/features/home/trip_details/trip_details.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
+import '../../../features/home/view/trip_details/trip_details.dart';
 import '../../utils/assets.dart';
 import '../../utils/shared/components/components.dart';
 import '../../utils/shared/constant.dart';

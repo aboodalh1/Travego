@@ -34,10 +34,10 @@ class defaultCircleTextField extends StatelessWidget {
       suffix: suffix ?? null,
       keyboardType: keyboardType,
       placeholder: hintText,
-      placeholderStyle: TextStyle(fontSize: 14,color: Colors.white.withOpacity(.4)),
+      placeholderStyle: TextStyle(fontSize: 15,color: fill? Colors.white38 : Colors.grey),
       style: TextStyle(color: fill ? Colors.white : Colors.black),
       decoration: BoxDecoration(
-          color: fill ? defaultColor : Colors.grey[200],
+          color: fill ? defaultColor : Colors.white,
           borderRadius: BorderRadius.circular(15),
           border: Border.all(color: defaultColor)),
     );

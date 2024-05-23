@@ -1,37 +1,43 @@
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travego/core/utils/screen_size_util.dart';
+import 'package:travego/core/widgets/alert_dialog/loading_alert_dialog.dart';
 import 'package:travego/features/auth/manger/auth_cubit.dart';
 import 'package:travego/features/auth/manger/auth_states.dart';
 import 'package:travego/features/auth/views/register_screen.dart';
-import 'package:travego/features/layout.dart';
+import 'package:travego/translations/locale_keys.g.dart';
 
-import '../../../core/utils/shared/Widgets/default_button.dart';
 import '../../../core/utils/shared/components/components.dart';
-import '../../../core/widgets/circled_form_field/circled_form_field.dart';
+import '../../../core/widgets/login_container/login_container.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
-  late AnimationController animationController;
 
-  late Animation slidingAnimation;
 
-  TextEditingController usernameController = TextEditingController();
-
-  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final mediaQueryData = MediaQuery.of(context);
-
-    final horizontalPadding = mediaQueryData.size.width;
-
-    final verticalPadding = mediaQueryData.size.height;
     return BlocConsumer<AuthCubit, AuthStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is AuthLodingState) {
+          showDialog(
+              context: context, builder: (context) => const LoadingAlertDialog());
+        }
+        if (state is AuthFailureState) {
+          if(Navigator.canPop(context)){
+            Navigator.pop(context);
+          }
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.grey,
+            content: Text(state.error.toString()),
+          ));
+        }
+      },
       builder: (context, state) {
         var cubit = BlocProvider.of<AuthCubit>(context);
         return Scaffold(
@@ -55,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                   )),
               Positioned(
                 left: 19.0,
-                top: verticalPadding * 0.06,
+                top: ScreenSizeUtil.screenHeight * 0.06,
                 child: Text(
                   "Travego",
                   style: GoogleFonts.inter(
@@ -65,11 +71,11 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: verticalPadding * 0.04,
+                bottom: ScreenSizeUtil.screenHeight * 0.04,
                 child: Row(
                   children: [
                     Text(
-                      "Don't have an Account?",
+                      LocaleKeys.Dont_have_an_account.tr(),
                       style: GoogleFonts.inter(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -77,109 +83,25 @@ class LoginScreen extends StatelessWidget {
                     ),
                     TextButton(
                       child: Text(
-                        "Sign up",
+                        LocaleKeys.Sign_up.tr(),
                         style: GoogleFonts.inter(
                             color: Colors.white,
                             fontWeight: FontWeight.w800,
                             fontSize: 18),
                       ),
                       onPressed: () {
-                        navigateAndFinish(context, RegisterScreen());
+                        navigateAndFinish(context, const RegisterScreen());
                       },
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+
               Center(
-                  child: Container(
-                padding: const EdgeInsets.all(25),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(25)),
-                width: horizontalPadding * 0.9,
-                height: verticalPadding * 0.7,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30.0),
-                      child: Center(
-                          child: Image.asset('assets/images/ion_earth.png')),
-                    ),
-                    defaultCircleTextField(
-                      secure: false,
-                      fill: true,
-                      controller: usernameController,
-                      prefix: const Icon(
-                        CupertinoIcons.mail,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    defaultCircleTextField(
-                      secure: cubit.loginIsSecure,
-                      fill: false,
-                      suffix: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                            onTap: cubit.loginChangeSecure,
-                            child: cubit.loginSecureIcon),
-                      ),
-                      controller: passwordController,
-                      prefix: Icon(
-                        CupertinoIcons.lock,
-                        color: defaultColor,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        RadioMenuButton(
-                          groupValue: true,
-                          value: false,
-                          onChanged: (value) {},
-                          child: Text(
-                            'Remember me',
-                            style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                          ),
-                        ),
-                        const Spacer(),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Forget password",
-                              style: GoogleFonts.inter(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
-                            ))
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: 50,
-                      child: DefaultElevated(
-                        onPressed: () {
-                          navigateAndFinish(context, LayoutScreen());
-                        },
-                        label: "Log in",
-                        fill: true,
-                      ),
-                    ),
-                  ],
-                ),
-              )),
+                  child: LoginContainer(
+                      usernameController: cubit.loginEmailController,
+                      cubit: cubit,
+                      passwordController: cubit.loginPasswordController,)),
             ],
           ),
         );

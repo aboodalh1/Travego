@@ -43,4 +43,17 @@ class SettingsCubit extends Cubit<SettingsState> {
     isEditProfile = !isEditProfile;
     emit(EditInformationState());
   }
+
+  String selectedValue = 'On';
+  void selectOn(context) async{
+    selectedValue= 'On';
+    await context.setLocale(const Locale('en'));
+    isLTR = false;
+  }
+
+  void selectOff(context) async{
+    selectedValue= 'Off';
+    await context.setLocale(const Locale('ar'));
+    isLTR = true;
+  }
 }
