@@ -6,9 +6,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:travego/core/widgets/group_trip_item/group_trip_item.dart';
 import 'package:travego/core/widgets/top_trip_item/top_trip_item.dart';
 import 'package:travego/core/widgets/category_item/category_item.dart';
-import 'package:travego/features/home/manger/home_cubit/home_cubit.dart';
-import '../../../core/utils/shared/components/components.dart';
-import '../../../core/widgets/search_text_form/search_text_form_field.dart';
+import '../../../../core/utils/shared/components/components.dart';
+import '../../../../core/widgets/search_text_form/search_text_form_field.dart';
+import '../manger/home_cubit/home_cubit.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {

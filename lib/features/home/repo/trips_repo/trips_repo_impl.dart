@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:travego/core/errors/failure.dart';
 import 'package:travego/core/utils/network/remote/dio_helper.dart';
-import 'package:travego/features/presentation/trips_manger/trips_repo.dart';
+import 'package:travego/features/home/repo/trips_repo/trips_repo.dart';
 import 'package:dio/dio.dart';
 
 class TripsRepoImpl implements TripsRepo {
@@ -9,6 +9,7 @@ class TripsRepoImpl implements TripsRepo {
 
   TripsRepoImpl(this.dioHelper);
 
+  @override
   Future<Either<Failure, String>> getTrips({required String token}) async {
     try {
       var response = dioHelper.getData(endPoint: 'endPoint', token: token);
@@ -21,6 +22,7 @@ class TripsRepoImpl implements TripsRepo {
     }
   }
 
+  @override
   Future<Either<Failure, String>> getTripServices(
       {required String token}) async {
     try {
@@ -34,6 +36,7 @@ class TripsRepoImpl implements TripsRepo {
     }
   }
 
+  @override
   Future<Either<Failure, String>> getTripById(
       {required String token, required int id}) async {
     try {

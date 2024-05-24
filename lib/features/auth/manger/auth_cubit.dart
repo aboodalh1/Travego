@@ -5,7 +5,7 @@ import 'package:travego/features/auth/manger/auth_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/features/auth/views/verification_page.dart';
 import 'package:travego/features/layout.dart';
-import 'package:travego/features/presentation/auth_manger/auth_repo.dart';
+import 'package:travego/features/auth/repo/auth_repo.dart';
 
 import '../../../core/utils/shared/constant.dart';
 

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:animations/animations.dart';
 import 'create_trip/create_trip.dart';
-import 'home/general_cubit/layout_cubit.dart';
+import 'general_cubit/layout_cubit.dart';
 
 class LayoutScreen extends StatelessWidget {
    const LayoutScreen({super.key});
@@ -16,10 +16,11 @@ class LayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GeneralCubit cubit = GeneralCubit.get(context);
+
     return BlocConsumer<GeneralCubit, GeneralState>(
       listener: (context, state) {},
       builder: (context, state) {
+        GeneralCubit cubit = BlocProvider.of<GeneralCubit>(context);
         return SafeArea(
           child: Scaffold(
             floatingActionButtonLocation:
@@ -27,8 +28,8 @@ class LayoutScreen extends StatelessWidget {
             floatingActionButton: OpenContainer(
                 clipBehavior: Clip.none,
                 transitionType: _transitionType,
-                transitionDuration: Duration(milliseconds: 500),
-                openBuilder: (context, openContainer) => CreateTrip(),
+                transitionDuration: const Duration(milliseconds: 500),
+                openBuilder: (context, openContainer) => const CreateTrip(),
                 closedElevation: 6,
                 closedShape:  RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
@@ -40,7 +41,7 @@ class LayoutScreen extends StatelessWidget {
                   return SizedBox(
                     height: _fabDimension,
                     width: _fabDimension,
-                    child: Center(
+                    child: const Center(
                       child: Icon(
                         Icons.add,
                         color: Colors.white,
@@ -75,12 +76,12 @@ class LayoutScreen extends StatelessWidget {
       },
       type: BottomNavigationBarType.fixed,
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'.tr),
-        BottomNavigationBarItem(icon: Icon(Icons.place), label: 'Explore'.tr),
+        BottomNavigationBarItem(icon: const Icon(Icons.home), label: 'home'.tr),
+        BottomNavigationBarItem(icon: const Icon(Icons.place), label: 'Explore'.tr),
         BottomNavigationBarItem(
-            icon: Icon(Icons.home_work_outlined), label: 'hotels'.tr),
+            icon: const Icon(Icons.home_work_outlined), label: 'hotels_screen'.tr),
         BottomNavigationBarItem(
-            icon: Icon(Icons.settings), label: 'Settings'.tr)
+            icon: const Icon(Icons.settings), label: 'Settings'.tr)
       ],
     );
   }

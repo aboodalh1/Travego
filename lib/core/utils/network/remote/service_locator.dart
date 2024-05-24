@@ -2,11 +2,12 @@ import 'package:get_it/get_it.dart';
 import 'package:travego/core/utils/network/remote/dio_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
-import 'package:travego/features/presentation/auth_manger/auth_repo_impl.dart';
-import 'package:travego/features/presentation/hotels_manger/hotels_repo_impl.dart';
+import 'package:travego/features/hotels/repo/hotels_repo_impl.dart';
 
-import '../../../../features/presentation/cities_manger/cities_repo_impl.dart';
-import '../../../../features/presentation/trips_manger/trips_repo_impl.dart';
+import '../../../../features/auth/repo/auth_repo_impl.dart';
+import '../../../../features/home/repo/cities_repo/cities_repo_impl.dart';
+import '../../../../features/home/repo/trips_repo/trips_repo_impl.dart';
+
 
 final getIt = GetIt.instance;
 

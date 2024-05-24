@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/features/Settings/manger/settings_cubit.dart';
 
-import '../../../../translations/locale_keys.g.dart';
+import '../../../../../translations/locale_keys.g.dart';
+import '../../manger/settings_cubit.dart';
+
 
 class LanguageScreen extends StatelessWidget {
  const LanguageScreen({super.key});

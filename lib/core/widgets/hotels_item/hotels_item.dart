@@ -4,7 +4,8 @@ import 'package:travego/core/utils/screen_size_util.dart';
 // ignore: depend_on_referenced_packages
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:travego/core/utils/shared/constant.dart';
-import 'package:travego/features/hotels/hotel_details/hotel_details.dart';
+
+import '../../../features/hotels/presentation/views/hotel_details/hotel_details.dart';
 
 
 class HotelsItem extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'package:travego/core/utils/network/remote/dio_helper.dart';
 import 'package:travego/model/user_model.dart';
 import 'package:dio/dio.dart';
 import '../../../core/errors/failure.dart';
-import 'auth_repo.dart';
+import '../../auth/repo/auth_repo.dart';
 
 class AuthRepoImpl implements AuthRepo {
   final DioHelper dioHelper;

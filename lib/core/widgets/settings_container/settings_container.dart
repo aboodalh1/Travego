@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
-import 'package:travego/features/Settings/views/LanguageScreen/LanguageScreen.dart';
-import 'package:travego/features/Settings/views/settings_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../features/Settings/manger/settings_cubit.dart';
+import '../../../features/Settings/presentation/manger/settings_cubit.dart';
+import '../../../features/Settings/presentation/views/LanguageScreen/LanguageScreen.dart';
+import '../../../features/Settings/presentation/views/settings_screen.dart';
 import '../../../translations/locale_keys.g.dart';
 
 class SettingsContainer extends StatelessWidget {

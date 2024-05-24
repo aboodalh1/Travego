@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
 import 'package:travego/core/widgets/circled_form_field/circled_form_field.dart';
-import 'package:travego/features/Settings/manger/settings_cubit.dart';
+
+import '../../manger/settings_cubit.dart';
 
 // ignore: must_be_immutable
 class EditProfileScreen extends StatelessWidget {

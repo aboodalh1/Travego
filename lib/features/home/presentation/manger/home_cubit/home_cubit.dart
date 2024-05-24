@@ -8,4 +8,9 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   final TextEditingController searchController = TextEditingController();
 
+  Future <void> FetchingTripsAndPlaces()async {
+
+      emit(HomeLoadingState());
+
+  }
 }

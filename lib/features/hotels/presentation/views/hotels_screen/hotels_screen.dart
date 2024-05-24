@@ -1,20 +1,28 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:travego/core/widgets/top_trip_item/top_trip_item.dart';
-import 'package:travego/core/widgets/category_item/category_item.dart';
-import '../../../core/utils/shared/components/components.dart';
-import '../../../core/widgets/hotels_item/hotels_item.dart';
-import '../../../core/widgets/search_text_form/search_text_form_field.dart';
+import 'package:travego/features/hotels/presentation/manger/hotel_cubit.dart';
+import 'package:travego/features/hotels/presentation/manger/hotel_states.dart';
 
-// ignore: must_be_immutable
+import '../../../../../core/utils/shared/components/components.dart';
+import '../../../../../core/widgets/hotels_item/hotels_item.dart';
+import '../../../../../core/widgets/search_text_form/search_text_form_field.dart';
+
 class HotelsScreen extends StatelessWidget {
-  TextEditingController searchController = TextEditingController();
 
-  HotelsScreen({super.key});
+  const HotelsScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+  create: (context) => HotelsCubit(),
+  child: BlocConsumer<HotelsCubit, HotelsState>(
+  listener: (context, state) {
+
+  },
+  builder: (context, state) {
+    HotelsCubit cubit = BlocProvider.of<HotelsCubit>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('سفريات'),
@@ -34,8 +42,8 @@ class HotelsScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(35),
                       ),
                       child: SearchTextField(
-                        searchController: searchController,
-                        label: 'Search for hotels',
+                        searchController: cubit.searchController,
+                        label: 'Search for hotels_screen',
                       ),
                     ),
                   ),
@@ -109,5 +117,8 @@ class HotelsScreen extends StatelessWidget {
         ),
       ),
     );
+  },
+),
+);
   }
 }

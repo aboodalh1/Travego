@@ -4,13 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/widgets/settings_container/settings_container.dart';
-import 'package:travego/features/Settings/manger/settings_cubit.dart';
 import 'package:travego/features/favorite/favorite_screen.dart';
 import 'package:travego/features/auth/views/login_screen.dart';
-import 'package:travego/features/Settings/views/edit_profile/edit_profile_screen.dart';
 
-import '../../../core/utils/shared/components/components.dart';
-import '../../../core/utils/shared/constant.dart';
+import '../../../../core/utils/shared/components/components.dart';
+import '../../../../core/utils/shared/constant.dart';
+import '../manger/settings_cubit.dart';
+import 'edit_profile/edit_profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

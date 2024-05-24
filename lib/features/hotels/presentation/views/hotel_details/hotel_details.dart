@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travego/features/hotels/presentation/manger/hotel_cubit.dart';
+import 'package:travego/features/hotels/presentation/manger/hotel_states.dart';
 
 class HotelDetails extends StatelessWidget {
   const HotelDetails({super.key});
@@ -15,6 +18,11 @@ class HotelDetails extends StatelessWidget {
     final horizontalPadding = mediaQueryData.size.width;
     final verticalPadding = mediaQueryData.size.height;
 
+    return BlocConsumer<HotelsCubit, HotelsState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -246,6 +254,8 @@ class HotelDetails extends StatelessWidget {
         ],
       ),
     );
+  },
+);
   }
 }
 

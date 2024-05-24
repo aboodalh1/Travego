@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import '../../../core/utils/shared/constant.dart';
+import '../../../../core/utils/shared/constant.dart';
+
 
 part 'settings_state.dart';
 

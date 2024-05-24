@@ -11,10 +11,11 @@ import 'package:travego/features/auth/manger/auth_cubit.dart';
 import 'package:travego/features/layout.dart';
 import 'package:travego/translations/codegen_loader.g.dart';
 import 'core/utils/network/remote/service_locator.dart';
+import 'features/auth/repo/auth_repo_impl.dart';
 import 'features/create_trip/parsonnes_information/personnes_cubit/person_cubit.dart';
-import 'features/home/general_cubit/layout_cubit.dart';
-import 'features/presentation/auth_manger/auth_repo_impl.dart';
+import 'features/general_cubit/layout_cubit.dart';
 import 'core/utils/network/local/cacheHelper.dart';
+
 void main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
