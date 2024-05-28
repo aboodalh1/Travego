@@ -33,7 +33,7 @@ class ServerFailure extends Failure {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
       return ServerFailure(response['message'] ?? 'something went wrong');
     } else if (statusCode == 404) {
-      return ServerFailure('Your request not found, Please try later!');
+      return ServerFailure(response['message'] ?? 'something went wrong');
     } else if (statusCode == 500) {
       return ServerFailure('Internal Server error, Please try later');
     } else {

@@ -29,6 +29,8 @@ class LanguageScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     value: 'On',
+                    selectedTileColor: Colors.black,
+                    activeColor: Colors.black,
                     groupValue: settingCubit.selectedValue,
                     onChanged: (value) {
                       settingCubit.selectOn(context);
@@ -41,6 +43,8 @@ class LanguageScreen extends StatelessWidget {
                     ),
                     value: 'Off',
                     groupValue: settingCubit.selectedValue,
+                    selectedTileColor: Colors.black,
+                    activeColor: Colors.black,
                     onChanged: (value) {
                       settingCubit.selectOff(context);
                     },

@@ -2,14 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:travego/boxes.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/widgets/settings_container/settings_container.dart';
+import 'package:travego/features/auth/presentation/manger/auth_cubit.dart';
 import 'package:travego/features/favorite/favorite_screen.dart';
-import 'package:travego/features/auth/views/login_screen.dart';
 
 import '../../../../core/utils/shared/components/components.dart';
 import '../../../../core/utils/shared/constant.dart';
+import '../../../auth/presentation/views/login_screen.dart';
 import '../manger/settings_cubit.dart';
+import 'edit_password/edit_password.dart';
 import 'edit_profile/edit_profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -17,25 +20,23 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (context) => SettingsCubit(),
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
           var cubit = BlocProvider.of<SettingsCubit>(context);
-          return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.only(top: 25.0),
-              child: Stack(
+          return SafeArea(
+            child: Scaffold(
+              body: Stack(
                 children: [
                   Container(
                     width: double.infinity,
-                    height: ScreenSizeUtil.screenHeight * 0.35,
+                    height: ScreenSizeUtil.screenHeight * 0.38,
                     decoration: BoxDecoration(
                         color: defaultColor,
                         borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(50),
-                            bottomRight: Radius.circular(50))),
+                            bottomLeft: Radius.circular(60),
+                            bottomRight: Radius.circular(60))),
                   ),
                   Padding(
                       padding: const EdgeInsets.only(top: 15),
@@ -54,7 +55,8 @@ class SettingsScreen extends StatelessWidget {
                           const Spacer(),
                           IconButton(
                             onPressed: () {
-                              navigateAndFinish(context, LoginScreen());
+                              BlocProvider.of<AuthCubit>(context)
+                                  .logout(context);
                             },
                             icon: const Icon(
                               Icons.logout_outlined,
@@ -66,30 +68,37 @@ class SettingsScreen extends StatelessWidget {
                       )),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: ScreenSizeUtil.screenWidth * .35,
-                        vertical: ScreenSizeUtil.screenHeight * .08),
+                        vertical: ScreenSizeUtil.screenHeight * 0.08),
                     child: Column(
                       children: [
                         Image.asset(
                           'assets/images/cover.png',
-                          scale: 4.0,
+                          scale: 4.5,
                         ),
-                        const SizedBox(
-                          height: 20,
+                        ListTile(
+                          title: Text(
+                            textAlign: TextAlign.center,
+                            '${userModel!.body!.user!.firstName} ${userModel!.body!.user!.lastName}',
+                            style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          subtitle:Text(
+                            textAlign: TextAlign.center,
+                            '${userModel!.body!.user!.phoneNumber}',
+                            style: GoogleFonts.inter(
+                                color: Colors.grey[350],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
-                        Text(
-                          'Gg',
-                          style: GoogleFonts.inter(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
-                        )
                       ],
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 250, right: 20, left: 20),
+                        EdgeInsets.only(top: ScreenSizeUtil.screenHeight*.35, right: 20, left: 20),
                     child: Container(
                         height: ScreenSizeUtil.screenHeight * 0.6,
                         decoration: BoxDecoration(
@@ -104,7 +113,7 @@ class SettingsScreen extends StatelessWidget {
                             scrollDirection: Axis.vertical,
                             child: cubit.isEditProfile
                                 ? EditProfileScreen()
-                                : SettingsContainer(cubit: cubit),
+                                :cubit.isEditPassword ? EditPasswordScreen() : SettingsContainer(cubit: cubit),
                           ),
                         )),
                   )
@@ -117,7 +126,6 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
-
 
 GestureDetector settingsItem(
     {required Icon icon,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 // ignore: depend_on_referenced_packages
 import 'package:travego/core/utils/shared/components/components.dart';
@@ -31,16 +32,14 @@ class HotelsItem extends StatelessWidget {
           itemBuilder: (context, index) {
             return Container(
               width: double.infinity,
-              height: ScreenSizeUtil.screenHeight * 0.135,
+              height: ScreenSizeUtil.screenHeight * 0.135 <125?125 : ScreenSizeUtil.screenHeight * 0.135,
               decoration: BoxDecoration(
                   color: isDark ? Colors.blueGrey[900] : Colors.white,
                   borderRadius: BorderRadius.circular(20)),
               child: Row(
                 children: [
                   Image.asset('assets/images/hotel.jpg'),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  const Gap(5),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -48,15 +47,15 @@ class HotelsItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Hotel name',
-                            style: Theme.of(context).textTheme.headlineLarge),
-                        SizedBox(height: ScreenSizeUtil.screenHeight * .01,),
+                            style: Theme.of(context).textTheme.headlineMedium),
+                        const Gap(5),
                         Expanded(
                           child: Text(
                             'something',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
-                        SizedBox(height: ScreenSizeUtil.screenHeight * .01,),
+                        const Gap(12),
                         Row(
                           children: [
                             const Icon(

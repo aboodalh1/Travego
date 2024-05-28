@@ -14,3 +14,7 @@ class EditInformationFailureState extends SettingsState {}
 class ChangeThemeState extends SettingsState{}
 
 class ChangeNotificationState extends SettingsState{}
+
+class ChangeLanguageState extends SettingsState{}
+
+class EditPasswordState extends SettingsState{}

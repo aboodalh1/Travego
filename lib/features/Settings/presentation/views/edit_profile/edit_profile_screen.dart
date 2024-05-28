@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
+import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
+import 'package:travego/core/utils/shared/constant.dart';
 import 'package:travego/core/widgets/circled_form_field/circled_form_field.dart';
 
 import '../../manger/settings_cubit.dart';
@@ -17,6 +21,13 @@ class EditProfileScreen extends StatelessWidget {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         var settingsCubit = BlocProvider.of<SettingsCubit>(context);
+        if(state is EditInformationState){
+          settingsCubit.firstNameController.text = userModel!.body!.user!.firstName!;
+          settingsCubit.lastNameController.text = userModel!.body!.user!.lastName!;
+          settingsCubit.phoneController.text = userModel!.body!.user!.phoneNumber!;
+          settingsCubit.emailController.text = userModel!.body!.user!.email!;
+        }
+
         return Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -27,65 +38,98 @@ class EditProfileScreen extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(icon: const Icon(Icons.arrow_back), onPressed: (){
-                      BlocProvider.of<SettingsCubit>(context).editProfile();
+                      BlocProvider.of<SettingsCubit>(context).backToSettings();
                                 }),
                     Text('Edit Profile', style: Theme.of(context).textTheme.bodySmall),
+                    const Spacer(),
+                    IconButton(onPressed: (){
+                      settingsCubit.editField();
+                    }, icon: settingsCubit.editIcon),
                   ],
                 ),
-                Text(
-                  'Username',
-                  style: Theme.of(context).textTheme.bodySmall,
+                Row(
+                  children: [
+                    Text(
+                      'First Name',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    Gap(ScreenSizeUtil.screenWidth*0.3),
+                    Text(
+                      'Last Name',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 10,),
-                defaultCircleTextField(
-                    controller: settingsCubit.userNameController,
-                    prefix: Icon(Icons.person,color: Colors.grey,),
-                    fill: false,
-                    secure: false),
+                Row(
+                  children: [
+                    Expanded(
+                      child: defaultCircleTextField(
+                        isEnabled: settingsCubit.isEdit,
+                          controller: settingsCubit.firstNameController,
+                          prefix: const Icon(Icons.person,color: Colors.grey,),
+                          fill: false,
+                          secure: false),
+                    ),
+                    const Gap(5),
+                    Expanded(
+                      child: defaultCircleTextField(
+                        isEnabled: settingsCubit.isEdit,
+                          controller: settingsCubit.lastNameController,
+                          prefix: const Icon(Icons.person,color: Colors.grey,),
+                          fill: false,
+                          secure: false),
+                    ),
+                  ],
+                ),
+                const Gap(10),
                 const Text(
                   'Email',
                 ),
-                const SizedBox(height: 10,),
+                const Gap(5),
                 defaultCircleTextField(
+                    isEnabled: settingsCubit.isEdit,
                     controller: settingsCubit.emailController,
-                    prefix: Icon(Icons.email,color: Colors.grey,),
+                    prefix: const Icon(Icons.email,color: Colors.grey,),
                     fill: false,
                     secure: false),
+                const Gap(10),
                 const Text(
-                  'Current password',
+                  'Phone number',
                 ),
-                const SizedBox(height: 10,),
+                const Gap(5),
                 defaultCircleTextField(
-                    controller: settingsCubit.currentPasswordController,
-                    prefix: Icon(Icons.lock,color: Colors.grey,),
-                    fill: false,
-                    secure: false),const Text(
-                  'New password',
-                ),
-                const SizedBox(height: 10,),
-                defaultCircleTextField(
-                    controller: settingsCubit.newPasswordController,
-                    prefix: Icon(Icons.lock,color: Colors.grey,),
-                    fill: false,
-                    secure: false),const Text(
-                  'Confirm password',
-                ),
-                const SizedBox(height: 10,),
-                defaultCircleTextField(
-                    controller: settingsCubit.passwordConfrimController,
-                    prefix: Icon(Icons.lock,color: Colors.grey,),
+                    isEnabled: settingsCubit.isEdit,
+                    controller: settingsCubit.phoneController,
+                    prefix: const Icon(Icons.phone,color: Colors.grey,),
                     fill: false,
                     secure: false),
-                const SizedBox(height: 20,),
-                DefaultElevated(
-                    label: 'Save',
-                    fill: true,
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        settingsCubit.editProfile();
-                      }
-                    },
-                  ),
+                const Gap(10),
+
+                Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DefaultElevated(
+                        label: 'Save',
+                        fill: true,
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            settingsCubit.editProfile();
+                          }
+                        },
+                      ),
+                    const Gap(10),
+                    DefaultElevated(
+                        label: 'Edit password',
+                        fill: true,
+                        onPressed: () {
+                            settingsCubit.editPassword();
+
+                        },
+                      ),
+                  ],
+                ),
+
               ],
             ),
 
@@ -112,3 +156,42 @@ class EditProfileScreen extends StatelessWidget {
               );
   }
 }
+
+
+/*
+const Text(
+                  'Current password',
+                ),
+                const Gap(5),
+                defaultCircleTextField(
+                    isEnabled: settingsCubit.isEdit,
+                    controller: settingsCubit.currentPasswordController,
+                    prefix: const Icon(Icons.lock,color: Colors.grey,),
+                    fill: false,
+                    secure: false),
+                const Gap(10),
+                const Text(
+                  'New password',
+                ),
+                const SizedBox(height: 10,),
+                defaultCircleTextField(
+                    isEnabled: settingsCubit.isEdit,
+                    controller: settingsCubit.newPasswordController,
+                    prefix: const Icon(Icons.lock,color: Colors.grey,),
+                    fill: false,
+                    secure: false),
+
+                const Gap(10),
+                const Text(
+                  'Confirm password',
+                ),
+                const Gap(5),
+                defaultCircleTextField(
+                    isEnabled: settingsCubit.isEdit,
+                    controller: settingsCubit.passwordConfirmController,
+                    prefix: const Icon(Icons.lock,color: Colors.grey,),
+                    fill: false,
+                    secure: false),
+                const Gap( 20),
+
+ */

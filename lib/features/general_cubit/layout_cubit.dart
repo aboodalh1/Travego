@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travego/features/hotels/presentation/manger/hotel_cubit.dart';
 import 'package:travego/features/location/manger/location_cubit.dart';
 import 'package:travego/features/location/views/location_screen.dart';
 
@@ -15,7 +16,9 @@ class GeneralCubit extends Cubit<GeneralState> {
   List<Widget> screens = [
     const HomeScreen(),
     LocationScreen(),
-    const HotelsScreen(),
+    BlocProvider(
+        create: (context) =>HotelsCubit(),
+        child: const HotelsScreen()),
     const SettingsScreen()
   ];
   int navBarSelectedItem = 0;

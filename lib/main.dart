@@ -1,16 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:travego/blocObs.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/constant.dart';
 import 'package:travego/core/utils/shared/styles/Styles.dart';
-import 'package:travego/features/auth/manger/auth_cubit.dart';
+import 'package:travego/features/Settings/presentation/manger/settings_cubit.dart';
+import 'package:travego/features/first_screen.dart';
 import 'package:travego/features/layout.dart';
+import 'package:travego/model/local/user_local_model.dart';
 import 'package:travego/translations/codegen_loader.g.dart';
+import 'boxes.dart';
 import 'core/utils/network/remote/service_locator.dart';
+import 'features/auth/presentation/manger/auth_cubit.dart';
 import 'features/auth/repo/auth_repo_impl.dart';
 import 'features/create_trip/parsonnes_information/personnes_cubit/person_cubit.dart';
 import 'features/general_cubit/layout_cubit.dart';
@@ -22,7 +27,10 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await CacheHelper.init();
   setupServiceLocator();
-  // token = CacheHelper.getData(key: 'token');
+  // await Hive.initFlutter();
+  // Hive.registerAdapter(UserAdapter());
+  //  boxUser = await Hive.openBox<User>('userBox');
+   // boxPersons.put('Gg', userModel);
   runApp(EasyLocalization(
       path: 'assets/translations/',
       supportedLocales: const[
@@ -51,6 +59,10 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => PersonCubit(),
           ),
           BlocProvider(
+            create: (BuildContext context) => SettingsCubit(),
+          ),
+
+          BlocProvider(
             create: (context) => GeneralCubit(),
           ),
         ],
@@ -60,7 +72,7 @@ class MyApp extends StatelessWidget {
           theme: isDark ? darkTheme : lightTheme,
           locale: context.locale,
           debugShowCheckedModeBanner: false,
-          home:  const LayoutScreen(),
+          home:  FirstScreen(),
         ));
   }
 }

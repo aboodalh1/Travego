@@ -1,38 +1,114 @@
-import 'dart:convert';
-
 class UserModel {
-  bool? status;
+  UserModel({
+      this.message, 
+      this.status, 
+      this.localDateTime, 
+      this.body,});
+
+  UserModel.fromJson(dynamic json) {
+    message = json['message'];
+    status = json['status'];
+    localDateTime = json['localDateTime'];
+    body = json['body'] != null ? Body.fromJson(json['body']) : null;
+  }
   String? message;
-  dynamic data;
-
-  UserModel({this.status, this.message, this.data});
-
-  @override
-  String toString() {
-    return 'Aaa(status: $status, message: $message, data: $data)';
+  String? status;
+  String? localDateTime;
+  Body? body;
+UserModel copyWith({  String? message,
+  String? status,
+  String? localDateTime,
+  Body? body,
+}) => UserModel(  message: message ?? this.message,
+  status: status ?? this.status,
+  localDateTime: localDateTime ?? this.localDateTime,
+  body: body ?? this.body,
+);
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['message'] = message;
+    map['status'] = status;
+    map['localDateTime'] = localDateTime;
+    if (body != null) {
+      map['body'] = body?.toJson();
+    }
+    return map;
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> data) => UserModel(
-        status: data['status'] as bool?,
-        message: data['message'] as String?,
-        data: data['data'] as dynamic,
-      );
+}
 
-  Map<String, dynamic> toMap() => {
-        'status': status,
-        'message': message,
-        'data': data,
-      };
+class Body {
+  Body({
+      this.user, 
+      this.token,});
 
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [UserModel].
-  factory UserModel.fromJson(String data) {
-    return UserModel.fromMap(json.decode(data) as Map<String, dynamic>);
+  Body.fromJson(dynamic json) {
+    user = json['User'] != null ? User.fromJson(json['User']) : null;
+    token = json['Token'];
+  }
+  User? user;
+  String? token;
+Body copyWith({  User? user,
+  String? token,
+}) => Body(  user: user ?? this.user,
+  token: token ?? this.token,
+);
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (user != null) {
+      map['User'] = user?.toJson();
+    }
+    map['Token'] = token;
+    return map;
   }
 
-  /// `dart:convert`
-  ///
-  /// Converts [UserModel] to a JSON string.
-  String toJson() => json.encode(toMap());
+}
+
+class User {
+  User({
+      this.id, 
+      this.firstName, 
+      this.lastName, 
+      this.email, 
+      this.creationDate, 
+      this.phoneNumber,});
+
+  User.fromJson(dynamic json) {
+    id = json['id'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    email = json['email'];
+    creationDate = json['creationDate'];
+    phoneNumber = json['phone_number'];
+  }
+  num? id;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? creationDate;
+  String? phoneNumber;
+User copyWith({  num? id,
+  String? firstName,
+  String? lastName,
+  String? email,
+  String? creationDate,
+  String? phoneNumber,
+}) => User(  id: id ?? this.id,
+  firstName: firstName ?? this.firstName,
+  lastName: lastName ?? this.lastName,
+  email: email ?? this.email,
+  creationDate: creationDate ?? this.creationDate,
+  phoneNumber: phoneNumber ?? this.phoneNumber,
+);
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['first_name'] = firstName;
+    map['last_name'] = lastName;
+    map['email'] = email;
+    map['creationDate'] = creationDate;
+    map['phone_number'] = phoneNumber;
+    return map;
+  }
+
 }

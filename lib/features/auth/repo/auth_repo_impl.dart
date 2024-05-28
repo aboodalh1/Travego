@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:travego/core/utils/network/remote/dio_helper.dart';
+import 'package:travego/model/local/user_local_model.dart';
 import 'package:travego/model/user_model.dart';
 import 'package:dio/dio.dart';
+import '../../../boxes.dart';
 import '../../../core/errors/failure.dart';
 import '../../auth/repo/auth_repo.dart';
 
@@ -45,7 +47,7 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, String>> login({
+  Future<Either<Failure, UserModel>> login({
     required String email,
     required String password,
   }) async {
@@ -55,8 +57,27 @@ class AuthRepoImpl implements AuthRepo {
         "email": email,
         "password": password,
       });
-      String token = response.data['token'];
-      return right(token);
+      UserModel userModel1;
+      userModel1 = UserModel.fromJson(response.data);
+      // boxUser.put('user', userModel1.body!.user!);
+      return right(userModel1);
+    } catch (e) {
+      print(e.toString());
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> regenerateVerificationCode(
+      {required String email}) async {
+    try {
+      var response = await dioHelper.postData(
+          endPoint: 'Auth/Regenerate_Confirmation_Code',
+          data: {"email": email});
+      return right(response.data["message"]);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
@@ -66,10 +87,16 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, UserModel>> getUserInfo(
-      {required String token}) async {
+  Future<Either<Failure, UserModel>> verificationCode(
+      {required String code, required String email}) async {
     try {
-      var response = await dioHelper.getData(endPoint: 'url');
+      print(email);
+      var response =
+          await dioHelper.postData(endPoint: 'Auth/Client_Check_Code', data: {
+        "codeNumber": code,
+        "user_email": email,
+      });
+
       UserModel userModel;
       userModel = UserModel.fromJson(response.data);
       return right(userModel);
@@ -82,16 +109,11 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, String>> verificationCode(
-      {required String code, required String email}) async {
+  Future<Either<Failure, String>> logout({required String token}) async {
     try {
-      var response = await dioHelper.postData(endPoint: 'Auth/Client_Check_Code', data: {
-        "codeNumber": code,
-        "user_email": email,
-      });
-      print(response.data['token']);
-     String token = response.data['token'];
-      return right(token);
+      var response = await dioHelper.postData(endPoint: 'logout', data: {});
+
+      return right(response.toString());
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));

@@ -5,13 +5,13 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/widgets/alert_dialog/loading_alert_dialog.dart';
-import 'package:travego/features/auth/manger/auth_cubit.dart';
-import 'package:travego/features/auth/manger/auth_states.dart';
-import 'package:travego/features/auth/views/register_screen.dart';
+import 'package:travego/features/auth/presentation/views/register_screen.dart';
 import 'package:travego/translations/locale_keys.g.dart';
 
-import '../../../core/utils/shared/components/components.dart';
-import '../../../core/widgets/login_container/login_container.dart';
+import '../../../../core/utils/shared/components/components.dart';
+import '../../../../core/widgets/login_container/login_container.dart';
+import '../manger/auth_cubit.dart';
+
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
@@ -24,7 +24,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
-        if (state is AuthLodingState) {
+        if (state is AuthLoadingState) {
           showDialog(
               context: context, builder: (context) => const LoadingAlertDialog());
         }

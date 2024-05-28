@@ -4,6 +4,8 @@ import 'package:travego/core/utils/network/remote/dio_helper.dart';
 import 'package:travego/features/home/repo/trips_repo/trips_repo.dart';
 import 'package:dio/dio.dart';
 
+import '../../../../model/trip_model.dart';
+
 class TripsRepoImpl implements TripsRepo {
   final DioHelper dioHelper;
 
@@ -26,7 +28,10 @@ class TripsRepoImpl implements TripsRepo {
   Future<Either<Failure, String>> getTripServices(
       {required String token}) async {
     try {
-      var response = dioHelper.getData(endPoint: 'endPoint', token: token);
+      var response = await dioHelper.getData(endPoint: 'endPoint', token: token);
+      TripModel tripModel;
+      tripModel = TripModel.fromJson(response.data);
+      print(tripModel.country);
       return right('response');
     } catch (e) {
       if (e is DioException) {

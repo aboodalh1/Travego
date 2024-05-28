@@ -5,16 +5,15 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/core/widgets/circled_form_field/circled_form_field.dart';
 import 'package:travego/core/widgets/country_drop_list/country_drop_down_list.dart';
-import 'package:travego/features/auth/manger/auth_states.dart';
-import 'package:travego/features/auth/manger/auth_cubit.dart';
-import '../../../core/utils/shared/components/components.dart';
+import '../../../../core/utils/shared/Widgets/default_button.dart';
+import '../../../../core/utils/shared/components/components.dart';
+import '../../../../core/widgets/alert_dialog/loading_alert_dialog.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/features/auth/views/login_screen.dart';
 
-import '../../../core/utils/shared/Widgets/default_button.dart';
-import '../../../core/widgets/alert_dialog/loading_alert_dialog.dart';
+import '../manger/auth_cubit.dart';
+import 'login_screen.dart';
 
 // ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
@@ -25,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
-        if (state is AuthLodingState) {
+        if (state is AuthLoadingState) {
           showDialog(
               context: context,
               builder: (context) {

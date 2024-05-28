@@ -15,110 +15,107 @@ class HotelsScreen extends StatelessWidget {
   const HotelsScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-  create: (context) => HotelsCubit(),
-  child: BlocConsumer<HotelsCubit, HotelsState>(
-  listener: (context, state) {
+    return BlocConsumer<HotelsCubit, HotelsState>(
+    listener: (context, state) {
 
-  },
-  builder: (context, state) {
-    HotelsCubit cubit = BlocProvider.of<HotelsCubit>(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('سفريات'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: HexColor('E9E9E9')),
-                        borderRadius: BorderRadius.circular(35),
-                      ),
-                      child: SearchTextField(
-                        searchController: cubit.searchController,
-                        label: 'Search for hotels_screen',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      width: 45,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: defaultColor,
-                      ),
-                      child: const Icon(
-                        Icons.filter_list_outlined,
-                        size: 30,
+    },
+    builder: (context, state) {
+      HotelsCubit cubit = BlocProvider.of<HotelsCubit>(context);
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('سفريات'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: HexColor('E9E9E9')),
+                          borderRadius: BorderRadius.circular(35),
+                        ),
+                        child: SearchTextField(
+                          searchController: cubit.searchController,
+                          label: 'Search for hotels_screen',
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              // Row(
-              //   children: [
-              //     Text('Categories'.tr,
-              //         style: Theme.of(context).textTheme.bodyLarge),
-              //     const Spacer(),
-              //     TextButton(
-              //         onPressed: () {},
-              //         child: Text("See All",
-              //             style: Theme.of(context).textTheme.labelSmall)),
-              //   ],
-              // ),
-              // const CategoriesItems(),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text('Top Hotels',
-                      style: Theme.of(context).textTheme.bodyLarge),
-                  const Spacer(),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("See All",
-                          style: Theme.of(context).textTheme.labelSmall)),
-                ],
-              ),
-              const TopTripsItem(),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text('Hotels',
-                      style: Theme.of(context).textTheme.bodyLarge),
-                  const Spacer(),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("See All",
-                          style: Theme.of(context).textTheme.labelSmall)),
-                ],
-              ),
-              const HotelsItem(),
-            ],
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        width: 45,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: defaultColor,
+                        ),
+                        child: const Icon(
+                          Icons.filter_list_outlined,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                // Row(
+                //   children: [
+                //     Text('Categories'.tr,
+                //         style: Theme.of(context).textTheme.bodyLarge),
+                //     const Spacer(),
+                //     TextButton(
+                //         onPressed: () {},
+                //         child: Text("See All",
+                //             style: Theme.of(context).textTheme.labelSmall)),
+                //   ],
+                // ),
+                // const CategoriesItems(),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Text('Top Hotels',
+                        style: Theme.of(context).textTheme.bodyLarge),
+                    const Spacer(),
+                    TextButton(
+                        onPressed: () {},
+                        child: Text("See All",
+                            style: Theme.of(context).textTheme.labelSmall)),
+                  ],
+                ),
+                const TopTripsItem(),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Text('Hotels',
+                        style: Theme.of(context).textTheme.bodyLarge),
+                    const Spacer(),
+                    TextButton(
+                        onPressed: () {},
+                        child: Text("See All",
+                            style: Theme.of(context).textTheme.labelSmall)),
+                  ],
+                ),
+                const HotelsItem(),
+              ],
+            ),
           ),
         ),
-      ),
+      );
+    },
     );
-  },
-),
-);
   }
 }

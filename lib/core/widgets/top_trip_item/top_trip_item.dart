@@ -21,7 +21,7 @@ class TopTripsItem extends StatelessWidget {
         navigateTo(context, const TripDetailScreen());
       },
       child: SizedBox(
-        height: ScreenSizeUtil.screenHeight *.28,
+        height: ScreenSizeUtil.screenHeight *.003002 <250? 250: ScreenSizeUtil.screenHeight *.32,
         child: ListView.separated(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
@@ -78,9 +78,6 @@ class TopTripsItem extends StatelessWidget {
                         )
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 5,
                   ),
                   Row(
                     children: [

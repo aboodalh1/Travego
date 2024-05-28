@@ -5,6 +5,7 @@ import '../../utils/shared/components/components.dart';
 
 class defaultCircleTextField extends StatelessWidget {
   const defaultCircleTextField({
+    this.isEnabled,
     this.suffix,
     this.keyboardType,
     this.hintText,
@@ -21,12 +22,13 @@ class defaultCircleTextField extends StatelessWidget {
   final Icon prefix;
   final bool fill;
   final bool secure;
+  final bool? isEnabled;
   @override
   Widget build(BuildContext context) {
     return CupertinoTextField(
       obscureText: secure,
       controller: controller,
-
+      enabled: isEnabled ?? true,
       prefix: Padding(
         padding: const EdgeInsets.all(8.0),
         child: prefix,
