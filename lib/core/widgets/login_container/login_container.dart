@@ -6,7 +6,6 @@ import '../../../features/auth/presentation/manger/auth_cubit.dart';
 import '../../utils/screen_size_util.dart';
 import '../../utils/shared/Widgets/default_button.dart';
 import '../../utils/shared/components/components.dart';
-import '../../utils/shared/constant.dart';
 import '../circled_form_field/circled_form_field.dart';
 
 class LoginContainer extends StatelessWidget {

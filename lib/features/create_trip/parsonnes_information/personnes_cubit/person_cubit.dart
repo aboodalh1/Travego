@@ -37,7 +37,7 @@ class PersonCubit extends Cubit<PersonState> {
           motherName: motherName.text,
           email: personEmail.text,
           fatherName: fatherName.text,
-          passport: passportNumber.text));
+          birthDate: passportNumber.text));
 
       personFirstName.clear();
       personLastName.clear();

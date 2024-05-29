@@ -18,15 +18,15 @@ class DefaultElevated extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-          backgroundColor: fill ? Color.fromRGBO(0, 143, 160, 1) : null,
-          side: BorderSide(color: Color.fromRGBO(0, 143, 160, 1))),
+          backgroundColor: fill ? const Color.fromRGBO(0, 143, 160, 1) : null,
+          side: const BorderSide(color: Color.fromRGBO(0, 143, 160, 1))),
       child: Center(
           child: Text(
-        '$label',
+        label,
         style: GoogleFonts.inter(
           fontSize: 15,
           fontWeight: FontWeight.bold,
-          color: !fill ? Color.fromRGBO(0, 143, 160, 1) : Colors.white,
+          color: !fill ? const Color.fromRGBO(0, 143, 160, 1) : Colors.white,
         ),
       )),
     );

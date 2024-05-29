@@ -93,6 +93,7 @@ class VerificationScreen extends StatelessWidget {
                         fill: true,
                         onPressed: () {
                           cubit.verifyCode(
+                            context: context,
                               code: cubit.code.toString(),
                               email: cubit.emailController.text);
                         }),

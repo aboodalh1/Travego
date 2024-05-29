@@ -1,9 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:travego/core/utils/network/remote/dio_helper.dart';
-import 'package:travego/model/local/user_local_model.dart';
 import 'package:travego/model/user_model.dart';
 import 'package:dio/dio.dart';
-import '../../../boxes.dart';
 import '../../../core/errors/failure.dart';
 import '../../auth/repo/auth_repo.dart';
 

@@ -9,9 +9,9 @@ class defaultCircleTextField extends StatelessWidget {
     this.suffix,
     this.keyboardType,
     this.hintText,
+    this.prefix,
     super.key,
     required this.controller,
-    required this.prefix,
     required this.fill,
     required this.secure,
   });
@@ -19,7 +19,7 @@ class defaultCircleTextField extends StatelessWidget {
   final String? hintText;
   final TextInputType? keyboardType;
   final TextEditingController controller;
-  final Icon prefix;
+  final Icon? prefix;
   final bool fill;
   final bool secure;
   final bool? isEnabled;
@@ -33,7 +33,7 @@ class defaultCircleTextField extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: prefix,
       ),
-      suffix: suffix ?? null,
+      suffix: suffix ,
       keyboardType: keyboardType,
       placeholder: hintText,
       placeholderStyle: TextStyle(fontSize: 15,color: fill? Colors.white38 : Colors.grey),

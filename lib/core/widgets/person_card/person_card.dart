@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:travego/features/create_trip/parsonnes_information/personnes_cubit/person_cubit.dart';
 
@@ -10,14 +11,13 @@ class PersonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final personCubit = BlocProvider.of<PersonCubit>(context);
-    final horizontalPadding = MediaQuery.of(context).size.width;
-    final verticalPadding = MediaQuery.of(context).size.height;
+
     return BlocConsumer<PersonCubit, PersonState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
-          width: horizontalPadding,
-          height: verticalPadding * .40,
+          width: ScreenSizeUtil.screenWidth,
+          height: ScreenSizeUtil.screenHeight<340?ScreenSizeUtil.screenHeight * .40:340,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -39,8 +39,8 @@ class PersonCard extends StatelessWidget {
                         child: Image.asset("assets/images/cover.png"),
                       ),
                       title:  const Text(
-                        'اسم الزلمة',
-                        style: TextStyle(fontSize: 20),
+                        'First Name',
+                        style: TextStyle(fontSize: 15),
                       ),
                     ),
                   ),
@@ -62,8 +62,6 @@ class PersonCard extends StatelessWidget {
                         icon: const Icon(Icons.delete),
                         onPressed: () {
                           personCubit.removePerson();
-                          print(personCubit
-                              .personNumber);
                         },
                       ),
                     ],
@@ -83,7 +81,7 @@ class PersonCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Email:".tr,
+                      "Last name:".tr,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -127,7 +125,7 @@ class PersonCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "passport number: ".tr,
+                      "Gender: ".tr,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -143,7 +141,7 @@ class PersonCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "additional passport: ".tr,
+                      "Birth date: ".tr,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),

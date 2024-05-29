@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'user_local_model.g.dart';
 
 @HiveType(typeId: 0)
-class User {
+class LocalUser {
   @HiveField(0)
   num? id;
 
@@ -22,7 +22,7 @@ class User {
   @HiveField(5)
   String? phoneNumber;
 
-  User({
+  LocalUser({
     this.id,
     this.firstName,
     this.lastName,
@@ -31,7 +31,7 @@ class User {
     this.phoneNumber,
   });
 
-  User.fromJson(dynamic json) {
+  LocalUser.fromJson(dynamic json) {
     id = json['id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
@@ -40,7 +40,7 @@ class User {
     phoneNumber = json['phone_number'];
   }
 
-  User copyWith({
+  LocalUser copyWith({
     num? id,
     String? firstName,
     String? lastName,
@@ -48,7 +48,7 @@ class User {
     String? creationDate,
     String? phoneNumber,
   }) =>
-      User(
+      LocalUser(
         id: id ?? this.id,
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,

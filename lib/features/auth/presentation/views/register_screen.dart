@@ -15,9 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../manger/auth_cubit.dart';
 import 'login_screen.dart';
 
-// ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
-
   const RegisterScreen({super.key});
 
   @override
@@ -32,8 +30,9 @@ class RegisterScreen extends StatelessWidget {
               });
         }
         if (state is AuthFailureState) {
-          if(Navigator.canPop(context)){
-          Navigator.pop(context);}
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: Colors.grey,
             content: Text(state.error.toString()),
@@ -120,7 +119,9 @@ class RegisterColumn extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        const FormFieldText(title: 'phone',),
+        const FormFieldText(
+          title: 'phone',
+        ),
         const Gap(6),
         Row(
           children: [
@@ -148,7 +149,9 @@ class RegisterColumn extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const FormFieldText(title: 'First name',),
+                  const FormFieldText(
+                    title: 'First name',
+                  ),
                   const Gap(6),
                   defaultCircleTextField(
                     hintText: 'AbdAllah',
@@ -168,7 +171,9 @@ class RegisterColumn extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const FormFieldText(title: 'Last name',),
+                  const FormFieldText(
+                    title: 'Last name',
+                  ),
                   const Gap(6),
                   defaultCircleTextField(
                     hintText: 'Gg',
@@ -188,7 +193,9 @@ class RegisterColumn extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const FormFieldText(title: 'Username',),
+        const FormFieldText(
+          title: 'Username',
+        ),
         const Gap(6),
         defaultCircleTextField(
           secure: false,
@@ -201,7 +208,9 @@ class RegisterColumn extends StatelessWidget {
           fill: true,
         ),
         const Gap(20),
-        const FormFieldText(title: 'Email',),
+        const FormFieldText(
+          title: 'Email',
+        ),
         const Gap(6),
         defaultCircleTextField(
           hintText: 'example@gmail.com',
@@ -214,7 +223,9 @@ class RegisterColumn extends StatelessWidget {
           fill: true,
         ),
         const Gap(20),
-        FormFieldText(title: 'Password',),
+        const FormFieldText(
+          title: 'Password',
+        ),
         const Gap(6),
         defaultCircleTextField(
           hintText: '********',
@@ -226,14 +237,22 @@ class RegisterColumn extends StatelessWidget {
           ),
           suffix: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-                onTap: cubit.registerChangeSecure,
-                child: cubit.registerSecureIcon),
+            child: Row(
+              children: [
+                GestureDetector(
+                    onTap: cubit.registerChangeSecure,
+                    child: cubit.registerSecureIcon),
+                    const Gap(5),
+                    cubit.acceptPasswordIcon
+              ],
+            ),
           ),
           fill: true,
         ),
         const Gap(20),
-        FormFieldText(title: 'Confirm password',),
+        const FormFieldText(
+          title: 'Confirm password',
+        ),
         const Gap(6),
         defaultCircleTextField(
           hintText: '********',
@@ -245,9 +264,15 @@ class RegisterColumn extends StatelessWidget {
           ),
           suffix: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-                onTap: cubit.registerChangeSecure,
-                child: cubit.registerSecureIcon),
+            child: Row(
+              children: [
+                GestureDetector(
+                    onTap: cubit.registerChangeSecure,
+                    child: cubit.registerSecureIcon),
+                Gap(5),
+                cubit.acceptConfPasswordIcon
+              ],
+            ),
           ),
           fill: true,
         ),
@@ -297,7 +322,7 @@ class RegisterColumn extends StatelessWidget {
           height: 50,
           child: DefaultElevated(
             onPressed: () {
-              navigateAndFinish(context, LoginScreen());
+              navigateAndFinish(context, const LoginScreen());
             },
             label: 'Sign in',
             fill: false,
@@ -313,7 +338,9 @@ class FormFieldText extends StatelessWidget {
     required this.title,
     super.key,
   });
-final String title;
+
+  final String title;
+
   @override
   Widget build(BuildContext context) {
     return Text(

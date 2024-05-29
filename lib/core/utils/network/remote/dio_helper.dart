@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
+
 import 'package:dio/dio.dart';
 
 class DioHelper {
@@ -48,7 +49,7 @@ class DioHelper {
     dio.options.headers = {
       'Content-Type': 'application/json',
       'lang': lang,
-      'Authorization': token ?? ''
+      'Authorization': 'Bearer $token'
     };
     return await dio.put('$baseUrl$endPoint', data: data);
   }

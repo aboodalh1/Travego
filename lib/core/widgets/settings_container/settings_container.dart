@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travego/features/Settings/presentation/views/passengers/passengers_screen.dart';
 import '../../../features/Settings/presentation/manger/settings_cubit.dart';
 import '../../../features/Settings/presentation/views/LanguageScreen/LanguageScreen.dart';
 import '../../../features/Settings/presentation/views/settings_screen.dart';
@@ -35,6 +36,13 @@ class SettingsContainer extends StatelessWidget {
           },
           icon: const Icon(CupertinoIcons.person_crop_circle_fill),
           label: LocaleKeys.Edit_profile.tr(),
+        ),
+        settingsItem(
+          function: () {
+            navigateTo(context, const PassengersScreen());
+          },
+          icon: const Icon(CupertinoIcons.airplane),
+          label: 'Passengers',
         ),
         settingsItem(
             function: () {},

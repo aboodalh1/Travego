@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,14 +14,9 @@ class HotelDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQueryData = MediaQuery.of(context);
-
-    final horizontalPadding = mediaQueryData.size.width;
-    final verticalPadding = mediaQueryData.size.height;
-
     return BlocConsumer<HotelsCubit, HotelsState>(
   listener: (context, state) {
-    // TODO: implement listener
+
   },
   builder: (context, state) {
     return Scaffold(
@@ -36,14 +32,14 @@ class HotelDetails extends StatelessWidget {
             child: Image.asset(
               'assets/images/hotel.jpg',
               fit: BoxFit.cover,
-              height: verticalPadding * .45,
-              width: horizontalPadding,
+              height: ScreenSizeUtil.screenHeight  * .45,
+              width: ScreenSizeUtil.screenWidth,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: verticalPadding * .42),
+            padding: EdgeInsets.only(top: ScreenSizeUtil.screenHeight  * .37 <=290?ScreenSizeUtil.screenHeight  * .37 :290  ),
             child: Container(
-                height: verticalPadding * .6,
+                height: ScreenSizeUtil.screenHeight  * .6,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                     color: Colors.white,
@@ -55,7 +51,7 @@ class HotelDetails extends StatelessWidget {
                     children: [
                       Center(
                           child:
-                              BarStick(horizontalPadding: horizontalPadding)),
+                              BarStick(horizontalPadding: ScreenSizeUtil.screenWidth)),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 18.0),
                         child: Row(
@@ -67,14 +63,14 @@ class HotelDetails extends StatelessWidget {
                                 Text('Hotel name',
                                     style:
                                         Theme.of(context).textTheme.bodyLarge),
-                                SizedBox(
+                                const SizedBox(
                                   height: 2,
                                 ),
                                 Text('Hotel name',
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelMedium),
-                                SizedBox(
+                                const SizedBox(
                                   height: 6,
                                 ),
                                 Row(
@@ -84,8 +80,8 @@ class HotelDetails extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(10),
                                           color: defaultColor),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(4.0),
                                         child: Text('Category',
                                             style: TextStyle(
                                                 fontSize: 16,
@@ -93,18 +89,18 @@ class HotelDetails extends StatelessWidget {
                                                 color: Colors.white)),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 8,
                                     ),
                                     Text('4.5',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: Colors.amber,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 5,
                                     ),
                                     Text('432 Reviews',
@@ -117,8 +113,8 @@ class HotelDetails extends StatelessWidget {
                             ),
                             const Spacer(),
                             Container(
-                              height: verticalPadding * .07,
-                              width: verticalPadding * .07,
+                              height: ScreenSizeUtil.screenHeight * .07,
+                              width: ScreenSizeUtil.screenHeight  * .07,
                               decoration: BoxDecoration(
                                   color: defaultColor.withOpacity(.4),
                                   borderRadius: BorderRadius.circular(10)),
@@ -134,7 +130,7 @@ class HotelDetails extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Padding(
@@ -144,7 +140,7 @@ class HotelDetails extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyMedium),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
                         width: double.infinity,
                         child: Text(
                           'Hotel abn aalam o nas ipsum iuldoa dgjr quirey, ggdfgposdf',
@@ -154,7 +150,7 @@ class HotelDetails extends StatelessWidget {
                               fontWeight: FontWeight.w400),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Padding(
@@ -170,13 +166,13 @@ class HotelDetails extends StatelessWidget {
                           child: Row(
                             children: [
                               Container(
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                height: verticalPadding * .07,
-                                width: verticalPadding * .07,
+                                margin: const EdgeInsets.symmetric(horizontal: 10),
+                                height: ScreenSizeUtil.screenHeight * .07,
+                                width: ScreenSizeUtil.screenHeight * .07,
                                 decoration: BoxDecoration(
                                     color: defaultColor.withOpacity(.4),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Center(
+                                child: const Center(
                                     child: Icon(
                                   Icons.local_taxi_sharp,
                                   color: Colors.black45,
@@ -184,13 +180,13 @@ class HotelDetails extends StatelessWidget {
                                 )),
                               ),
                               Container(
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                height: verticalPadding * .07,
-                                width: verticalPadding * .07,
+                                margin: const EdgeInsets.symmetric(horizontal: 10),
+                                height: ScreenSizeUtil.screenHeight  * .07,
+                                width: ScreenSizeUtil.screenHeight  * .07,
                                 decoration: BoxDecoration(
                                     color: defaultColor.withOpacity(.4),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Center(
+                                child: const Center(
                                     child: Icon(
                                   Icons.wifi,
                                   color: Colors.black45,
@@ -198,13 +194,13 @@ class HotelDetails extends StatelessWidget {
                                 )),
                               ),
                               Container(
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                height: verticalPadding * .07,
-                                width: verticalPadding * .07,
+                                margin: const EdgeInsets.symmetric(horizontal: 10),
+                                height: ScreenSizeUtil.screenHeight * .07,
+                                width: ScreenSizeUtil.screenHeight * .07,
                                 decoration: BoxDecoration(
                                     color: defaultColor.withOpacity(.4),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Center(
+                                child: const Center(
                                     child: Icon(
                                   Icons.restaurant,
                                   color: Colors.black45,
@@ -212,13 +208,13 @@ class HotelDetails extends StatelessWidget {
                                 )),
                               ),
                               Container(
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                height: verticalPadding * .07,
-                                width: verticalPadding * .07,
+                                margin: const EdgeInsets.symmetric(horizontal: 10),
+                                height: ScreenSizeUtil.screenHeight * .07,
+                                width: ScreenSizeUtil.screenHeight * .07,
                                 decoration: BoxDecoration(
                                     color: defaultColor.withOpacity(.4),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Center(
+                                child: const Center(
                                     child: Icon(
                                   Icons.add_call,
                                   color: Colors.black45,
@@ -229,16 +225,16 @@ class HotelDetails extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(14.0),
                         child: Row(
                           children: [
                             Icon(
                               Icons.favorite_border,
-                              size: horizontalPadding * .08,
+                              size: ScreenSizeUtil.screenWidth * .08,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Expanded(

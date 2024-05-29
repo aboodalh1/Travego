@@ -1,20 +1,31 @@
 part of 'settings_cubit.dart';
+
 abstract class SettingsState {}
 
 class SettingsInitial extends SettingsState {}
 
-class GetInformationDetails extends SettingsState {}
+class SwitchContainerState extends SettingsState {}
 
-class EditInformationState extends SettingsState {}
+class EditInformationSuccessState extends SettingsState {
+  final User user;
+  final String message;
+  EditInformationSuccessState({required this.message,required this.user});
+}
 
-class EditInformationSuccessState extends SettingsState {}
+class EditInformationFailureState extends SettingsState {
+  final String error;
+  EditInformationFailureState({required this.error});
+}
 
-class EditInformationFailureState extends SettingsState {}
+class EditLoading extends SettingsState {}
 
-class ChangeThemeState extends SettingsState{}
+class ChangePasswordSuccessState extends SettingsState {
+  final String message;
+  ChangePasswordSuccessState({required this.message});
+}
 
-class ChangeNotificationState extends SettingsState{}
+class ChangeThemeState extends SettingsState {}
 
-class ChangeLanguageState extends SettingsState{}
+class ChangeNotificationState extends SettingsState {}
 
-class EditPasswordState extends SettingsState{}
+class ChangeLanguageState extends SettingsState {}

@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-// ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
 import '../../../model/categories.dart';
 import '../../utils/shared/components/components.dart';

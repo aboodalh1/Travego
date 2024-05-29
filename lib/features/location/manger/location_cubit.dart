@@ -1,10 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/model/place_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../core/utils/network/remote/dio_helper.dart';
-import '../../../core/utils/shared/constant.dart';
 
 part 'location_states.dart';
 

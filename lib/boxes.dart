@@ -4,4 +4,4 @@ import 'model/local/user_local_model.dart';
 
 
 late Box boxUser;
-final Box<User> userBox = Hive.box<User>('userBox');
+final Box<LocalUser> userBox = Hive.box<LocalUser>('userBox');

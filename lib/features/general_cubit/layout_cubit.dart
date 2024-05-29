@@ -16,9 +16,7 @@ class GeneralCubit extends Cubit<GeneralState> {
   List<Widget> screens = [
     const HomeScreen(),
     LocationScreen(),
-    BlocProvider(
-        create: (context) =>HotelsCubit(),
-        child: const HotelsScreen()),
+    const HotelsScreen(),
     const SettingsScreen()
   ];
   int navBarSelectedItem = 0;

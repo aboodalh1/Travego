@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:travego/boxes.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/widgets/settings_container/settings_container.dart';
+import 'package:travego/features/Settings/repo/settings_repo_impl.dart';
 import 'package:travego/features/auth/presentation/manger/auth_cubit.dart';
 import 'package:travego/features/favorite/favorite_screen.dart';
 
+import '../../../../core/utils/network/remote/service_locator.dart';
 import '../../../../core/utils/shared/components/components.dart';
 import '../../../../core/utils/shared/constant.dart';
-import '../../../auth/presentation/views/login_screen.dart';
 import '../manger/settings_cubit.dart';
 import 'edit_password/edit_password.dart';
 import 'edit_profile/edit_profile_screen.dart';
@@ -21,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SettingsCubit(),
+      create: (context) => SettingsCubit(getIt.get<SettingsRepoImpl>()),
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
           var cubit = BlocProvider.of<SettingsCubit>(context);

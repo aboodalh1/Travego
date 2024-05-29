@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:travego/blocObs.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +8,11 @@ import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/constant.dart';
 import 'package:travego/core/utils/shared/styles/Styles.dart';
 import 'package:travego/features/Settings/presentation/manger/settings_cubit.dart';
+import 'package:travego/features/Settings/repo/settings_repo_impl.dart';
 import 'package:travego/features/first_screen.dart';
-import 'package:travego/features/layout.dart';
-import 'package:travego/model/local/user_local_model.dart';
+import 'package:travego/features/hotels/presentation/manger/hotel_cubit.dart';
+import 'package:travego/features/hotels/repo/hotels_repo_impl.dart';
 import 'package:travego/translations/codegen_loader.g.dart';
-import 'boxes.dart';
 import 'core/utils/network/remote/service_locator.dart';
 import 'features/auth/presentation/manger/auth_cubit.dart';
 import 'features/auth/repo/auth_repo_impl.dart';
@@ -59,7 +58,9 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => PersonCubit(),
           ),
           BlocProvider(
-            create: (BuildContext context) => SettingsCubit(),
+            create: (BuildContext context) => SettingsCubit(getIt.get<SettingsRepoImpl>()),
+          ), BlocProvider(
+            create: (BuildContext context) => HotelsCubit(getIt.get<HotelsRepoImpl>()),
           ),
 
           BlocProvider(

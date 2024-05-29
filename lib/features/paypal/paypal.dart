@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 
 class PayPalNativeCheckout {
   static const MethodChannel _channel =
-      const MethodChannel('com.example.paypal_native_checkout');
+       MethodChannel('com.example.paypal_native_checkout');
 
   static Future<void> initialize(
       String clientId, Environment environment, String s) async {
@@ -18,7 +18,7 @@ enum Environment { SANDBOX, PRODUCTION }
 
 class PaypalService {
   static const MethodChannel _channel =
-      const MethodChannel('com.example.travego/paypal');
+       MethodChannel('com.example.travego/paypal');
 
   Future<void> initiatePayment(double amount) async {
     try {

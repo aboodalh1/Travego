@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
 import 'package:travego/core/utils/shared/constant.dart';
 import 'package:travego/core/widgets/circled_form_field/circled_form_field.dart';
@@ -18,7 +17,25 @@ class EditPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, SettingsState>(
+    return BlocConsumer<SettingsCubit, SettingsState>(
+      listener: (context, state) {
+        if (state is ChangePasswordSuccessState) {
+          showDialog(context: context, builder: (context) =>
+              CupertinoAlertDialog(
+                title: Text(state.message),
+                content: TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Ok"),
+                ),
+              ));
+      }
+        if(state is EditInformationFailureState){
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
+
+        }
+      },
       builder: (context, state) {
         var settingsCubit = BlocProvider.of<SettingsCubit>(context);
         return Form(
@@ -34,7 +51,10 @@ class EditPasswordScreen extends StatelessWidget {
                       BlocProvider.of<SettingsCubit>(context).editProfile();
                     }),
                 Text('Edit Password',
-                    style: Theme.of(context).textTheme.bodySmall),
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodySmall),
                 const Text(
                   'Current password',
                 ),
@@ -80,9 +100,12 @@ class EditPasswordScreen extends StatelessWidget {
                   label: 'Save',
                   fill: true,
                   onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      settingsCubit.editProfile();
-                    }
+                    settingsCubit.changePassword(currentPassword: settingsCubit
+                        .currentPasswordController.text,
+                        newPassword: settingsCubit.newPasswordController.text,
+                        confirmNewPassword: settingsCubit
+                            .passwordConfirmController.text,
+                        token: token);
                   },
                 ),
               ],

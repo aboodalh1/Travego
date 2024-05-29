@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
@@ -18,16 +17,28 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, SettingsState>(
-      builder: (context, state) {
-        var settingsCubit = BlocProvider.of<SettingsCubit>(context);
-        if(state is EditInformationState){
-          settingsCubit.firstNameController.text = userModel!.body!.user!.firstName!;
-          settingsCubit.lastNameController.text = userModel!.body!.user!.lastName!;
-          settingsCubit.phoneController.text = userModel!.body!.user!.phoneNumber!;
-          settingsCubit.emailController.text = userModel!.body!.user!.email!;
+    var settingsCubit = BlocProvider.of<SettingsCubit>(context);
+    return BlocConsumer<SettingsCubit, SettingsState>(
+      listener: (context, state) {
+        if (state is EditInformationSuccessState) {
+          showDialog(
+              context: context,
+              builder: (context) => CupertinoAlertDialog(
+                    title: Text(state.message),
+                    content: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Ok"),
+                    ),
+                  ));
         }
-
+        if (state is EditInformationFailureState) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.error)));
+        }
+      },
+      builder: (context, state) {
         return Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -37,14 +48,20 @@ class EditProfileScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    IconButton(icon: const Icon(Icons.arrow_back), onPressed: (){
-                      BlocProvider.of<SettingsCubit>(context).backToSettings();
-                                }),
-                    Text('Edit Profile', style: Theme.of(context).textTheme.bodySmall),
+                    IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () {
+                          BlocProvider.of<SettingsCubit>(context)
+                              .backToSettings();
+                        }),
+                    Text('Edit Profile',
+                        style: Theme.of(context).textTheme.bodySmall),
                     const Spacer(),
-                    IconButton(onPressed: (){
-                      settingsCubit.editField();
-                    }, icon: settingsCubit.editIcon),
+                    IconButton(
+                        onPressed: () {
+                          settingsCubit.editField();
+                        },
+                        icon: settingsCubit.editIcon),
                   ],
                 ),
                 Row(
@@ -53,30 +70,38 @@ class EditProfileScreen extends StatelessWidget {
                       'First Name',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
-                    Gap(ScreenSizeUtil.screenWidth*0.3),
+                    Gap(ScreenSizeUtil.screenWidth * 0.3),
                     Text(
                       'Last Name',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 Row(
                   children: [
                     Expanded(
                       child: defaultCircleTextField(
-                        isEnabled: settingsCubit.isEdit,
+                          isEnabled: settingsCubit.isEdit,
                           controller: settingsCubit.firstNameController,
-                          prefix: const Icon(Icons.person,color: Colors.grey,),
+                          prefix: const Icon(
+                            Icons.person,
+                            color: Colors.grey,
+                          ),
                           fill: false,
                           secure: false),
                     ),
                     const Gap(5),
                     Expanded(
                       child: defaultCircleTextField(
-                        isEnabled: settingsCubit.isEdit,
+                          isEnabled: settingsCubit.isEdit,
                           controller: settingsCubit.lastNameController,
-                          prefix: const Icon(Icons.person,color: Colors.grey,),
+                          prefix: const Icon(
+                            Icons.person,
+                            color: Colors.grey,
+                          ),
                           fill: false,
                           secure: false),
                     ),
@@ -90,7 +115,10 @@ class EditProfileScreen extends StatelessWidget {
                 defaultCircleTextField(
                     isEnabled: settingsCubit.isEdit,
                     controller: settingsCubit.emailController,
-                    prefix: const Icon(Icons.email,color: Colors.grey,),
+                    prefix: const Icon(
+                      Icons.email,
+                      color: Colors.grey,
+                    ),
                     fill: false,
                     secure: false),
                 const Gap(10),
@@ -101,38 +129,42 @@ class EditProfileScreen extends StatelessWidget {
                 defaultCircleTextField(
                     isEnabled: settingsCubit.isEdit,
                     controller: settingsCubit.phoneController,
-                    prefix: const Icon(Icons.phone,color: Colors.grey,),
+                    prefix: const Icon(
+                      Icons.phone,
+                      color: Colors.grey,
+                    ),
                     fill: false,
                     secure: false),
                 const Gap(10),
-
                 Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     DefaultElevated(
-                        label: 'Save',
-                        fill: true,
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            settingsCubit.editProfile();
-                          }
-                        },
-                      ),
+                      label: 'Save',
+                      fill: true,
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          settingsCubit.changeInformation(
+                              token: token,
+                              firstName: settingsCubit.firstNameController.text,
+                              lastName: settingsCubit.lastNameController.text,
+                              username: userModel!.body!.user!.theusername!,
+                              phone: settingsCubit.phoneController.text);
+                        }
+                      },
+                    ),
                     const Gap(10),
                     DefaultElevated(
-                        label: 'Edit password',
-                        fill: true,
-                        onPressed: () {
-                            settingsCubit.editPassword();
-
-                        },
-                      ),
+                      label: 'Edit password',
+                      fill: true,
+                      onPressed: () {
+                        settingsCubit.editPassword();
+                      },
+                    ),
                   ],
                 ),
-
               ],
             ),
-
           ),
         );
       },
@@ -141,22 +173,19 @@ class EditProfileScreen extends StatelessWidget {
 
   Container editTextForm(TextEditingController controller) {
     return Container(
-                height: 45,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: TextFormField(
-                  controller: controller,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none
-                  ),
-                ),
-              );
+      height: 45,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        border: Border.all(),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: TextFormField(
+        controller: controller,
+        decoration: const InputDecoration(border: InputBorder.none),
+      ),
+    );
   }
 }
-
 
 /*
 const Text(

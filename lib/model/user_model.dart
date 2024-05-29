@@ -44,7 +44,7 @@ class Body {
 
   Body.fromJson(dynamic json) {
     user = json['User'] != null ? User.fromJson(json['User']) : null;
-    token = json['Token'];
+    token = json['Token'] ?? '';
   }
   User? user;
   String? token;
@@ -58,7 +58,7 @@ Body copyWith({  User? user,
     if (user != null) {
       map['User'] = user?.toJson();
     }
-    map['Token'] = token;
+    map['Token'] = token ?? '';
     return map;
   }
 
@@ -69,6 +69,7 @@ class User {
       this.id, 
       this.firstName, 
       this.lastName, 
+      this.theusername, 
       this.email, 
       this.creationDate, 
       this.phoneNumber,});
@@ -77,6 +78,7 @@ class User {
     id = json['id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
+    theusername = json['theusername'];
     email = json['email'];
     creationDate = json['creationDate'];
     phoneNumber = json['phone_number'];
@@ -84,18 +86,21 @@ class User {
   num? id;
   String? firstName;
   String? lastName;
+  String? theusername;
   String? email;
   String? creationDate;
   String? phoneNumber;
 User copyWith({  num? id,
   String? firstName,
   String? lastName,
+  String? theusername,
   String? email,
   String? creationDate,
   String? phoneNumber,
 }) => User(  id: id ?? this.id,
   firstName: firstName ?? this.firstName,
   lastName: lastName ?? this.lastName,
+  theusername: theusername ?? this.theusername,
   email: email ?? this.email,
   creationDate: creationDate ?? this.creationDate,
   phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -105,6 +110,7 @@ User copyWith({  num? id,
     map['id'] = id;
     map['first_name'] = firstName;
     map['last_name'] = lastName;
+    map['theusername'] = theusername;
     map['email'] = email;
     map['creationDate'] = creationDate;
     map['phone_number'] = phoneNumber;

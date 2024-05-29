@@ -16,27 +16,6 @@ class AuthCubit extends Cubit<AuthStates> {
   AuthCubit(this.authRepo) : super(AuthInitState());
   final AuthRepo authRepo;
 
-  bool registerIsSecure = true;
-  bool loginIsSecure = true;
-  late Icon registerSecureIcon = registerIsSecure
-      ? const Icon(
-          Icons.remove_red_eye_outlined,
-          color: Colors.white,
-        )
-      : const Icon(
-          Icons.visibility_off_outlined,
-          color: Colors.white,
-        );
-  late Icon loginSecureIcon = loginIsSecure
-      ? const Icon(
-          Icons.remove_red_eye_outlined,
-          color: Colors.grey,
-        )
-      : const Icon(
-          Icons.visibility_off_outlined,
-          color: Colors.grey,
-        );
-
   String code = '';
   bool onEditing = false;
 
@@ -53,16 +32,39 @@ class AuthCubit extends Cubit<AuthStates> {
 
   TextEditingController loginPasswordController = TextEditingController();
 
+  bool registerIsSecure = true;
+  bool loginIsSecure = true;
+  Icon registerSecureIcon = const Icon(
+    Icons.remove_red_eye_outlined,
+    color: Colors.white,
+  );
+  Icon loginSecureIcon = const Icon(
+    Icons.remove_red_eye_outlined,
+    color: Colors.grey,
+  );
+
   void registerChangeSecure() {
     registerIsSecure = !registerIsSecure;
+    registerSecureIcon = const Icon(
+      Icons.remove_red_eye_outlined,
+      color: Colors.white,
+    );
     emit(ChangeSecure());
   }
 
   void loginChangeSecure() {
     loginIsSecure = !loginIsSecure;
+    loginSecureIcon = loginIsSecure
+        ? const Icon(
+            Icons.remove_red_eye_outlined,
+            color: Colors.grey,
+          )
+        : const Icon(
+            Icons.visibility_off_outlined,
+            color: Colors.grey,
+          );
     emit(ChangeSecure());
   }
-
 
   Future<void> register(
       {required String firstName,
@@ -101,6 +103,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(AuthFailureState(failure.errMessage));
     }, (model) {
       userModel = model;
+      token = userModel!.body!.token!;
       // CacheHelper.saveData(key: 'token', value: userModel!.body!.token);
       emit(AuthSuccessState());
       navigateAndFinish(context, const LayoutScreen());
@@ -122,28 +125,50 @@ class AuthCubit extends Cubit<AuthStates> {
     });
   }
 
-  Future <void> regenerateCode({required String email})async{
-      emit(CodeVerificationLoadingState());
-      var result = await authRepo.regenerateVerificationCode(email: email);
-      result.fold((failure){
-        emit(CodeVerifyFailure(failure.errMessage));
-      },(message1){
-        emit(CodeVerifySuccess(message1));
-      });
+  Future<void> regenerateCode({required String email}) async {
+    emit(CodeVerificationLoadingState());
+    var result = await authRepo.regenerateVerificationCode(email: email);
+    result.fold((failure) {
+      emit(CodeVerifyFailure(failure.errMessage));
+    }, (message1) {
+      emit(CodeVerifySuccess(message1));
+    });
   }
 
+  Icon acceptPasswordIcon =  const Icon(
+    CupertinoIcons.xmark_circle,
+    color: Colors.white,
+  );
+  Icon acceptConfPasswordIcon =  const Icon(
+    CupertinoIcons.xmark_circle,
+    color: Colors.white,
+  );
 
-
-
-  IconData authInfoIconData = CupertinoIcons.check_mark_circled;
-
-  void verifyAuthInfo(bool isAuthCorrect) {
+  void checkPassword(bool isAuthCorrect) {
     if (isAuthCorrect) {
       emit(AuthInfoVerifySuccess());
-      authInfoIconData = CupertinoIcons.check_mark_circled;
+      acceptPasswordIcon =
+          const Icon(CupertinoIcons.check_mark_circled, color: Colors.green);
     } else {
       emit(AuthInfoVerifyFailure());
-      authInfoIconData = CupertinoIcons.xmark_circle;
+      acceptPasswordIcon =  const Icon(
+        CupertinoIcons.xmark_circle,
+        color: Colors.white,
+      );
+    }
+  }
+
+  void checkMatchPassword(bool isAuthCorrect) {
+    if (isAuthCorrect) {
+      emit(AuthInfoVerifySuccess());
+      acceptConfPasswordIcon =
+          const Icon(CupertinoIcons.check_mark_circled, color: Colors.green);
+    } else {
+      emit(AuthInfoVerifyFailure());
+      acceptConfPasswordIcon = const Icon(
+        CupertinoIcons.xmark_circle,
+        color: Colors.red,
+      );
     }
   }
 

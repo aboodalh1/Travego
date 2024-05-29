@@ -6,17 +6,17 @@ part of 'user_local_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserAdapter extends TypeAdapter<User> {
+class UserAdapter extends TypeAdapter<LocalUser> {
   @override
   final int typeId = 2;
 
   @override
-  User read(BinaryReader reader) {
+  LocalUser read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return User(
+    return LocalUser(
       id: fields[0] as num,
       firstName: fields[1] as String,
       lastName: fields[2] as String,
@@ -27,7 +27,7 @@ class UserAdapter extends TypeAdapter<User> {
   }
 
   @override
-  void write(BinaryWriter writer, User obj) {
+  void write(BinaryWriter writer, LocalUser obj) {
     writer
       ..writeByte(6)
       ..writeByte(0)

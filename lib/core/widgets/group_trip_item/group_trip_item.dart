@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 // ignore: depend_on_referenced_packages
-import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/constant.dart';
 

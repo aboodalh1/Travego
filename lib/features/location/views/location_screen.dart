@@ -147,7 +147,7 @@ class LocationScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text("done"),
+                    child: const Text("done"),
                   ),
                 ],
               ),

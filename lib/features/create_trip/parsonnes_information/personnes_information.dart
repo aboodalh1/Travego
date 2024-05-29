@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -80,22 +79,6 @@ class PersonnesInformation extends StatelessWidget {
                         ],
                       ) ,
                       Spacer(),
-                      // Column(
-                      //   children: [
-                      //      Text('Hotel'.tr),
-                      //     ClipRRect(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //       child: Image.asset(
-                      //
-                      //         'assets/images/hotel1.jpg',
-                      //         fit: BoxFit.cover,
-                      //         scale: 2.4
-                      //       ),
-                      //     ),
-                      //     const Text('فندق النجمة')
-                      //   ],
-                      //
-                      // )
                     ],
                   ),
                   const SizedBox(
