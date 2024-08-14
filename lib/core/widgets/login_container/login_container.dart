@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travego/translations/locale_keys.g.dart';
 import '../../../features/auth/presentation/manger/auth_cubit.dart';
 import '../../utils/screen_size_util.dart';
 import '../../utils/shared/Widgets/default_button.dart';
@@ -40,7 +42,7 @@ class LoginContainer extends StatelessWidget {
             defaultCircleTextField(
               secure: false,
               fill: true,
-              hintText: 'email',
+              hintText: LocaleKeys.Email.tr(),
               controller: usernameController,
               prefix: const Icon(
                 CupertinoIcons.mail,
@@ -58,8 +60,9 @@ class LoginContainer extends StatelessWidget {
                   child: cubit.loginSecureIcon,
                 ),
               ),
-              hintText: 'password',
+              hintText: LocaleKeys.Password.tr(),
               controller: passwordController,
+              cursorColor: defaultColor,
               prefix: Icon(
                 CupertinoIcons.lock,
                 color: defaultColor,
@@ -73,7 +76,7 @@ class LoginContainer extends StatelessWidget {
                   value: false,
                   onChanged: (value) {},
                   child: Text(
-                    'Remember me',
+                    LocaleKeys.RememberMe.tr(),
                     style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -84,7 +87,7 @@ class LoginContainer extends StatelessWidget {
                 TextButton(
                     onPressed: () {},
                     child: Text(
-                      "Forget password",
+                     LocaleKeys.forgetPassword.tr(),
                       style: GoogleFonts.inter(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -104,7 +107,7 @@ class LoginContainer extends StatelessWidget {
                   );
 
                 },
-                label: "Log in",
+                label: LocaleKeys.Login.tr(),
                 fill: true,
               ),
             ),

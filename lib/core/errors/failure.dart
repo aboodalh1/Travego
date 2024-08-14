@@ -31,10 +31,10 @@ class ServerFailure extends Failure {
   }
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(response['message'] ?? 'something went wrong');
+      return ServerFailure(response['message'] ?? 'Connection error');
 
     } else if (statusCode == 404) {
-      return ServerFailure(response['message'] ?? 'something went wrong');}
+      return ServerFailure('$statusCode');}
     else if (statusCode == 405) {
       return ServerFailure(response['message'] ?? 'something went wrong');
     } else if (statusCode == 500) {

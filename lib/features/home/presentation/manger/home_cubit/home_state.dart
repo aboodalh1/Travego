@@ -14,3 +14,5 @@ final class HomeSuccessLoadingState extends HomeState{}
 final class HomeAddToFavState extends HomeState{}
 
 final class HomeSearchState extends HomeState{}
+
+final class ChangeFilterState extends HomeState{}

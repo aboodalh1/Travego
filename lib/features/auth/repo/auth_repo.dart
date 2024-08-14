@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:travego/model/user_model.dart';
+import 'package:dio/dio.dart';
 
 import '../../../core/errors/failure.dart';
 
@@ -14,14 +14,14 @@ abstract class AuthRepo {
     required String confirmPassword,
   });
 
-  Future<Either<Failure, UserModel>> login({
+  Future<Either<Failure, Response>> login({
     required String email,
     required String password,
   });
 
   Future<Either<Failure, String>> regenerateVerificationCode({required String email});
 
-  Future<Either<Failure, UserModel>> verificationCode(
+  Future<Either<Failure, Response>> verificationCode(
       {required String code, required String email});
 
   Future<Either<Failure, String>> logout({required String token});

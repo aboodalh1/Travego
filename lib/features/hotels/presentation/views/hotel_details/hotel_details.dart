@@ -1,28 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travego/features/hotels/presentation/manger/hotel_cubit.dart';
-import 'package:travego/features/hotels/presentation/manger/hotel_states.dart';
 
 class HotelDetails extends StatelessWidget {
-  const HotelDetails({super.key});
+  final dynamic model;
+  const HotelDetails({super.key,required this.model});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HotelsCubit, HotelsState>(
-  listener: (context, state) {
 
-  },
-  builder: (context, state) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'hotel name',
+          model.hotelName!,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
@@ -60,13 +52,13 @@ class HotelDetails extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Hotel name',
+                                Text(model.hotelName!,
                                     style:
                                         Theme.of(context).textTheme.bodyLarge),
                                 const SizedBox(
                                   height: 2,
                                 ),
-                                Text('Hotel name',
+                                Text(model.hotelName!,
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelMedium),
@@ -92,7 +84,7 @@ class HotelDetails extends StatelessWidget {
                                     const SizedBox(
                                       width: 8,
                                     ),
-                                    Text('4.5',
+                                    Text(model.stars!.toString(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium),
@@ -103,7 +95,7 @@ class HotelDetails extends StatelessWidget {
                                     const SizedBox(
                                       width: 5,
                                     ),
-                                    Text('432 Reviews',
+                                    Text(model.country!,
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelSmall),
@@ -143,7 +135,7 @@ class HotelDetails extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(horizontal: 10),
                         width: double.infinity,
                         child: Text(
-                          'Hotel abn aalam o nas ipsum iuldoa dgjr quirey, ggdfgposdf',
+                          model.description!,
                           style: GoogleFonts.inter(
                               color: Colors.black45,
                               fontSize: 18,
@@ -249,8 +241,8 @@ class HotelDetails extends StatelessWidget {
           ),
         ],
       ),
-    );
-  },
+
+
 );
   }
 }

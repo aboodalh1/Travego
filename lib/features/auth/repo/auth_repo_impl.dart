@@ -31,12 +31,9 @@ class AuthRepoImpl implements AuthRepo {
         "password": password,
         "confirmation_password": password
       });
-      print("email: ${email}");
       String result = response.data["message"];
-      print(result);
       return right(result);
     } catch (e) {
-      print(e.toString());
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }
@@ -45,7 +42,7 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, UserModel>> login({
+  Future<Either<Failure, Response>> login({
     required String email,
     required String password,
   }) async {
@@ -55,12 +52,8 @@ class AuthRepoImpl implements AuthRepo {
         "email": email,
         "password": password,
       });
-      UserModel userModel1;
-      userModel1 = UserModel.fromJson(response.data);
-      // boxUser.put('user', userModel1.body!.user!);
-      return right(userModel1);
+      return right(response);
     } catch (e) {
-      print(e.toString());
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }
@@ -85,10 +78,9 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, UserModel>> verificationCode(
+  Future<Either<Failure, Response>> verificationCode(
       {required String code, required String email}) async {
     try {
-      print(email);
       var response =
           await dioHelper.postData(endPoint: 'Auth/Client_Check_Code', data: {
         "codeNumber": code,
@@ -97,7 +89,7 @@ class AuthRepoImpl implements AuthRepo {
 
       UserModel userModel;
       userModel = UserModel.fromJson(response.data);
-      return right(userModel);
+      return right(response);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));

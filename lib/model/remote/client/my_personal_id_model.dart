@@ -1,11 +1,11 @@
-class PassengerPersonalIdModel {
-  PassengerPersonalIdModel({
+class MyPersonalIdModel {
+  MyPersonalIdModel({
       this.message, 
       this.status, 
       this.localDateTime, 
       this.body,});
 
-  PassengerPersonalIdModel.fromJson(dynamic json) {
+  MyPersonalIdModel.fromJson(dynamic json) {
     message = json['message'];
     status = json['status'];
     localDateTime = json['localDateTime'];
@@ -15,11 +15,11 @@ class PassengerPersonalIdModel {
   String? status;
   String? localDateTime;
   Body? body;
-PassengerPersonalIdModel copyWith({  String? message,
+MyPersonalIdModel copyWith({  String? message,
   String? status,
   String? localDateTime,
   Body? body,
-}) => PassengerPersonalIdModel(  message: message ?? this.message,
+}) => MyPersonalIdModel(  message: message ?? this.message,
   status: status ?? this.status,
   localDateTime: localDateTime ?? this.localDateTime,
   body: body ?? this.body,
@@ -53,7 +53,7 @@ class Body {
     type = json['type'];
     firstName = json['firstName'];
     lastName = json['lastName'];
-    birthDate = json['birthDate'];
+    birthDate = json['birthdate'];
     nationality = json['nationality'];
   }
   num? id;

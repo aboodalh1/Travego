@@ -1,11 +1,11 @@
-class PassengerVisaModel {
-  PassengerVisaModel({
+class MyVisaModel {
+  MyVisaModel({
       this.message, 
       this.status, 
       this.localDateTime, 
       this.body,});
 
-  PassengerVisaModel.fromJson(dynamic json) {
+  MyVisaModel.fromJson(dynamic json) {
     message = json['message'];
     status = json['status'];
     localDateTime = json['localDateTime'];
@@ -15,11 +15,11 @@ class PassengerVisaModel {
   String? status;
   String? localDateTime;
   Body? body;
-PassengerVisaModel copyWith({  String? message,
+MyVisaModel copyWith({  String? message,
   String? status,
   String? localDateTime,
   Body? body,
-}) => PassengerVisaModel(  message: message ?? this.message,
+}) => MyVisaModel(  message: message ?? this.message,
   status: status ?? this.status,
   localDateTime: localDateTime ?? this.localDateTime,
   body: body ?? this.body,
@@ -51,10 +51,10 @@ class Body {
     id = json['id'];
     relationshipId = json['relationshipId'];
     type = json['type'];
-    visaType = json['visaType'];
-    country = json['country'];
-    issueDate = json['issueDate'];
-    expiryDate = json['expiryDate'];
+    visaType = json['visa_Type'];
+    country = json['visa_Country'];
+    issueDate = json['visa_issue_date'];
+    expiryDate = json['visa_expires_date'];
   }
   num? id;
   num? relationshipId;
@@ -83,10 +83,10 @@ Body copyWith({  num? id,
     map['id'] = id;
     map['relationshipId'] = relationshipId;
     map['type'] = type;
-    map['visaType'] = visaType;
-    map['country'] = country;
-    map['issueDate'] = issueDate;
-    map['expiryDate'] = expiryDate;
+    map['visa_Type'] = visaType;
+    map['visa_Country'] = country;
+    map['visa_issue_date'] = issueDate;
+    map['visa_expires_date'] = expiryDate;
     return map;
   }
 

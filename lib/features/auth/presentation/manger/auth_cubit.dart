@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travego/core/utils/network/local/cacheHelper.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/features/auth/presentation/views/login_screen.dart';
 import 'package:travego/features/layout.dart';
 import 'package:travego/features/auth/repo/auth_repo.dart';
+import 'package:travego/model/user_model.dart';
 
 import '../../../../core/utils/shared/constant.dart';
 import '../views/verification_page.dart';
@@ -15,7 +15,7 @@ part 'auth_states.dart';
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit(this.authRepo) : super(AuthInitState());
   final AuthRepo authRepo;
-
+  UserModel ?userModel;
   String code = '';
   bool onEditing = false;
 
@@ -102,10 +102,12 @@ class AuthCubit extends Cubit<AuthStates> {
     result.fold((failure) {
       emit(AuthFailureState(failure.errMessage));
     }, (model) {
-      userModel = model;
+      userModel = UserModel.fromJson(model.data);
+      globalUserModel = UserModel.fromJson(model.data);
       token = userModel!.body!.token!;
-      // CacheHelper.saveData(key: 'token', value: userModel!.body!.token);
+       // CacheHelper.saveData(key: 'token', value: userModel!.body!.token);
       emit(AuthSuccessState());
+      loginPasswordController.clear();
       navigateAndFinish(context, const LayoutScreen());
     });
   }
@@ -117,7 +119,7 @@ class AuthCubit extends Cubit<AuthStates> {
     result.fold((failure) {
       emit(AuthFailureState(failure.errMessage));
     }, (model) {
-      userModel = model;
+      userModel = UserModel.fromJson(model.data);
       token = userModel!.body!.token!;
       // CacheHelper.saveData(key: 'token', value: userModel!.body!.token);
       emit(AuthSuccessState());
@@ -143,12 +145,12 @@ class AuthCubit extends Cubit<AuthStates> {
     CupertinoIcons.xmark_circle,
     color: Colors.white,
   );
-
+ bool isAuthCorrect =  false;
   void checkPassword(bool isAuthCorrect) {
     if (isAuthCorrect) {
       emit(AuthInfoVerifySuccess());
       acceptPasswordIcon =
-          const Icon(CupertinoIcons.check_mark_circled, color: Colors.green);
+          const Icon(CupertinoIcons.check_mark_circled, color: Colors.greenAccent,);
     } else {
       emit(AuthInfoVerifyFailure());
       acceptPasswordIcon =  const Icon(
@@ -157,24 +159,24 @@ class AuthCubit extends Cubit<AuthStates> {
       );
     }
   }
-
-  void checkMatchPassword(bool isAuthCorrect) {
-    if (isAuthCorrect) {
+  bool isPasswordsMatch =  false;
+  void checkMatchPassword(bool isPasswordsMatch) {
+    if (isPasswordsMatch) {
       emit(AuthInfoVerifySuccess());
       acceptConfPasswordIcon =
-          const Icon(CupertinoIcons.check_mark_circled, color: Colors.green);
+          const Icon(CupertinoIcons.check_mark_circled, color: Colors.greenAccent);
     } else {
       emit(AuthInfoVerifyFailure());
       acceptConfPasswordIcon = const Icon(
         CupertinoIcons.xmark_circle,
-        color: Colors.red,
+        color: Colors.white,
       );
     }
   }
 
   void logout(context) {
     token = '';
-    CacheHelper.removeData(key: 'token');
+    // CacheHelper.removeData(key: 'token');
     navigateAndFinish(context, const LoginScreen());
   }
 }

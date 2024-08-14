@@ -74,7 +74,7 @@ class VerificationScreen extends StatelessWidget {
                 },
                 child: Text(
                   cubit.emailController.text,
-                  style: TextStyle(color: Colors.blue),
+                  style: const TextStyle(color: Colors.blue),
                 ),
               ),
               Padding(
@@ -110,7 +110,7 @@ class VerificationScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'didn\'t get the code?',
                     style: TextStyle(fontSize: 14),
                   ),
@@ -151,9 +151,7 @@ class VerificationScreen extends StatelessWidget {
         ),
       ),
       onCompleted: (String value) {
-        print(value);
         cubit.code = value;
-        print(cubit.code.toString());
         cubit.verifyCode(code: cubit.code.toString(), email: '2');
       },
       onEditing: (bool value) {

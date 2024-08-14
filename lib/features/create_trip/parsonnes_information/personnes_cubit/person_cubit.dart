@@ -56,7 +56,6 @@ class PersonCubit extends Cubit<PersonState> {
 
   void removePerson() {
     if (personNumber > 1) personNumber -= 1;
-    print(personNumber);
     emit(RemovePerson());
   }
 

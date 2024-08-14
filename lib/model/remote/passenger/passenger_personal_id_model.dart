@@ -44,7 +44,7 @@ class Body {
       this.type, 
       this.firstName, 
       this.lastName, 
-      this.birthDate, 
+      this.bitrhdate,
       this.nationality,});
 
   Body.fromJson(dynamic json) {
@@ -53,7 +53,7 @@ class Body {
     type = json['type'];
     firstName = json['firstName'];
     lastName = json['lastName'];
-    birthDate = json['birthDate'];
+    bitrhdate = json['birthdate'];
     nationality = json['nationality'];
   }
   num? id;
@@ -61,21 +61,21 @@ class Body {
   String? type;
   String? firstName;
   String? lastName;
-  String? birthDate;
+  String? bitrhdate;
   String? nationality;
 Body copyWith({  num? id,
   num? relationshipId,
   String? type,
   String? firstName,
   String? lastName,
-  String? birthDate,
+  String? bitrhdate,
   String? nationality,
 }) => Body(  id: id ?? this.id,
   relationshipId: relationshipId ?? this.relationshipId,
   type: type ?? this.type,
   firstName: firstName ?? this.firstName,
   lastName: lastName ?? this.lastName,
-  birthDate: birthDate ?? this.birthDate,
+  bitrhdate: bitrhdate ?? this.bitrhdate,
   nationality: nationality ?? this.nationality,
 );
   Map<String, dynamic> toJson() {
@@ -85,7 +85,7 @@ Body copyWith({  num? id,
     map['type'] = type;
     map['firstName'] = firstName;
     map['lastName'] = lastName;
-    map['birthDate'] = birthDate;
+    map['bitrhdate'] = bitrhdate;
     map['nationality'] = nationality;
     return map;
   }

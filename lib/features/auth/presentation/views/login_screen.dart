@@ -8,6 +8,7 @@ import 'package:travego/features/auth/presentation/views/register_screen.dart';
 import 'package:travego/translations/locale_keys.g.dart';
 
 import '../../../../core/utils/shared/components/components.dart';
+import '../../../../core/utils/shared/constant.dart';
 import '../../../../core/widgets/login_container/login_container.dart';
 import '../manger/auth_cubit.dart';
 
@@ -15,8 +16,6 @@ import '../manger/auth_cubit.dart';
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
-
-
 
 
   @override
@@ -33,7 +32,7 @@ class LoginScreen extends StatelessWidget {
           }
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: Colors.grey,
-            content: Text(state.error.toString()),
+            content: Text(state.error.toString()=='404'? 'Email not found':state.error.toString()),
           ));
         }
       },
@@ -59,10 +58,11 @@ class LoginScreen extends StatelessWidget {
                     scale: 0.9,
                   )),
               Positioned(
-                left: 19.0,
+                right: isLTR? 25.0:25.0,
+                left: isLTR? 0.0 :20.0,
                 top: ScreenSizeUtil.screenHeight * 0.06,
                 child: Text(
-                  "Travego",
+                  LocaleKeys.Travego.tr(),
                   style: GoogleFonts.inter(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -74,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      LocaleKeys.Dont_have_an_account.tr(),
+                      LocaleKeys.DontHaveAnAccount.tr(),
                       style: GoogleFonts.inter(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -82,7 +82,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     TextButton(
                       child: Text(
-                        LocaleKeys.Sign_up.tr(),
+                        LocaleKeys.SignUp.tr(),
                         style: GoogleFonts.inter(
                             color: Colors.white,
                             fontWeight: FontWeight.w800,

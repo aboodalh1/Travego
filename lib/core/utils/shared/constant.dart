@@ -5,4 +5,4 @@ String token = '';
 bool isLTR = false;
 PlaceModel? placeModel;
 bool isDark = false;
-UserModel? userModel;
+UserModel? globalUserModel;

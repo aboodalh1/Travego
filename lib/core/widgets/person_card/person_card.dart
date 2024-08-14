@@ -166,7 +166,7 @@ class PersonCard extends StatelessWidget {
         decoration: BoxDecoration(
             border: BorderDirectional(
                 bottom: BlocProvider.of<PersonCubit>(context).isConfirm
-                    ? BorderSide(width: 1)
+                    ? const BorderSide(width: 1)
                     : BorderSide.none)),
         child: TextFormField(
           enabled: BlocProvider.of<PersonCubit>(context).isConfirm,

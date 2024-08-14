@@ -44,8 +44,8 @@ class Body {
       this.type, 
       this.firstName, 
       this.lastName, 
-      this.issueDate, 
-      this.expiryDate, 
+      this.passport_issue_date,
+      this.passport_expires_date,
       this.passportNumber,});
 
   Body.fromJson(dynamic json) {
@@ -54,8 +54,8 @@ class Body {
     type = json['type'];
     firstName = json['firstName'];
     lastName = json['lastName'];
-    issueDate = json['issueDate'];
-    expiryDate = json['expiryDate'];
+    passport_issue_date = json['passport_issue_date'];
+    passport_expires_date = json['passport_expires_date'];
     passportNumber = json['passportNumber'];
   }
   num? id;
@@ -63,24 +63,24 @@ class Body {
   String? type;
   String? firstName;
   String? lastName;
-  String? issueDate;
-  String? expiryDate;
+  String? passport_issue_date;
+  String? passport_expires_date;
   String? passportNumber;
 Body copyWith({  num? id,
   num? relationshipId,
   String? type,
   String? firstName,
   String? lastName,
-  String? issueDate,
-  String? expiryDate,
+  String? passport_issue_date,
+  String? passport_expires_date,
   String? passportNumber,
 }) => Body(  id: id ?? this.id,
   relationshipId: relationshipId ?? this.relationshipId,
   type: type ?? this.type,
   firstName: firstName ?? this.firstName,
   lastName: lastName ?? this.lastName,
-  issueDate: issueDate ?? this.issueDate,
-  expiryDate: expiryDate ?? this.expiryDate,
+  passport_issue_date: passport_issue_date ?? this.passport_issue_date,
+  passport_expires_date: passport_expires_date ?? this.passport_expires_date,
   passportNumber: passportNumber ?? this.passportNumber,
 );
   Map<String, dynamic> toJson() {
@@ -90,8 +90,8 @@ Body copyWith({  num? id,
     map['type'] = type;
     map['firstName'] = firstName;
     map['lastName'] = lastName;
-    map['issueDate'] = issueDate;
-    map['expiryDate'] = expiryDate;
+    map['passport_issue_date'] = passport_issue_date;
+    map['passport_expires_date'] = passport_expires_date;
     map['passportNumber'] = passportNumber;
     return map;
   }

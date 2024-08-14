@@ -24,9 +24,7 @@ class PaypalService {
     try {
       final String result =
           await _channel.invokeMethod('initiatePayment', {'amount': amount});
-      print("Payment result: $result");
     } on PlatformException catch (e) {
-      print("Failed to initiate payment: '${e.message}'.");
     }
   }
 }

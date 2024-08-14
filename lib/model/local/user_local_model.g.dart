@@ -17,12 +17,12 @@ class UserAdapter extends TypeAdapter<LocalUser> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return LocalUser(
-      id: fields[0] as num,
-      firstName: fields[1] as String,
-      lastName: fields[2] as String,
-      email: fields[3] as String,
-      creationDate: fields[4] as String,
-      phoneNumber: fields[5] as String,
+      id_user: fields[0] as num,
+      firstName_user: fields[1] as String,
+      lastName_user: fields[2] as String,
+      email_user: fields[3] as String,
+      creationDate_user: fields[4] as String,
+      phoneNumber_user: fields[5] as String,
     );
   }
 
@@ -31,17 +31,17 @@ class UserAdapter extends TypeAdapter<LocalUser> {
     writer
       ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.id)
+      ..write(obj.id_user)
       ..writeByte(1)
-      ..write(obj.firstName)
+      ..write(obj.firstName_user)
       ..writeByte(2)
-      ..write(obj.lastName)
+      ..write(obj.lastName_user)
       ..writeByte(3)
-      ..write(obj.email)
+      ..write(obj.email_user)
       ..writeByte(4)
-      ..write(obj.creationDate)
+      ..write(obj.creationDate_user)
       ..writeByte(5)
-      ..write(obj.phoneNumber);
+      ..write(obj.phoneNumber_user);
   }
 
   @override

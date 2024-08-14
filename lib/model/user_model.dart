@@ -1,9 +1,12 @@
+import 'package:travego/model/local/user_local_model.dart';
+
 class UserModel {
   UserModel({
-      this.message, 
-      this.status, 
-      this.localDateTime, 
-      this.body,});
+    this.message,
+    this.status,
+    this.localDateTime,
+    this.body,
+  });
 
   UserModel.fromJson(dynamic json) {
     message = json['message'];
@@ -11,19 +14,25 @@ class UserModel {
     localDateTime = json['localDateTime'];
     body = json['body'] != null ? Body.fromJson(json['body']) : null;
   }
+
   String? message;
   String? status;
   String? localDateTime;
   Body? body;
-UserModel copyWith({  String? message,
-  String? status,
-  String? localDateTime,
-  Body? body,
-}) => UserModel(  message: message ?? this.message,
-  status: status ?? this.status,
-  localDateTime: localDateTime ?? this.localDateTime,
-  body: body ?? this.body,
-);
+
+  UserModel copyWith({
+    String? message,
+    String? status,
+    String? localDateTime,
+    Body? body,
+  }) =>
+      UserModel(
+        message: message ?? this.message,
+        status: status ?? this.status,
+        localDateTime: localDateTime ?? this.localDateTime,
+        body: body ?? this.body,
+      );
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['message'] = message;
@@ -34,25 +43,31 @@ UserModel copyWith({  String? message,
     }
     return map;
   }
-
 }
 
 class Body {
   Body({
-      this.user, 
-      this.token,});
+    this.user,
+    this.token,
+  });
 
   Body.fromJson(dynamic json) {
     user = json['User'] != null ? User.fromJson(json['User']) : null;
     token = json['Token'] ?? '';
   }
+
   User? user;
   String? token;
-Body copyWith({  User? user,
-  String? token,
-}) => Body(  user: user ?? this.user,
-  token: token ?? this.token,
-);
+
+  Body copyWith({
+    User? user,
+    String? token,
+  }) =>
+      Body(
+        user: user ?? this.user,
+        token: token ?? this.token,
+      );
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (user != null) {
@@ -61,18 +76,25 @@ Body copyWith({  User? user,
     map['Token'] = token ?? '';
     return map;
   }
-
 }
 
-class User {
+class User extends LocalUser {
   User({
-      this.id, 
-      this.firstName, 
-      this.lastName, 
-      this.theusername, 
-      this.email, 
-      this.creationDate, 
-      this.phoneNumber,});
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.theusername,
+    this.email,
+    this.creationDate,
+    this.phoneNumber,
+  }) : super(
+      id_user:id,
+      firstName_user:firstName,
+      lastName_user: lastName,
+      email_user: email,
+      creationDate_user: creationDate,
+      phoneNumber_user:phoneNumber,
+  );
 
   User.fromJson(dynamic json) {
     id = json['id'];
@@ -83,6 +105,7 @@ class User {
     creationDate = json['creationDate'];
     phoneNumber = json['phone_number'];
   }
+
   num? id;
   String? firstName;
   String? lastName;
@@ -90,21 +113,26 @@ class User {
   String? email;
   String? creationDate;
   String? phoneNumber;
-User copyWith({  num? id,
-  String? firstName,
-  String? lastName,
-  String? theusername,
-  String? email,
-  String? creationDate,
-  String? phoneNumber,
-}) => User(  id: id ?? this.id,
-  firstName: firstName ?? this.firstName,
-  lastName: lastName ?? this.lastName,
-  theusername: theusername ?? this.theusername,
-  email: email ?? this.email,
-  creationDate: creationDate ?? this.creationDate,
-  phoneNumber: phoneNumber ?? this.phoneNumber,
-);
+
+  User copyWith({
+    num? id,
+    String? firstName,
+    String? lastName,
+    String? theusername,
+    String? email,
+    String? creationDate,
+    String? phoneNumber,
+  }) =>
+      User(
+        id: id ?? this.id,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        theusername: theusername ?? this.theusername,
+        email: email ?? this.email,
+        creationDate: creationDate ?? this.creationDate,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+      );
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
@@ -116,5 +144,4 @@ User copyWith({  num? id,
     map['phone_number'] = phoneNumber;
     return map;
   }
-
 }

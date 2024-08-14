@@ -44,8 +44,8 @@ class Body {
       this.type, 
       this.visaType, 
       this.country, 
-      this.issueDate, 
-      this.expiryDate,});
+      this.visa_issue_date,
+      this.visa_expires_date,});
 
   Body.fromJson(dynamic json) {
     id = json['id'];
@@ -53,30 +53,30 @@ class Body {
     type = json['type'];
     visaType = json['visaType'];
     country = json['country'];
-    issueDate = json['issueDate'];
-    expiryDate = json['expiryDate'];
+    visa_issue_date = json['visa_issue_date'];
+    visa_expires_date = json['visa_expires_date'];
   }
   num? id;
   num? relationshipId;
   String? type;
   String? visaType;
   String? country;
-  String? issueDate;
-  String? expiryDate;
+  String? visa_issue_date;
+  String? visa_expires_date;
 Body copyWith({  num? id,
   num? relationshipId,
   String? type,
   String? visaType,
   String? country,
-  String? issueDate,
-  String? expiryDate,
+  String? visa_issue_date,
+  String? visa_expires_date,
 }) => Body(  id: id ?? this.id,
   relationshipId: relationshipId ?? this.relationshipId,
   type: type ?? this.type,
   visaType: visaType ?? this.visaType,
   country: country ?? this.country,
-  issueDate: issueDate ?? this.issueDate,
-  expiryDate: expiryDate ?? this.expiryDate,
+  visa_issue_date: visa_issue_date ?? this.visa_issue_date,
+  visa_expires_date: visa_expires_date ?? this.visa_expires_date,
 );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -85,8 +85,8 @@ Body copyWith({  num? id,
     map['type'] = type;
     map['visaType'] = visaType;
     map['country'] = country;
-    map['issueDate'] = issueDate;
-    map['expiryDate'] = expiryDate;
+    map['visa_issue_date'] = visa_issue_date;
+    map['visa_expires_date'] = visa_expires_date;
     return map;
   }
 

@@ -181,7 +181,6 @@ class LocationScreen extends StatelessWidget {
       }).toList(),
       onChanged: (String? newValue) {
         dropController = newValue!;
-        print(dropController);
       //   BlocProvider.of<LocationCubit>(context).getPlaces(context,
       //       categories: 'commercial.$dropController',
       //       limit: '10',

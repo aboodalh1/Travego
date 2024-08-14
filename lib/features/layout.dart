@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:animations/animations.dart';
+import '../core/widgets/custom_nav_bar/custom_nav_bar.dart';
 import 'create_trip/create_trip.dart';
 import 'general_cubit/layout_cubit.dart';
 
@@ -67,24 +67,7 @@ class LayoutScreen extends StatelessWidget {
     );
   }
 
-  BottomNavigationBar customBottomNavBar(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: BlocProvider.of<GeneralCubit>(context).navBarSelectedItem,
-      onTap: (value) {
-        BlocProvider.of<GeneralCubit>(context)
-            .changeBottomNavBar(value, context);
-      },
-      type: BottomNavigationBarType.fixed,
-      items: [
-        BottomNavigationBarItem(icon: const Icon(Icons.home), label: 'home'.tr),
-        BottomNavigationBarItem(icon: const Icon(Icons.place), label: 'Explore'.tr),
-        BottomNavigationBarItem(
-            icon: const Icon(Icons.home_work_outlined), label: 'hotels_screen'.tr),
-        BottomNavigationBarItem(
-            icon: const Icon(Icons.settings), label: 'Settings'.tr)
-      ],
-    );
-  }
+
 }
 
 

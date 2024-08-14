@@ -78,7 +78,7 @@ class PersonnesInformation extends StatelessWidget {
                           const Text('Mazza')
                         ],
                       ) ,
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
                   const SizedBox(
@@ -101,10 +101,7 @@ class PersonnesInformation extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () {
                             personCubit.addPerson();
-                              print(
-                                  'cubit.passportNumber :${personCubit.passportNumber}');
-                              print(personCubit.passportNumber);
-                            },
+                               },
                             child: Container(
                                 padding: const EdgeInsets.all(10),
                                 width: double.infinity,
@@ -128,8 +125,8 @@ class PersonnesInformation extends StatelessWidget {
                                 )),
                           ),
                         ),
-                        Spacer(),
-                        Container(color:defaultColor,child: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward,color: Colors.white,)))
+                        const Spacer(),
+                        Container(color:defaultColor,child: IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_forward,color: Colors.white,)))
                       ],
                     ),
                   )

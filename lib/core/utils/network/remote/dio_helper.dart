@@ -1,27 +1,37 @@
 // ignore_for_file: depend_on_referenced_packages
 
-
 import 'package:dio/dio.dart';
 
 class DioHelper {
-  final baseUrl = 'http://10.0.2.2:8070/api/';
+  final baseUrl = 'https://travego-z86d.onrender.com/api/';
   final Dio dio;
+
   DioHelper(this.dio);
 
   Future<Response> getData({
     required String endPoint,
     String? token,
+    Map<String, dynamic>? query,
+    String lang = "en",
+    String? contenttype,
+    String? accept,
   }) async {
-    Map<String, String> headers = {};
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'lang': lang,
+    };
     if (token != null) {
       headers.addAll({'Authorization': 'Bearer $token'});
     }
     return await dio
         .get('$baseUrl$endPoint',
+            queryParameters: query,
+            data: query,
             options: Options(
+              extra: query,
               headers: headers,
             ))
-        .timeout(const Duration(milliseconds: 3000));
+        .timeout(const Duration(milliseconds: 200000));
   }
 
   Future<Response> postData(
@@ -36,8 +46,8 @@ class DioHelper {
         data: data,
         options: Options(
             receiveDataWhenStatusError: true,
-            sendTimeout: const Duration(milliseconds: 3000),
-            receiveTimeout: const Duration(milliseconds: 3000),
+            sendTimeout: const Duration(milliseconds: 30000),
+            receiveTimeout: const Duration(milliseconds: 30000),
             headers: headers));
   }
 
@@ -62,6 +72,12 @@ class DioHelper {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     };
-    return await dio.delete('$baseUrl$endPoint', data: data);
+
+    return await dio.delete('$baseUrl$endPoint',
+        data: data,
+        options: Options(
+          sendTimeout: const Duration(milliseconds: 10000),
+          receiveTimeout: const Duration(milliseconds: 10000),
+        ));
   }
 }

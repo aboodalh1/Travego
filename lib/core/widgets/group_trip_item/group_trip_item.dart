@@ -1,14 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 // ignore: depend_on_referenced_packages
 import 'package:travego/core/utils/screen_size_util.dart';
+import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:travego/core/utils/shared/constant.dart';
+import 'package:travego/features/home/presentation/manger/trips_cubit/trips_cubit.dart';
+import 'package:travego/features/home/presentation/view/trip_details/trip_details.dart';
 
-class GroupTripItem extends StatelessWidget {
-  const GroupTripItem({
+import '../../../model/all_trips_model.dart';
+
+class TopTripsItem extends StatelessWidget {
+  const TopTripsItem({
     super.key,
+    required this.tripsCubit,
+    required this.model
   });
-
+  final TripsCubit tripsCubit;
+  final AllTripsModel model;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -20,15 +29,17 @@ class GroupTripItem extends StatelessWidget {
         separatorBuilder: (context, index) => const SizedBox(
           height: 15,
         ),
-        itemCount: 6,
+        itemCount: model.body.length,
         itemBuilder: (context, index) {
-          return customGroupItem(context);
+          return GestureDetector(
+              onTap: (){navigateTo(context, TripDetailScreen(model: model.body[index]));},
+              child: customTripItem(context,model,index));
         },
       ),
     );
   }
 
-  Container customGroupItem(context) {
+  Container customTripItem(context,AllTripsModel model,int index) {
     return Container(
           width: double.infinity,
           height: ScreenSizeUtil.screenHeight * 0.135 <125?125 : ScreenSizeUtil.screenHeight * 0.135,
@@ -45,26 +56,29 @@ class GroupTripItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Text('Mountain Trip',
+                    SizedBox(
+                      width:ScreenSizeUtil.screenWidth*0.5 < 200?200 : ScreenSizeUtil.screenWidth*0.5,
+                      child: Text(model.body[index].tripName,
                           overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                           style:  Theme.of(context).textTheme.headlineMedium),
                     ),
-                    const Gap(5),
-                    Expanded(
+                    const Spacer(),
+                    SizedBox(
+                      width: ScreenSizeUtil.screenWidth * 0.5 < 200?200 : ScreenSizeUtil.screenWidth * 0.5,
                       child: Text(
-                        'Seelisburg',
+                        model.body[index].tripCategory,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
-                    const Gap(12),
+                    const Spacer(),
                     Row(
                       children: [
                         const Icon(
                           Icons.place,
                         ),
                         Text(
-                          'Mountain Trip',
+                          model.body[index].country,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],

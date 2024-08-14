@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:travego/core/widgets/search_text_form/search_text_form_field.dart';
-import 'package:travego/core/widgets/top_trip_item/top_trip_item.dart';
 import 'package:intl/intl.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:travego/features/create_trip/parsonnes_information/personnes_cubit/person_cubit.dart';
@@ -46,7 +45,7 @@ class CreateTrip extends StatelessWidget {
                   const SizedBox(
                     height: 12,
                   ),
-                  const TopTripsItem(),
+                  // const TopTripsItem(),
                   CalendarDatePicker2(
                       config: CalendarDatePicker2Config(
                           calendarType: CalendarDatePicker2Type.range,
@@ -60,11 +59,7 @@ class CreateTrip extends StatelessWidget {
                         if (dates.length == 2) {
                           cubit.dateController = dates[0]!;
                           cubit.dateController2 = dates[1]!;
-                          print(DateFormat.yMMMEd()
-                              .format(cubit.dateController)
-                              .toString());
-                          print(cubit.dateController2.toString());
-                        }
+                          }
                       }),
                 ],
               ),

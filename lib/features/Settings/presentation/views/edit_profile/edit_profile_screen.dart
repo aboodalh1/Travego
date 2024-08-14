@@ -148,7 +148,7 @@ class EditProfileScreen extends StatelessWidget {
                               token: token,
                               firstName: settingsCubit.firstNameController.text,
                               lastName: settingsCubit.lastNameController.text,
-                              username: userModel!.body!.user!.theusername!,
+                              username: globalUserModel!.body!.user!.theusername!,
                               phone: settingsCubit.phoneController.text);
                         }
                       },

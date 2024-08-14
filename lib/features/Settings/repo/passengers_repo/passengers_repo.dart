@@ -1,9 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:travego/core/errors/failure.dart';
-import 'package:travego/model/remote/passenger/passenger_info_model.dart';
-import 'package:travego/model/remote/passenger/passenger_passport_model.dart';
-import 'package:travego/model/remote/passenger/passenger_personal_id_model.dart';
-import 'package:travego/model/remote/passenger/passenger_visa_model.dart';
 
 abstract class PassengersRepo{
 
@@ -13,7 +10,17 @@ abstract class PassengersRepo{
     required String fatherName,
     required String motherName,
     required String gender,
-    required DateTime birthDate,
+    required String birthDate,
+    required String token,
+});
+  Future<Either<Failure,String>> editPassenger({
+    required num id,
+    required String firstName,
+    required String lastName,
+    required String fatherName,
+    required String motherName,
+    required String gender,
+    required String birthDate,
     required String token,
 });
   Future <Either<Failure,String>> addPassengerPassport({
@@ -42,10 +49,14 @@ abstract class PassengersRepo{
     required String token,
 });
 
-  Future <Either<Failure,PassengerInfoModel>> getAllPassengers({
+  Future <Either<Failure,Response>> getAllPassengers({
     required String token
 });
-  Future <Either<Failure,PassengerPassportModel>> getPassengerPassport({required String token, required num id});
-  Future <Either<Failure,PassengerVisaModel>> getPassengerVisa({required String token,required num id});
-  Future <Either<Failure,PassengerPersonalIdModel>> getPassengerPersonalId({required String token,required num id});
+  Future <Either<Failure,Response>> getPassengerPassport({required String token, required num id});
+  Future <Either<Failure,Response>> getPassengerVisa({required String token,required num id});
+  Future <Either<Failure,Response>> getPassengerPersonalId({required String token,required num id});
+  Future <Either<Failure,String>> deletePassenger({required String token,required num id});
+  Future <Either<Failure,String>> deletePassengerPassport({required String token,required num id});
+  Future <Either<Failure,String>> deletePassengerVisa({required String token,required num id});
+  Future <Either<Failure,String>> deletePassengerPersonalId({required String token,required num id});
 }

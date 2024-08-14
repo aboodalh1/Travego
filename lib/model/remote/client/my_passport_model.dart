@@ -1,11 +1,11 @@
-class PassengerPassportModel {
-  PassengerPassportModel({
+class MyPassportModel {
+  MyPassportModel({
       this.message, 
       this.status, 
       this.localDateTime, 
       this.body,});
 
-  PassengerPassportModel.fromJson(dynamic json) {
+  MyPassportModel.fromJson(dynamic json) {
     message = json['message'];
     status = json['status'];
     localDateTime = json['localDateTime'];
@@ -15,11 +15,11 @@ class PassengerPassportModel {
   String? status;
   String? localDateTime;
   Body? body;
-PassengerPassportModel copyWith({  String? message,
+MyPassportModel copyWith({  String? message,
   String? status,
   String? localDateTime,
   Body? body,
-}) => PassengerPassportModel(  message: message ?? this.message,
+}) => MyPassportModel(  message: message ?? this.message,
   status: status ?? this.status,
   localDateTime: localDateTime ?? this.localDateTime,
   body: body ?? this.body,
@@ -54,9 +54,9 @@ class Body {
     type = json['type'];
     firstName = json['firstName'];
     lastName = json['lastName'];
-    issueDate = json['issueDate'];
-    expiryDate = json['expiryDate'];
-    passportNumber = json['passportNumber'];
+    issueDate = json['passport_issue_date'];
+    expiryDate = json['passport_expires_date'];
+    passportNumber = json['passport_number'];
   }
   num? id;
   num? relationshipId;

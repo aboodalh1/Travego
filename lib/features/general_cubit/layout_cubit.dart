@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/features/hotels/presentation/manger/hotel_cubit.dart';
-import 'package:travego/features/location/manger/location_cubit.dart';
 import 'package:travego/features/location/views/location_screen.dart';
 
 import '../Settings/presentation/views/settings_screen.dart';
@@ -21,9 +19,6 @@ class GeneralCubit extends Cubit<GeneralState> {
   ];
   int navBarSelectedItem = 0;
   void changeBottomNavBar(int selected, context) {
-    if (navBarSelectedItem == 1) {
-      BlocProvider.of<LocationCubit>(context).close();
-    }
     navBarSelectedItem = selected;
     emit(ChangeBottomNavBar());
   }
