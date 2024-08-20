@@ -1,16 +1,24 @@
 // ignore_for_file: file_names, depend_on_referenced_packages
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 
 ThemeData lightTheme = ThemeData.light().copyWith(
+  checkboxTheme: CheckboxThemeData(
+    checkColor: MaterialStateProperty.all(defaultColor),
+    fillColor: MaterialStateProperty.all(Colors.white12),
+
+  ),
   colorScheme: const ColorScheme.light(primary: Colors.white),
   progressIndicatorTheme: ProgressIndicatorThemeData(color: defaultColor),
   datePickerTheme: DatePickerThemeData(
+    
+    todayBorder: BorderSide(color: defaultColor),
+    rangeSelectionBackgroundColor: defaultColor,
     headerForegroundColor: Colors.white,
-    todayBackgroundColor: MaterialStateProperty.all(defaultColor),
     headerHelpStyle: const TextStyle(
       color: Colors.white,
       fontSize: 15,
@@ -25,8 +33,8 @@ ThemeData lightTheme = ThemeData.light().copyWith(
       fontWeight: FontWeight.w500,
     ),
   ),
-      backgroundColor: MaterialStateProperty.all(defaultColor),
-      foregroundColor: MaterialStateProperty.all(Colors.white),
+      backgroundColor: MaterialStateProperty.all(Colors.white),
+      foregroundColor: MaterialStateProperty.all(Colors.grey),
       shape: MaterialStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -88,6 +96,9 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
       foregroundColor: Colors.black,
+      textStyle: GoogleFonts.inter(
+        fontSize: 10,fontWeight: FontWeight.w500,color: Colors.black
+      ),
     ),
   ),
   textTheme: TextTheme(
@@ -132,6 +143,7 @@ ThemeData lightTheme = ThemeData.light().copyWith(
     titleTextStyle: GoogleFonts.inter(
         color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
   ),
+
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
       type: BottomNavigationBarType.fixed,

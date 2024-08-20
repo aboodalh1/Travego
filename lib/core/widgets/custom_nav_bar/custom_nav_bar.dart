@@ -15,7 +15,7 @@ BottomNavigationBar customBottomNavBar(BuildContext context) {
     type: BottomNavigationBarType.fixed,
     items: [
       BottomNavigationBarItem(icon: const Icon(Icons.home), label: LocaleKeys.home.tr()),
-      BottomNavigationBarItem(icon: const Icon(Icons.sos), label: LocaleKeys.Explore.tr(),),
+      BottomNavigationBarItem(icon: const Icon(Icons.sos), label: 'Reservation',),
       BottomNavigationBarItem(
           icon: const Icon(Icons.home_work_outlined), label: LocaleKeys.Hotels.tr()),
       BottomNavigationBarItem(

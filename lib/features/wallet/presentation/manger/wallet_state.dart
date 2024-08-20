@@ -8,6 +8,7 @@ final class ChangeSecure extends WalletState{}
 final class WalletCreateLoading extends WalletState {}
 
 final class WalletCreateSuccess extends WalletState {}
+final class GetWalletState extends WalletState {}
 
 final class WalletCreateFailure extends WalletState {
   final String error;
@@ -24,4 +25,11 @@ final class AddMoneyToWalletSuccess extends WalletState {
 final class AddMoneyToWalletFailure extends WalletState {
   final String error;
   AddMoneyToWalletFailure({required this.error});
+}
+
+final class GetTransactionHistoryLoading extends WalletState{}
+final class GetTransactionHistorySuccess extends WalletState{}
+final class GetTransactionHistoryFailure extends WalletState{
+  final String error;
+  GetTransactionHistoryFailure({required this.error});
 }

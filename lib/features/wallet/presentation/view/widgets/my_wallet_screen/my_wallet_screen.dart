@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/core/utils/network/remote/service_locator.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
+import 'package:travego/core/widgets/alert_dialog/loading_alert_dialog.dart';
 import 'package:travego/features/wallet/repo/wallet_repo_impl.dart';
 
 import '../../../../../../core/utils/screen_size_util.dart';
@@ -16,17 +17,20 @@ import '../../charge_wallet/charge_wallet.dart';
 class MyWalletScreen extends StatelessWidget {
   const MyWalletScreen({
     super.key,
-    required this.walletCubit
+
   });
-  final WalletCubit walletCubit;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-  create: (context) => WalletCubit(getIt.get<WalletRepoImpl>()),
+  create: (context) => WalletCubit(getIt.get<WalletRepoImpl>())..getMyWallet(token: token),
   child: BlocConsumer<WalletCubit, WalletState>(
   listener: (context, state) {
   },
   builder: (context, state) {
+    WalletCubit walletCubit = BlocProvider.of<WalletCubit>(context);
+    if(state is WalletCreateLoading){
+      return Scaffold(body: LoadingAlertDialog(),);
+    }
     return Scaffold(
       appBar: AppBar(actions: [IconButton(onPressed: (){
         showDialog(context: context, builder: (context)=>SizedBox(
@@ -66,7 +70,7 @@ class MyWalletScreen extends StatelessWidget {
                               fontWeight: FontWeight.w700)),
                       const Gap(20),
                       Text(
-                        '100 \$',
+                        '${walletCubit.walletModel!.body!.balance}',
                         style: GoogleFonts.inter(
                             fontSize: 25, fontWeight: FontWeight.w700),
                       )

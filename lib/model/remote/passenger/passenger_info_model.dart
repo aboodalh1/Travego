@@ -3,7 +3,7 @@ class PassengerInfoModel {
       this.message, 
       this.status, 
       this.localDateTime, 
-      this.body,});
+      required this.body,});
 
   PassengerInfoModel.fromJson(dynamic json) {
     message = json['message'];
@@ -12,14 +12,14 @@ class PassengerInfoModel {
     if (json['body'] != null) {
       body = [];
       json['body'].forEach((v) {
-        body?.add(Body.fromJson(v));
+        body.add(Body.fromJson(v));
       });
     }
   }
   String? message;
   String? status;
   String? localDateTime;
-  List<Body>? body;
+  List<Body> body=[];
 PassengerInfoModel copyWith({  String? message,
   String? status,
   String? localDateTime,

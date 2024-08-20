@@ -2,7 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:travego/features/home/repo/trips_repo/trips_repo.dart';
 import 'package:travego/model/all_trips_model.dart';
 import 'package:travego/model/remote/trip/trip_model.dart';
+import 'package:travego/model/remote/trip/trip_review_model.dart';
 import 'package:travego/model/remote/trip/trips_cat_model.dart';
+import 'package:travego/model/reservation/all_reservations_model.dart';
 import '../../../../../core/utils/shared/constant.dart';
 
 part 'trips_state.dart';
@@ -10,8 +12,16 @@ part 'trips_state.dart';
 class TripsCubit extends Cubit<TripsState> {
   TripsCubit(this.tripsRepo) : super(TripsInitial());
   final TripsRepo tripsRepo;
-  AllTripsModel allTripModel = AllTripsModel(message: 'message', status: 'status', localDateTime: 'localDateTime', body: []);
-  AllTripsModel availableTripModel= AllTripsModel(message: 'message', status: 'status', localDateTime: 'localDateTime', body: []);
+  AllTripsModel allTripModel = AllTripsModel(
+      message: 'message',
+      status: 'status',
+      localDateTime: 'localDateTime',
+      body: []);
+  AllTripsModel availableTripModel = AllTripsModel(
+      message: 'message',
+      status: 'status',
+      localDateTime: 'localDateTime',
+      body: []);
   TripModel? tripModel;
   TripByCatModel tripByCatModel = TripByCatModel(
       message: 'message',
@@ -65,6 +75,7 @@ class TripsCubit extends Cubit<TripsState> {
       emit(GetTripByCatSuccess());
     });
   }
+
   Future<void> getAvailableTrip() async {
     emit(GetAvailableTripLoading());
     var result =
@@ -84,7 +95,6 @@ class TripsCubit extends Cubit<TripsState> {
 
   Future<void> addTripToFavorite(
       {required String token, required num id}) async {
-
     var result = await tripsRepo.addTripToFavorite(token: token, id: id);
     result.fold((failure) {
       emit(AddToFavoritesFailure(error: failure.errMessage));
@@ -104,4 +114,41 @@ class TripsCubit extends Cubit<TripsState> {
       isTripFavorite = false;
     });
   }
+
+  TripReviewModel? tripReviewModel;
+
+  Future<void> getTripReview({required String token, required num id}) async {
+    emit(GetTripReviewLoading());
+    var result = await tripsRepo.getReviewTrip(token: token, tripId: id);
+    result.fold((failure) {
+      emit(GetTripsReviewFailure(error: failure.errMessage));
+    }, (response) {
+      tripReviewModel = TripReviewModel.fromJson(response.data);
+
+      emit(GetTripReviewSuccess());
+    });
+  }
+
+  AllReservationModel allReservationModel=AllReservationModel(message: 'message', status: 'status', localDateTime: 'localDateTime', body: []);
+  Future<void> getAllReservation({required String token})async{
+        emit(GetAllReservasionLoading());
+        var result =await tripsRepo.getAllReservations(token: token);
+        result.fold((failure) {
+            emit(GetAllReservasionFailure(error: failure.errMessage));
+        }, (response) {
+          print(response.data);
+          allReservationModel = AllReservationModel.fromJson(response.data);
+            emit(GetAllReservasionSuccess());
+          }
+        );}
+  Future<void> payForReservation({required String token,required int id})async{
+        emit(PayingLoading());
+        var result =await tripsRepo.payForReservation(token: token,reservationId:id );
+        result.fold((failure) {
+            emit(PaidFailureState(error: failure.errMessage));
+        }, (response) {
+            emit(PaidSuccessfulState(message: response));
+          }
+        );}
+
 }

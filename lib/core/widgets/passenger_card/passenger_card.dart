@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/core/utils/network/remote/service_locator.dart';
 import 'package:travego/core/utils/screen_size_util.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
+import 'package:travego/core/widgets/alert_dialog/loading_alert_dialog.dart';
 import 'package:travego/features/Settings/presentation/manger/passenger/passenger_cubit.dart';
 import 'package:travego/features/Settings/presentation/views/passengers/passenger_passport_screen.dart';
 import 'package:travego/features/Settings/presentation/views/passengers/passenger_personal_id_screen.dart';
@@ -64,6 +65,7 @@ class _PassengerCardState extends State<PassengerCard> {
           motherNameCont.text = widget.motherName;
           passengerGenderCont.text = widget.passengerGender;
           birthDateCont.text = widget.birthDate;
+
           return Container(
             width: ScreenSizeUtil.screenWidth,
             padding: const EdgeInsets.all(10),

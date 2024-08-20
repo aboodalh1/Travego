@@ -54,6 +54,7 @@ class AddMyPIDCard extends StatelessWidget {
                       text: "Do you want to delete your Personal ID details?",
                       function: () {
                     settingsCubit.deleteMyPersonalId(token: token);
+                    if(Navigator.canPop(context))Navigator.pop(context);
                   });
                 },
                 icon: const Icon(Icons.delete),
@@ -98,7 +99,7 @@ class AddMyPIDCard extends StatelessWidget {
                             firstDate: DateTime(2010),
                             lastDate: DateTime(2030));
                         if (picked != null) {
-                          settingsCubit.passportExpiredDate.text =
+                          settingsCubit.idBirthDate.text =
                               DateFormat('yyyy-MM-dd').format(picked);
                         }
                       },

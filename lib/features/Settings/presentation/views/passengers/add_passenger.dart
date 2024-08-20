@@ -36,10 +36,11 @@ class AddPassengerScreen extends StatelessWidget {
             if (state is AddPassengerSuccess) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Passenger added successfully')));
-              Navigator.pop(context);
+                   Navigator.pop(context);
             }
           },
-          builder: (context, PassengerStates state) {
+          builder: (context, state) {
+
             return Form(
               key: _formKey,
               child: Scaffold(
@@ -50,167 +51,150 @@ class AddPassengerScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      Container(
-                        width: ScreenSizeUtil.screenWidth,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            width: 2,
-                            color: defaultColor,
-                          ),
-                          color: defaultColor.withOpacity(.3),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
+                      Padding(
+                        padding:
+                                const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Row(
                               children: [
+                                Text(
+                                  LocaleKeys.FirstName.tr(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 Expanded(
-                                  child: ListTile(
-                                    leading: CircleAvatar(
-                                      child: Image.asset(
-                                          "assets/images/cover.png"),
-                                    ),
-                                    title: defaultInputTextField(
-                                      hintText: LocaleKeys.FirstName.tr(),
-                                      controller: passengerFirstNameCont,
-                                      context,
-                                      textInputType: TextInputType.emailAddress,
-                                    ),
+                                  child: defaultInputTextField(
+                                    controller: passengerFirstNameCont,
+                                    context,
+                                    textInputType: TextInputType.text,
                                   ),
                                 ),
                               ],
                             ),
-                            Divider(
-                              thickness: 1,
-                              height: 5,
-                              color: defaultColor,
+                          ),
+                      Padding(
+                        padding:
+                                const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  LocaleKeys.LastName.tr(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: defaultInputTextField(
+                                    controller: passengerLastNameCont,
+                                    context,
+                                    textInputType: TextInputType.emailAddress,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    LocaleKeys.LastName.tr(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  LocaleKeys.FatherName.tr(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  Expanded(
-                                    child: defaultInputTextField(
-                                      controller: passengerLastNameCont,
-                                      context,
-                                      textInputType: TextInputType.emailAddress,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                Expanded(
+                                    child: defaultInputTextField(context,
+                                        controller: fatherNameCont)),
+                              ],
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    LocaleKeys.FatherName.tr(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  LocaleKeys.MotherName.tr(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  Expanded(
-                                      child: defaultInputTextField(context,
-                                          controller: fatherNameCont)),
-                                ],
-                              ),
+                                ),
+                                Expanded(
+                                    child: defaultInputTextField(context,
+                                        controller: motherNameCont)),
+                              ],
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    LocaleKeys.MotherName.tr(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  "Gender: ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  Expanded(
-                                      child: defaultInputTextField(context,
-                                          controller: motherNameCont)),
-                                ],
-                              ),
+                                ),
+                                Expanded(
+                                  child: defaultInputTextField(
+                                    controller: passengerGenderCont,
+                                    context,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    "Gender: ",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  "Birth date: ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  Expanded(
-                                    child: defaultInputTextField(
-                                      controller: passengerGenderCont,
-                                      context,
-                                    ),
+                                ),
+                                Expanded(
+                                  child: defaultInputTextField(
+                                    controller: birthDateCont,
+                                    context,
+                                    onTap: () async {
+                                      final DateTime? picked =
+                                          await showDatePicker(
+                                              initialDate: DateTime.now(),
+                                              context: context,
+                                              firstDate: DateTime(1900),
+                                              lastDate: DateTime(2030));
+                                      if(picked!=null){
+                                        birthDateCont.text = DateFormat('yyyy-MM-dd').format(picked);
+                                      }
+                                    },
+                                    textInputType: TextInputType.datetime,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    "Birth date: ",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: defaultInputTextField(
-                                      controller: birthDateCont,
-                                      context,
-                                      onTap: () async {
-                                        final DateTime? picked =
-                                            await showDatePicker(
-                                                initialDate: DateTime.now(),
-                                                context: context,
-                                                firstDate: DateTime(1900),
-                                                lastDate: DateTime(2030));
-                                        if(picked!=null){
-                                          birthDateCont.text = DateFormat('yyyy-MM-dd').format(picked);
-                                        }
-                                      },
-                                      textInputType: TextInputType.datetime,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      DefaultElevated(
-                          label: 'Add',
-                          fill: false,
-                          onPressed: () {
-                            BlocProvider.of<PassengerCubit>(context)
-                                .addPassenger(
-                                    firstName: passengerFirstNameCont.text,
-                                    lastName: passengerLastNameCont.text,
-                                    fatherName: fatherNameCont.text,
-                                    motherName: motherNameCont.text,
-                                    passengerGender: passengerGenderCont.text,
-                                    birthDate: birthDateCont.text);
-                          })
+                          ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: DefaultElevated(
+                            label: 'Add',
+                            fill: false,
+                            onPressed: () {
+                              BlocProvider.of<PassengerCubit>(context)
+                                  .addPassenger(
+                                      firstName: passengerFirstNameCont.text,
+                                      lastName: passengerLastNameCont.text,
+                                      fatherName: fatherNameCont.text,
+                                      motherName: motherNameCont.text,
+                                      passengerGender: passengerGenderCont.text,
+                                      birthDate: birthDateCont.text);
+                            }),
+                      )
                     ],
                   ),
                 ),

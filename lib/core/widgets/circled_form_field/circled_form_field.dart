@@ -44,7 +44,7 @@ class defaultCircleTextField extends StatelessWidget {
         child: prefix,
       ),
       suffix: suffix ,
-      cursorColor: cursorColor,
+      cursorColor: fill? Colors.white:defaultColor,
       keyboardType: keyboardType,
       placeholder: hintText,
       placeholderStyle: TextStyle(fontSize: 15,color: fill? Colors.white38 : Colors.grey),

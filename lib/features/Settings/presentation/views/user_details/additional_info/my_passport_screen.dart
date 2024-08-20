@@ -23,11 +23,11 @@ class MyPassportScreen extends StatelessWidget {
         if (state is GetUserInfoError && state.error.toString() == '404') {
           settingsCubit.isFound = false;
         }
-        if (state is GetInfoError && state.error.toString() != '404') {
+        if (state is GetInfoError) {
           return ErrorLoadingScreen(
             buttonTitle: 'Try again',
             appBarTitle: 'My Personal ID Screen',
-            centerTitle: 'Check your connection',
+            centerTitle: state.error,
             onButtonPressed: () {
               settingsCubit.getMyPersonalId(token: token);
             },
@@ -71,6 +71,7 @@ class AddMyPassportCard extends StatelessWidget {
                         text: "Do you want to delete your passport details?",
                         function: () {
                       settingsCubit.deleteMyPassport(token: token);
+                      if(Navigator.canPop(context))Navigator.pop(context);
                     });
                   },
                   icon: const Icon(Icons.delete),
@@ -125,7 +126,7 @@ class AddMyPassportCard extends StatelessWidget {
                               firstDate: DateTime(2010),
                               lastDate: DateTime(2030));
                           if (picked != null) {
-                            settingsCubit.passportExpiredDate.text =
+                            settingsCubit.passportIssueDate.text =
                                 DateFormat('yyyy-MM-dd').format(picked);
                           }
                         },

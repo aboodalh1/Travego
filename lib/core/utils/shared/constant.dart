@@ -6,3 +6,8 @@ bool isLTR = false;
 PlaceModel? placeModel;
 bool isDark = false;
 UserModel? globalUserModel;
+
+List<Map<String,String>> personnes = [
+
+];
+List<Map<String,String>> reservationPersonnes = [];

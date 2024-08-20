@@ -8,6 +8,7 @@ import 'package:travego/core/widgets/custom_progress_indicator/custom_progress_i
 import 'package:travego/core/widgets/passenger_card/passenger_card.dart';
 import '../../../../../core/utils/network/remote/service_locator.dart';
 import '../../../../../core/utils/shared/constant.dart';
+import '../../../../../core/widgets/alert_dialog/loading_alert_dialog.dart';
 import '../../../../../core/widgets/loading_failure_widget/loading_failure_widget.dart';
 import '../../../repo/passengers_repo/passengers_repo_impl.dart';
 import '../../manger/passenger/passenger_cubit.dart';
@@ -52,8 +53,11 @@ class PassengersScreen extends StatelessWidget {
 
             );
           }
+          if(state is RemovePassengerLoading){
+            return const Scaffold(body: LoadingAlertDialog(),);
+          }
           if (state is PassengersErrorState && state.error != '404') {
-            return PassengerErrorLoading(passengerCubit: passengerCubit);
+            return PassengerErrorLoading(passengerCubit: passengerCubit,error: state.error,);
           }
           if (state is GetPassengerLoading) {
             return const CustomProgressIndicator();
@@ -84,25 +88,25 @@ class PassengersScreen extends StatelessWidget {
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) => PassengerCard(
                               passengerFirstName: passengerCubit
-                                  .passengersModel!.body![index].firstName!,
+                                  .passengersModel!.body[index].firstName!,
                               passengerLastName: passengerCubit
-                                  .passengersModel!.body![index].lastName!,
+                                  .passengersModel!.body[index].lastName!,
                               fatherName: passengerCubit
-                                  .passengersModel!.body![index].fatherName!,
+                                  .passengersModel!.body[index].fatherName!,
                               motherName: passengerCubit
-                                  .passengersModel!.body![index].motherName!,
+                                  .passengersModel!.body[index].motherName!,
                               birthDate: passengerCubit
-                                  .passengersModel!.body![index].birthdate!,
+                                  .passengersModel!.body[index].birthdate!,
                               passengerGender: passengerCubit
-                                  .passengersModel!.body![index].gender!,
+                                  .passengersModel!.body[index].gender!,
                               id: passengerCubit
-                                  .passengersModel!.body![index].id!,
+                                  .passengersModel!.body[index].id!,
                             ),
                             separatorBuilder: (context, index) => SizedBox(
                               height: ScreenSizeUtil.screenHeight * .01,
                             ),
                             itemCount:
-                                passengerCubit.passengersModel!.body!.length,
+                                passengerCubit.passengersModel!.body.length,
                           ),
                         ),
                         SizedBox(
@@ -130,9 +134,11 @@ class PassengerErrorLoading extends StatelessWidget {
   const PassengerErrorLoading({
     super.key,
     required this.passengerCubit,
+    required this.error,
   });
 
   final PassengerCubit passengerCubit;
+  final String error;
 
   @override
   Widget build(BuildContext context) {
@@ -140,29 +146,34 @@ class PassengerErrorLoading extends StatelessWidget {
         appBar: AppBar(
           title: Text('Add Passengers information'.tr),
         ),
-        body: RefreshIndicator(
-          color: Colors.white,
-          backgroundColor: defaultColor,
-          onRefresh: () async {
-            passengerCubit.getAllPassengers(token: token);
-          },
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('error'),
-                  TextButton(
-                    onPressed: () {
-                      navigateTo(context, AddPassengerScreen());
-                    },
-                    child: Text(
-                      'Add Passenger',
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  )
-                ],
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RefreshIndicator(
+            color: Colors.white,
+            backgroundColor: defaultColor,
+            onRefresh: () async {
+              passengerCubit.getAllPassengers(token: token);
+            },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: SizedBox(
+                height: ScreenSizeUtil.screenHeight*0.7,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text(error),
+                      TextButton(
+                        onPressed: () {
+                          navigateTo(context, AddPassengerScreen());
+                        },
+                        child: Text(
+                          'Add Passenger',
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           ),

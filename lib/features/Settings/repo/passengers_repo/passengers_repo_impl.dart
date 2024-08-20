@@ -28,7 +28,8 @@ class PassengersRepoImpl implements PassengersRepo {
             "father_name": fatherName,
             "mother_name": motherName,
             "gender": gender,
-            "birthdate": birthDate
+            "birthdate": birthDate,
+
           },
           token: token);
       return right(response.data['message']);
@@ -58,7 +59,8 @@ class PassengersRepoImpl implements PassengersRepo {
             "passportIssueDate": issueDate,
             "passportExpiryDate": expiredDate,
             "passportNumber": passportNumber,
-            "passengerId": passengerId
+            "passengerId": passengerId,
+            "passport_PHOTO": "string"
           },
           token: token);
       return right(response.data['message']);
@@ -86,7 +88,9 @@ class PassengersRepoImpl implements PassengersRepo {
             "idlastName": idlastName,
             "idBirthDate": idBirthDate,
             "nationality": nationality,
-            "passengerId": passengerId
+            "passengerId": passengerId,
+            "personalIdentity_PHOTO": "string"
+
           },
           token: token);
       return right(response.data['message']);
@@ -114,7 +118,8 @@ class PassengersRepoImpl implements PassengersRepo {
             "country": country,
             "visaIssueDate": issueDate,
             "visaExpiryDate": expiredDate,
-            "passengerId": passengerId
+            "passengerId": passengerId,
+            "visa_PHOTO": "string"
           },
           token: token);
       return right(response.data['message']);

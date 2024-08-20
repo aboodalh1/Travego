@@ -1,31 +1,19 @@
-// ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
-import 'package:flutter_verification_code/flutter_verification_code.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travego/core/utils/screen_size_util.dart';
+import 'package:travego/core/widgets/custom_snack_bar/custom_snack_bar.dart';
 import 'package:travego/features/auth/presentation/views/register_screen.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../core/utils/shared/Widgets/default_button.dart';
 import '../../../../core/utils/shared/components/components.dart';
 import '../manger/auth_cubit.dart';
+import '../widgets/custom_verification_field.dart';
 
-// ignore: must_be_immutable
 class VerificationScreen extends StatelessWidget {
-  SnackBar snackBar = const SnackBar(
-    backgroundColor: Colors.grey,
-    content: Row(
-      children: [
-        Text('verifying...'),
-        Spacer(),
-        CircularProgressIndicator(
-          color: Colors.white24,
-        ),
-      ],
-    ),
-  );
 
-  VerificationScreen({super.key});
+  const VerificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +21,13 @@ class VerificationScreen extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is CodeVerificationLoadingState) {
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            customSnackBar(context, 'verifying...');
         }
         if (state is CodeVerifySuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.grey,
-            content: Text(state.message.toString()),
-          ));
+         customSnackBar(context, state.message);
         }
         if (state is CodeVerifyFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.grey,
-              content: Text(state.error.toString())));
+          customSnackBar(context, state.error);
         }
       },
       builder: (context, state) {
@@ -74,14 +57,34 @@ class VerificationScreen extends StatelessWidget {
                 },
                 child: Text(
                   cubit.emailController.text,
-                  style: const TextStyle(color: Colors.blue),
+                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: defaultColor),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Center(
-                  child: customVerificationCode(cubit, context),
-                ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Center(
+                      child: customVerificationCode(cubit, context),
+                    ),
+                  ),
+                  Container(
+                    padding:  EdgeInsets.all(ScreenSizeUtil.screenHeight*0.009),
+                     margin: EdgeInsets.only(bottom:ScreenSizeUtil.screenHeight*0.04),
+                     decoration: BoxDecoration(
+                       borderRadius: BorderRadius.circular(11),
+                       border: Border.all(color:defaultColor)
+                     ),
+                    child: Text(
+                      'Paste',
+                      style: GoogleFonts.inter(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: defaultColor,
+                      ),
+                    ),
+                  )
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -116,7 +119,7 @@ class VerificationScreen extends StatelessWidget {
                   ),
                   TextButton(
                     child: Text(
-                      'Resnd new Code',
+                      'Resend new Code',
                       style: TextStyle(color: defaultColor, fontSize: 14),
                     ),
                     onPressed: () {
@@ -132,34 +135,5 @@ class VerificationScreen extends StatelessWidget {
     );
   }
 
-  VerificationCode customVerificationCode(
-      AuthCubit cubit, BuildContext context) {
-    return VerificationCode(
-      itemSize: 40,
-      digitsOnly: false,
-      fullBorder: true,
-      textStyle: const TextStyle(fontSize: 20.0, color: Colors.black),
-      keyboardType: TextInputType.text,
-      underlineColor: Colors.amber,
-      length: 6,
-      cursorColor: Colors.blue,
-      clearAll: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          'clear all',
-          style: TextStyle(fontSize: 14.0, color: Colors.blue[700]),
-        ),
-      ),
-      onCompleted: (String value) {
-        cubit.code = value;
-        cubit.verifyCode(code: cubit.code.toString(), email: '2');
-      },
-      onEditing: (bool value) {
-        cubit.onEditing = value;
-        if (!cubit.onEditing) {
-          FocusScope.of(context).unfocus();
-        }
-      },
-    );
-  }
+
 }

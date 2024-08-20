@@ -40,22 +40,28 @@ class PassengerError extends PassengerStates {
   PassengerError({required this.error});
 }
 
-class PassengerAddInfoLoading extends PassengerStates {}
+final class RemovePassengerLoading extends PassengerStates {}
 
-class PassengerAddInfoError extends PassengerStates {
+final class PassengerAddInfoLoading extends PassengerStates {}
+
+final class PassengerAddInfoError extends PassengerStates {
   final String error;
+
   PassengerAddInfoError({required this.error});
 }
 
 class PassengerAddInfoSuccess extends PassengerStates {
   final String message;
+
   PassengerAddInfoSuccess({required this.message});
 }
-class PassengerGetPersonalIdSuccess extends PassengerStates{
+
+class PassengerGetPersonalIdSuccess extends PassengerStates {
   final String message;
+
   PassengerGetPersonalIdSuccess({required this.message});
-  }
+}
 
-class ChangeToEdit extends PassengerStates{}
+class ChangeToEdit extends PassengerStates {}
 
-final class EditOrConformState extends PassengerStates{}
+final class EditOrConformState extends PassengerStates {}

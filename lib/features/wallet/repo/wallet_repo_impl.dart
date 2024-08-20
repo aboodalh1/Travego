@@ -36,7 +36,7 @@ Future<Either<Failure, String>> addMoneyToWallet(
         endPoint: 'CLient/Account/Add_Money_To_Wallet', data: {
       "code": code
     },token: token);
-    return right(response.data);
+    return right('response');
   } catch (e) {
     if (e is DioException) {
       return left(ServerFailure.fromDioError(e));
@@ -73,4 +73,18 @@ Future<Either<Failure, String>> deleteMyWallet(
     }
     return left(ServerFailure(e.toString()));
   }
-}}
+}
+
+  @override
+  Future<Either<Failure, Response>> getAllTransactionHistory({required String token}) async{
+    try {
+      var response = await dioHelper.getData(endPoint: 'CLient/Account/GetAll/TransactionHistory',token: token);
+      return right(response);
+    } catch (e) {
+      print(e.toString());
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }}

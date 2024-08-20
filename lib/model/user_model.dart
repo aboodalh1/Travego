@@ -1,102 +1,74 @@
-import 'package:travego/model/local/user_local_model.dart';
-
 class UserModel {
   UserModel({
-    this.message,
-    this.status,
-    this.localDateTime,
-    this.body,
+    required this.message,
+    required this.status,
+    required this.localDateTime,
+    required this.body,
   });
+  late final String message;
+  late final String status;
+  late final String localDateTime;
+  late final UserBody body;
 
-  UserModel.fromJson(dynamic json) {
+  UserModel.fromJson(Map<String, dynamic> json){
     message = json['message'];
     status = json['status'];
     localDateTime = json['localDateTime'];
-    body = json['body'] != null ? Body.fromJson(json['body']) : null;
+    body = UserBody.fromJson(json['body']);
   }
 
-  String? message;
-  String? status;
-  String? localDateTime;
-  Body? body;
-
-  UserModel copyWith({
-    String? message,
-    String? status,
-    String? localDateTime,
-    Body? body,
-  }) =>
-      UserModel(
-        message: message ?? this.message,
-        status: status ?? this.status,
-        localDateTime: localDateTime ?? this.localDateTime,
-        body: body ?? this.body,
-      );
-
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['message'] = message;
-    map['status'] = status;
-    map['localDateTime'] = localDateTime;
-    if (body != null) {
-      map['body'] = body?.toJson();
-    }
-    return map;
+    final _data = <String, dynamic>{};
+    _data['message'] = message;
+    _data['status'] = status;
+    _data['localDateTime'] = localDateTime;
+    _data['body'] = body.toJson();
+    return _data;
   }
 }
 
-class Body {
-  Body({
-    this.user,
-    this.token,
+class UserBody {
+  UserBody({
+    required this.user,
+    required this.token,
   });
+  late final User user;
+  late final String token;
 
-  Body.fromJson(dynamic json) {
-    user = json['User'] != null ? User.fromJson(json['User']) : null;
-    token = json['Token'] ?? '';
+  UserBody.fromJson(Map<String, dynamic> json){
+    user = User.fromJson(json['User']);
+    token = json['Token'];
   }
 
-  User? user;
-  String? token;
-
-  Body copyWith({
-    User? user,
-    String? token,
-  }) =>
-      Body(
-        user: user ?? this.user,
-        token: token ?? this.token,
-      );
-
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (user != null) {
-      map['User'] = user?.toJson();
-    }
-    map['Token'] = token ?? '';
-    return map;
+    final _data = <String, dynamic>{};
+    _data['User'] = user.toJson();
+    _data['Token'] = token;
+    return _data;
   }
 }
 
-class User extends LocalUser {
+class User {
   User({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.theusername,
-    this.email,
-    this.creationDate,
-    this.phoneNumber,
-  }) : super(
-      id_user:id,
-      firstName_user:firstName,
-      lastName_user: lastName,
-      email_user: email,
-      creationDate_user: creationDate,
-      phoneNumber_user:phoneNumber,
-  );
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.theusername,
+    required this.email,
+    required this.creationDate,
+    required this.phoneNumber,
+    this.addAllDocs,
+  });
+  late final int id;
+  late final String firstName;
+  late final String lastName;
+  late final String theusername;
+  late final String email;
+  late final String creationDate;
+  late final String phoneNumber;
+  late final Null addAllDocs;
 
-  User.fromJson(dynamic json) {
+  User.fromJson(Map<String, dynamic> json){
     id = json['id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
@@ -104,44 +76,19 @@ class User extends LocalUser {
     email = json['email'];
     creationDate = json['creationDate'];
     phoneNumber = json['phone_number'];
+    addAllDocs = null;
   }
 
-  num? id;
-  String? firstName;
-  String? lastName;
-  String? theusername;
-  String? email;
-  String? creationDate;
-  String? phoneNumber;
-
-  User copyWith({
-    num? id,
-    String? firstName,
-    String? lastName,
-    String? theusername,
-    String? email,
-    String? creationDate,
-    String? phoneNumber,
-  }) =>
-      User(
-        id: id ?? this.id,
-        firstName: firstName ?? this.firstName,
-        lastName: lastName ?? this.lastName,
-        theusername: theusername ?? this.theusername,
-        email: email ?? this.email,
-        creationDate: creationDate ?? this.creationDate,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
-      );
-
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['first_name'] = firstName;
-    map['last_name'] = lastName;
-    map['theusername'] = theusername;
-    map['email'] = email;
-    map['creationDate'] = creationDate;
-    map['phone_number'] = phoneNumber;
-    return map;
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['first_name'] = firstName;
+    _data['last_name'] = lastName;
+    _data['theusername'] = theusername;
+    _data['email'] = email;
+    _data['creationDate'] = creationDate;
+    _data['phone_number'] = phoneNumber;
+    _data['addAllDocs'] = addAllDocs;
+    return _data;
   }
 }

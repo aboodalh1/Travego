@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/core/utils/shared/constant.dart';
+import 'package:travego/features/Settings/presentation/manger/settings_cubit.dart';
 import 'package:travego/model/remote/passenger/passenger_info_model.dart';
 import 'package:travego/model/remote/passenger/passenger_passport_model.dart';
 import 'package:travego/model/remote/passenger/passenger_personal_id_model.dart';
@@ -125,6 +126,7 @@ class PassengerCubit extends Cubit<PassengerStates> {
   }
 
   Future<void> removePassenger({required String token, required num id}) async {
+      emit(RemovePassengerLoading());
     var result = await passengersRepo.deletePassenger(token: token, id: id);
     result.fold((failure) {
       emit(PassengerError(error: failure.errMessage));
@@ -166,6 +168,7 @@ class PassengerCubit extends Cubit<PassengerStates> {
     required num passengerId,
     required String token
   }) async {
+    emit(PassengerAddInfoLoading());
     var result = await passengersRepo.addPassengerPassport(
         passportFirstName: passportFirstName,
         passportLastName: passportLastName,

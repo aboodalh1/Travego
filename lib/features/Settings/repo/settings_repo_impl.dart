@@ -43,15 +43,16 @@ class SettingsRepoImpl implements SettingsRepo {
       required String username,
       required String phone}) async {
     try {
-
-      var response = await dioHelper
-          .putData(endPoint: 'CLient/Account/Edit_My_Account', data: {
-        "first_name": firstName,
-        "last_name": lastName,
-        "username": username,
-        "phone_number": phone
-      },token: token);
-      globalUserModel=UserModel.fromJson(response.data);
+      var response = await dioHelper.putData(
+          endPoint: 'CLient/Account/Edit_My_Account',
+          data: {
+            "first_name": firstName,
+            "last_name": lastName,
+            "username": username,
+            "phone_number": phone
+          },
+          token: token);
+      globalUserModel = UserModel.fromJson(response.data);
       return right(response.data['message']);
     } catch (e) {
       if (e is DioException) {
@@ -60,15 +61,16 @@ class SettingsRepoImpl implements SettingsRepo {
       return left(ServerFailure(e.toString()));
     }
   }
- @override
-  Future<Either<Failure, String>> addMyPassport(
-      {required String passportFirstName,
-        required String passportLastName,
-        required String passportNumber,
-        required String issueDate,
-        required String token,
-        required String expiredDate,
-        }) async {
+
+  @override
+  Future<Either<Failure, String>> addMyPassport({
+    required String passportFirstName,
+    required String passportLastName,
+    required String passportNumber,
+    required String issueDate,
+    required String token,
+    required String expiredDate,
+  }) async {
     try {
       var response = await dioHelper.postData(
           endPoint: 'CLient/Account/Add_Client_Passport',
@@ -78,6 +80,8 @@ class SettingsRepoImpl implements SettingsRepo {
             "passportIssueDate": issueDate,
             "passportExpiryDate": expiredDate,
             "passport_number": passportNumber,
+            "passport_PHOTO": "string"
+
           },
           token: token);
       return right(response.data['message']);
@@ -90,13 +94,13 @@ class SettingsRepoImpl implements SettingsRepo {
   }
 
   @override
-  Future<Either<Failure, String>> addMyPersonalId(
-      {required String idfirstName,
-        required String idlastName,
-        required String idBirthDate,
-        required String nationality,
-        required String token,
-        }) async {
+  Future<Either<Failure, String>> addMyPersonalId({
+    required String idfirstName,
+    required String idlastName,
+    required String idBirthDate,
+    required String nationality,
+    required String token,
+  }) async {
     try {
       var response = await dioHelper.postData(
           endPoint: 'CLient/Account/Add_Client_Personalid',
@@ -105,6 +109,7 @@ class SettingsRepoImpl implements SettingsRepo {
             "idlastName": idlastName,
             "idBirthDate": idBirthDate,
             "nationality": nationality,
+            "personalIdentity_PHOTO": "string"
           },
           token: token);
       return right(response.data['message']);
@@ -117,13 +122,13 @@ class SettingsRepoImpl implements SettingsRepo {
   }
 
   @override
-  Future<Either<Failure, String>> addMyVisa(
-      {required String visaType,
-        required String country,
-        required String issueDate,
-        required String expiredDate,
-        required String token,
-      }) async {
+  Future<Either<Failure, String>> addMyVisa({
+    required String visaType,
+    required String country,
+    required String issueDate,
+    required String expiredDate,
+    required String token,
+  }) async {
     try {
       var response = await dioHelper.postData(
           endPoint: 'CLient/Account/Add_Client_Visa',
@@ -132,6 +137,7 @@ class SettingsRepoImpl implements SettingsRepo {
             "visa_Country": country,
             "visaIssueDate": issueDate,
             "visaExpiryDate": expiredDate,
+            "visa_PHOTO": "string"
           },
           token: token);
       return right(response.data['message']);
@@ -142,7 +148,6 @@ class SettingsRepoImpl implements SettingsRepo {
       return left(ServerFailure(e.toString()));
     }
   }
-
 
   @override
   Future<Either<Failure, Response>> getMyPassport(
@@ -164,8 +169,7 @@ class SettingsRepoImpl implements SettingsRepo {
       {required String token}) async {
     try {
       var response = await dioHelper.getData(
-          endPoint: 'CLient/Account/Get_My_PersonalId',
-          token: token);
+          endPoint: 'CLient/Account/Get_My_PersonalId', token: token);
       return right(response);
     } catch (e) {
       if (e is DioException) {
@@ -176,8 +180,7 @@ class SettingsRepoImpl implements SettingsRepo {
   }
 
   @override
-  Future<Either<Failure, Response>> getMyVisa(
-      {required String token}) async {
+  Future<Either<Failure, Response>> getMyVisa({required String token}) async {
     try {
       var response = await dioHelper.getData(
           endPoint: 'CLient/Account/Get_My_Visa', token: token);
@@ -190,10 +193,9 @@ class SettingsRepoImpl implements SettingsRepo {
     }
   }
 
-
   @override
   Future<Either<Failure, String>> deleteMyPassport(
-      {required String token}) async{
+      {required String token}) async {
     try {
       var response = await dioHelper.deleteData(
           endPoint: 'CLient/Account/Delete_My_Passport', token: token);
@@ -208,7 +210,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
   @override
   Future<Either<Failure, String>> deleteMyPersonalId(
-      {required String token}) async{
+      {required String token}) async {
     try {
       var response = await dioHelper.deleteData(
           endPoint: 'CLient/Account/Delete_My_PersonalId', token: token);
@@ -222,8 +224,7 @@ class SettingsRepoImpl implements SettingsRepo {
   }
 
   @override
-  Future<Either<Failure, String>> deleteMyVisa(
-      {required String token}) async{
+  Future<Either<Failure, String>> deleteMyVisa({required String token}) async {
     try {
       var response = await dioHelper.deleteData(
           endPoint: 'CLient/Account/Delete_My_Visa', token: token);
@@ -236,9 +237,9 @@ class SettingsRepoImpl implements SettingsRepo {
     }
   }
 
-@override
+  @override
   Future<Either<Failure, String>> deleteMyAccount(
-      {required String token}) async{
+      {required String token}) async {
     try {
       var response = await dioHelper.deleteData(
           endPoint: 'CLient/Account/Delete_My_Account', token: token);
@@ -252,17 +253,57 @@ class SettingsRepoImpl implements SettingsRepo {
   }
 
   @override
-  Future<Either<Failure, Response>> getMyInfo({required String token}) async{
-    try{
-      var response = await dioHelper.getData(endPoint: 'CLient/Account/Get_My_Account',token: token);
+  Future<Either<Failure, Response>> getMyInfo({required String token}) async {
+    try {
+      var response = await dioHelper.getData(
+          endPoint: 'CLient/Account/Get_My_Account', token: token);
       return right(response);
-    }catch(e){
-      if(e is DioException){
-
+    } catch (e) {
+      if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));
     }
   }
 
+  @override
+  Future<Either<Failure, Response>> getMyDetails(
+      {required String token}) async {
+    try {
+      var response = await dioHelper.getData(
+          endPoint: 'CLient/Account/Get_MyDetail', token: token);
+      return right(response);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> addMyDetails(
+      {required String fatherName,
+      required String motherName,
+      required String gender,
+      required String birthDate,
+      required String token}) async{
+    try {
+      var response = await dioHelper.postData(
+          endPoint: 'CLient/Account/Add_Client_Details',
+          data: {
+            "gender": gender,
+            "birthDate": birthDate,
+            "father_name": fatherName,
+            "mother_name": motherName,
+          },
+          token: token);
+      return right(response.data['message']);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
 }

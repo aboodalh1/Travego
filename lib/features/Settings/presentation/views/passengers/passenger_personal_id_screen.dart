@@ -1,7 +1,10 @@
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:travego/core/utils/shared/Widgets/default_button.dart';
+import 'package:travego/core/widgets/alert_dialog/loading_alert_dialog.dart';
 import 'package:travego/core/widgets/circled_form_field/circled_form_field.dart';
 import 'package:travego/features/Settings/presentation/manger/passenger/passenger_cubit.dart';
 
@@ -24,18 +27,24 @@ class PassengerPersonalIdScreen extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message)));
           }
+
         },
         builder: (context, state) {
           PassengerCubit passengerCubit =
           BlocProvider.of<PassengerCubit>(context);
+          if(state is PassengerAddInfoLoading){
+            return const LoadingAlertDialog();
+          }
           if(state is PassengerAddInfoError){
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AlertDialog(
-                  title: Text(state.error =='404' ? '$name didn\'t add Personal ID yet' : 'something went wrong'),
+                  title: Text(state.error ),
                   content: Center(child: DefaultElevated(label: 'add Personal ID', fill: true, onPressed:(){
                     showDialog(context: context, builder: (context)=>AddPersonalIDWidget(id:id,name: name, passengerCubit: passengerCubit));
+                    Navigator.pop(context);
+
                   }),),
                 ),
               ],
@@ -113,6 +122,16 @@ class AddPersonalIDWidget extends StatelessWidget {
                     controller: passengerCubit.idBirthDate,
                     fill: false,
                     hintText: 'id birthday',
+                    tapFunction: ()async{
+                      final DateTime? picked = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2040));
+                      if(picked!=null){
+                        passengerCubit.idBirthDate.text=DateFormat('yyyy-MM-dd').format(picked);
+                      }
+                    },
                     secure: false),
                 const Gap(15),
                 const Text(
@@ -134,6 +153,7 @@ class AddPersonalIDWidget extends StatelessWidget {
                       nationality: passengerCubit.idNationality.text,
                       passengerId: id,
                       token: token);
+                  if(Navigator.canPop(context))Navigator.pop(context);
                 })
               ],
             ),

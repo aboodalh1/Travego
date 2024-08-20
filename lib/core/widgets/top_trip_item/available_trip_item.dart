@@ -54,6 +54,7 @@ class AvailableTripItems extends StatelessWidget {
                               borderRadius: BorderRadius.circular(30),
                               child: Image.asset(
                                 AssetsData.trips,
+                                scale: 0.85,
                                 fit: BoxFit.fill,
                               )),
                         ),

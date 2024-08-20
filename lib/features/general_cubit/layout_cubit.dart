@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travego/features/location/views/location_screen.dart';
+import 'package:travego/features/location/views/all_reservation_screen.dart';
 
 import '../Settings/presentation/views/settings_screen.dart';
 import '../home/presentation/view/home_page.dart';
@@ -13,7 +13,7 @@ class GeneralCubit extends Cubit<GeneralState> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    LocationScreen(),
+    const AllReservationScreen(),
     const HotelsScreen(),
     const SettingsScreen()
   ];

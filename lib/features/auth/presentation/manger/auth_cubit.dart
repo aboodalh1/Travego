@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
@@ -5,8 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travego/features/auth/presentation/views/login_screen.dart';
 import 'package:travego/features/layout.dart';
 import 'package:travego/features/auth/repo/auth_repo.dart';
+import 'package:travego/model/remote/client/user_account_model/user_account_model.dart';
 import 'package:travego/model/user_model.dart';
-
+import '../../../../core/utils/network/local/cacheHelper.dart';
 import '../../../../core/utils/shared/constant.dart';
 import '../views/verification_page.dart';
 
@@ -15,7 +17,7 @@ part 'auth_states.dart';
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit(this.authRepo) : super(AuthInitState());
   final AuthRepo authRepo;
-  UserModel ?userModel;
+  UserModel userModel= UserModel(message: 'message', status: 'status', localDateTime: 'localDateTime', body: UserBody(user:User(id: 0, firstName: '', lastName: '', theusername: '', email: '', creationDate: '', phoneNumber: ''),token:''));
   String code = '';
   bool onEditing = false;
 
@@ -29,8 +31,11 @@ class AuthCubit extends Cubit<AuthStates> {
       TextEditingController();
 
   TextEditingController loginEmailController = TextEditingController();
-
   TextEditingController loginPasswordController = TextEditingController();
+
+  final StreamController<bool> _pasteCode = StreamController<bool>.broadcast();
+  Stream<bool> get pasteCode => _pasteCode.stream;
+  Sink<bool> get pasteCodeSink => _pasteCode;
 
   bool registerIsSecure = true;
   bool loginIsSecure = true;
@@ -88,7 +93,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(AuthFailureState(failure.errMessage));
     }, (userModel) {
       emit(AuthSuccessState());
-      navigateTo(context, VerificationScreen());
+      navigateAndFinish(context, const VerificationScreen());
     });
   }
 
@@ -104,8 +109,8 @@ class AuthCubit extends Cubit<AuthStates> {
     }, (model) {
       userModel = UserModel.fromJson(model.data);
       globalUserModel = UserModel.fromJson(model.data);
-      token = userModel!.body!.token!;
-       // CacheHelper.saveData(key: 'token', value: userModel!.body!.token);
+      token = userModel.body.token;
+       CacheHelper.saveData(key: 'token', value: userModel.body.token);
       emit(AuthSuccessState());
       loginPasswordController.clear();
       navigateAndFinish(context, const LayoutScreen());
@@ -114,15 +119,15 @@ class AuthCubit extends Cubit<AuthStates> {
 
   Future<void> verifyCode(
       {required String code, required String email, context}) async {
-    emit(AuthLoadingState());
+    emit(CodeVerificationLoadingState());
     var result = await authRepo.verificationCode(code: code, email: email);
     result.fold((failure) {
-      emit(AuthFailureState(failure.errMessage));
+      emit(CodeVerifyFailure(failure.errMessage));
     }, (model) {
       userModel = UserModel.fromJson(model.data);
-      token = userModel!.body!.token!;
-      // CacheHelper.saveData(key: 'token', value: userModel!.body!.token);
-      emit(AuthSuccessState());
+      token = userModel.body!.token!;
+      CacheHelper.saveData(key: 'token', value: userModel.body!.token);
+      emit(CodeVerifySuccess(message: userModel.message));
       navigateAndFinish(context, const LayoutScreen());
     });
   }
@@ -133,7 +138,7 @@ class AuthCubit extends Cubit<AuthStates> {
     result.fold((failure) {
       emit(CodeVerifyFailure(failure.errMessage));
     }, (message1) {
-      emit(CodeVerifySuccess(message1));
+      emit(CodeVerifySuccess(message:message1));
     });
   }
 
@@ -176,7 +181,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
   void logout(context) {
     token = '';
-    // CacheHelper.removeData(key: 'token');
+    CacheHelper.removeData(key: 'token');
     navigateAndFinish(context, const LoginScreen());
   }
 }

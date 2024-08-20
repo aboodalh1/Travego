@@ -34,7 +34,7 @@ class ServerFailure extends Failure {
       return ServerFailure(response['message'] ?? 'Connection error');
 
     } else if (statusCode == 404) {
-      return ServerFailure('$statusCode');}
+      return ServerFailure(response['message']);}
     else if (statusCode == 405) {
       return ServerFailure(response['message'] ?? 'something went wrong');
     } else if (statusCode == 500) {

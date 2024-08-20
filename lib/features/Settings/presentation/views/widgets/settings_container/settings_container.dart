@@ -6,6 +6,7 @@ import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travego/features/Settings/presentation/views/passengers/passengers_screen.dart';
 import 'package:travego/features/Settings/presentation/views/user_details/additional_info.dart';
+import 'package:travego/features/Settings/presentation/views/user_details/my_details_screen.dart';
 
 import '../../../../../../translations/locale_keys.g.dart';
 import '../../../manger/settings_cubit.dart';
@@ -43,7 +44,7 @@ class SettingsContainer extends StatelessWidget {
         ),
         settingsItem(
           function: () {
-            cubit.editProfile();
+           navigateTo(context, MyDetailsScreen());
           },
           icon: const Icon(CupertinoIcons.doc),
           label: LocaleKeys.myDetails.tr(),

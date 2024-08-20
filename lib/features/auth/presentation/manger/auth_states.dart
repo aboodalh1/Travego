@@ -21,7 +21,7 @@ class CodeVerificationLoadingState extends AuthStates {}
 class CodeVerifySuccess extends AuthStates {
   final String message;
 
-  CodeVerifySuccess(this.message);
+  CodeVerifySuccess({required this.message});
 }
 
 class CodeVerifyFailure extends AuthStates {

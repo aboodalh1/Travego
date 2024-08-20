@@ -59,7 +59,33 @@ final class GetAvailableTripLoading extends TripsState {}
 final class GetAvailableTripSuccess extends TripsState {}
 
 final class GetAvailableTripFailure extends TripsState {
-    final String errMessage;
+  final String errMessage;
 
   GetAvailableTripFailure({required this.errMessage});
+}
+
+final class GetTripReviewLoading extends TripsState {}
+
+final class GetTripsReviewFailure extends TripsState {
+  final String error;
+
+  GetTripsReviewFailure({required this.error});
+}
+
+final class GetTripReviewSuccess extends TripsState {}
+
+final class GetAllReservasionLoading extends TripsState{}
+final class GetAllReservasionSuccess extends TripsState{}
+final class GetAllReservasionFailure extends TripsState{
+  final String error;
+  GetAllReservasionFailure({required this.error});
+}
+final class PayingLoading extends TripsState{}
+final class PaidSuccessfulState extends TripsState{
+  final String message;
+  PaidSuccessfulState({required this.message});
+}
+final class PaidFailureState extends TripsState{
+  final String error;
+  PaidFailureState({required this.error});
 }

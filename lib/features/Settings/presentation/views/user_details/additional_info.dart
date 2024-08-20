@@ -36,11 +36,12 @@ class MyAdditionalInfoScreen extends StatelessWidget {
         },
         builder: (context, state) {
           SettingsCubit settingsCubit = BlocProvider.of<SettingsCubit>(context);
-          if (state is GetInfoError && state.error.toString() != '404') {
+          if (state is GetInfoError ) {
+            print(state.error);
             return ErrorLoadingScreen(
               buttonTitle: 'Try again',
               appBarTitle: 'My Personal ID Screen',
-              centerTitle: 'Check your connection',
+              centerTitle: state.error,
               onButtonPressed: () {
                 settingsCubit.getMyPersonalId(token: token);
               },
@@ -80,7 +81,8 @@ class MyAdditionalInfoScreen extends StatelessWidget {
                       label: 'Personal ID'),
                 ],
               ),
-              body: state is GetInfoLoading? const Center(child: CustomProgressIndicator(),):settingsCubit.screens[settingsCubit.navBarSelectedItem],
+              body: state is GetInfoLoading? const Center(child: CustomProgressIndicator(),):
+              settingsCubit.screens[settingsCubit.navBarSelectedItem]
             ),
           );
         },

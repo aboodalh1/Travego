@@ -7,6 +7,7 @@ import 'package:travego/features/Settings/presentation/views/user_details/additi
 import 'package:travego/features/Settings/presentation/views/user_details/additional_info/my_visa_screen.dart';
 import 'package:travego/features/Settings/repo/settings_repo.dart';
 import 'package:travego/features/auth/presentation/views/login_screen.dart';
+import 'package:travego/model/remote/client/my_details_model.dart';
 import 'package:travego/model/remote/client/my_passport_model.dart';
 import 'package:travego/model/remote/client/my_personal_id_model.dart';
 import 'package:travego/model/remote/client/my_visa_model.dart';
@@ -37,6 +38,11 @@ class SettingsCubit extends Cubit<SettingsState> {
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
 
+  final TextEditingController fatherNameController = TextEditingController();
+  final TextEditingController motherNameController = TextEditingController();
+  final TextEditingController myGenderController = TextEditingController();
+  final TextEditingController myBirthDateController = TextEditingController();
+
   final TextEditingController passportFirstName = TextEditingController();
   final TextEditingController passportLastName = TextEditingController();
   final TextEditingController passportIssueDate = TextEditingController();
@@ -64,6 +70,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     navBarSelectedItem = selected;
     emit(ChangeNavBar());
   }
+
   bool addNew = false;
   bool isEditProfile = false;
   bool isEditPassword = false;
@@ -115,7 +122,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     selectedValue = 'On';
     try {
       await context.setLocale(const Locale('en'));
-    }catch(e){
+    } catch (e) {
       //ff
     }
     isLTR = false;
@@ -196,7 +203,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     result.fold((failure) {
       emit(AddInfoError(error: failure.errMessage));
     }, (message) {
-      emit(AddInfoSuccess(message:message ));
+      emit(AddInfoSuccess(message: message));
       passportIssueDate.clear();
       this.passportFirstName.clear();
       this.passportLastName.clear();
@@ -239,7 +246,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     required String token,
   }) async {
     emit(AddInfoLoading());
-    var result =await settingsRepo.addMyVisa(visaType: visaType,
+    var result = await settingsRepo.addMyVisa(visaType: visaType,
         country: country,
         issueDate: issueDate,
         expiredDate: expiredDate,
@@ -247,7 +254,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     result.fold((failure) {
       emit(AddInfoError(error: failure.errMessage));
     }, (message) {
-      emit(AddInfoSuccess(message:message));
+      emit(AddInfoSuccess(message: message));
       this.visaType.clear();
       visaCountry.clear();
       visaExpiredDate.clear();
@@ -256,20 +263,61 @@ class SettingsCubit extends Cubit<SettingsState> {
     });
   }
 
+  MyDetailsModel? myDetailsModel;
+
+  Future<void> getMyDetails({required String token}) async {
+    emit(GetInfoLoading());
+    var result = await settingsRepo.getMyDetails(token: token);
+    result.fold((failure) {
+      emit(GetInfoError(error: failure.errMessage));
+    }, (r) {
+      myDetailsModel = MyDetailsModel.fromJson(r.data);
+
+      fatherNameController.text = myDetailsModel!.body.fatherName!;
+      motherNameController.text = myDetailsModel!.body.motherName;
+      myGenderController.text = myDetailsModel!.body.gender;
+      myBirthDateController.text = myDetailsModel!.body.birthdate;
+      emit(GetInfoSuccess());
+    });
+  }
+
+  Future<void> addMyDetails({
+    required String fatherName,
+    required String motherName,
+    required String gender,
+    required String birthDate,
+    required String token,
+  }) async {
+    emit(AddInfoLoading());
+    var result = await settingsRepo.addMyDetails(fatherName: fatherName,
+        motherName: motherName,
+        gender: gender,
+        birthDate: birthDate,
+        token: token);
+    result.fold((failure) {
+      emit(AddInfoError(error: failure.errMessage));
+    }, (message) {
+      emit(AddInfoSuccess(message: message));
+      fatherNameController.clear();
+      motherNameController.clear();
+      myGenderController.clear();
+      myBirthDateController.clear();
+      getMyDetails(token: token);
+    });
+  }
+
   Future<void> getMyPassport({required String token}) async {
     emit(GetInfoLoading());
     var result = await settingsRepo.getMyPassport(token: token);
     result.fold((failure) {
-
       emit(GetInfoError(error: failure.errMessage));
     }, (r) {
-
       myPassportModel = MyPassportModel.fromJson(r.data);
 
-      passportFirstName.text=myPassportModel!.body!.firstName!;
-      passportLastName.text=myPassportModel!.body!.lastName!;
-      passportNumber.text=myPassportModel!.body!.passportNumber!;
-      passportIssueDate.text=myPassportModel!.body!.issueDate!;
+      passportFirstName.text = myPassportModel!.body!.firstName!;
+      passportLastName.text = myPassportModel!.body!.lastName!;
+      passportNumber.text = myPassportModel!.body!.passportNumber!;
+      passportIssueDate.text = myPassportModel!.body!.issueDate!;
       passportExpiredDate.text = myPassportModel!.body!.expiryDate!;
       emit(GetInfoSuccess());
     });
@@ -279,14 +327,15 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(GetInfoLoading());
     var result = await settingsRepo.getMyPersonalId(token: token);
     result.fold((failure) {
-      emit(GetInfoError(error: failure.errMessage));
+      if(failure.errMessage=='Personal ID Not ADDED yet'){emit(GetInfoSuccess());}
+      else emit(GetInfoError(error: failure.errMessage));
     }, (r) {
       myPersonalIdModel = MyPersonalIdModel.fromJson(r.data);
 
-      idFirstName.text=myPersonalIdModel!.body!.firstName!;
-      idLastName.text=myPersonalIdModel!.body!.lastName!;
-      idNationality.text=myPersonalIdModel!.body!.nationality!;
-      idBirthDate.text=myPersonalIdModel!.body!.birthDate!;
+      idFirstName.text = myPersonalIdModel!.body!.firstName!;
+      idLastName.text = myPersonalIdModel!.body!.lastName!;
+      idNationality.text = myPersonalIdModel!.body!.nationality!;
+      idBirthDate.text = myPersonalIdModel!.body!.birthDate!;
 
       emit(GetInfoSuccess());
     });
@@ -299,18 +348,37 @@ class SettingsCubit extends Cubit<SettingsState> {
 
     result.fold((failure) {
       emit(GetInfoError(error: failure.errMessage));
-
     }, (r) {
       myVisaModel = MyVisaModel.fromJson(r.data);
-      visaType.text=myVisaModel!.body!.visaType!;
-      visaCountry.text=myVisaModel!.body!.country!;
-      visaIssueDate.text=myVisaModel!.body!.issueDate!;
-      visaExpiredDate.text=myVisaModel!.body!.expiryDate!;
+      visaType.text = myVisaModel!.body!.visaType!;
+      visaCountry.text = myVisaModel!.body!.country!;
+      visaIssueDate.text = myVisaModel!.body!.issueDate!;
+      visaExpiredDate.text = myVisaModel!.body!.expiryDate!;
       emit(GetInfoSuccess());
     });
   }
-
-
+  // MyDetailsModel ?myDetailsModel;
+  // Future<void> getMyDetails({required String token}) async {
+  //   emit(GetInfoLoading());
+  //   var result = await settingsRepo.getMyDetails(token: token);
+  //
+  //   result.fold((failure) {
+  //     emit(GetInfoError(error: failure.errMessage));
+  //   }, (r) {
+  //     myDetailsModel = MyDetailsModel.fromJson(r.data);
+  //     fatherNameController.text = myDetailsModel.body
+  //     .;
+  //     visaCountry.text=myVisaModel!.body!.country!;
+  //     visaIssueDate.text=myVisaModel!.body!.issueDate!;
+  //     visaExpiredDate.text=myVisaModel!.body!.expiryDate!;
+  //     emit
+  //     (
+  //     GetInfoSuccess
+  //     (
+  //     )
+  //     );
+  //   });
+  // }
 
 
   Future<void> deleteMyPassport({required String token}) async {
@@ -319,10 +387,10 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(GetInfoError(error: failure.errMessage));
     }, (r) {
       emit(GetInfoSuccess());
-      passportFirstName.text=myPassportModel!.body!.firstName!;
-      passportLastName.text=myPassportModel!.body!.lastName!;
-      passportNumber.text=myPassportModel!.body!.passportNumber!;
-      passportIssueDate.text=myPassportModel!.body!.issueDate!;
+      passportFirstName.text = myPassportModel!.body!.firstName!;
+      passportLastName.text = myPassportModel!.body!.lastName!;
+      passportNumber.text = myPassportModel!.body!.passportNumber!;
+      passportIssueDate.text = myPassportModel!.body!.issueDate!;
       passportExpiredDate.text = myPassportModel!.body!.expiryDate!;
       getMyPassport(token: token);
     });
@@ -348,15 +416,15 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(GetInfoError(error: failure.errMessage));
     }, (r) {
       emit(GetInfoSuccess());
-      visaType.text=myVisaModel!.body!.visaType!;
-      visaCountry.text=myVisaModel!.body!.country!;
-      visaIssueDate.text=myVisaModel!.body!.issueDate!;
-      visaExpiredDate.text=myVisaModel!.body!.expiryDate!;
+      visaType.text = myVisaModel!.body!.visaType!;
+      visaCountry.text = myVisaModel!.body!.country!;
+      visaIssueDate.text = myVisaModel!.body!.issueDate!;
+      visaExpiredDate.text = myVisaModel!.body!.expiryDate!;
       getMyVisa(token: token);
     });
   }
 
-    Future<void> deleteMyAccount(context,{required String token}) async {
+  Future<void> deleteMyAccount(context, {required String token}) async {
     emit(DeleteAccountLoadingState());
     var result = await settingsRepo.deleteMyAccount(token: token);
     result.fold((failure) {

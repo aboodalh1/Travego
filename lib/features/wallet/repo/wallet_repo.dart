@@ -7,4 +7,5 @@ abstract class WalletRepo{
   Future <Either<Failure,String>>addMoneyToWallet({required String token,required String code});
   Future <Either<Failure,Response>>getMyWallet({required String token});
   Future <Either<Failure,String>>deleteMyWallet({required String token});
+  Future <Either<Failure,Response>>getAllTransactionHistory({required String token});
 }

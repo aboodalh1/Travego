@@ -4,11 +4,11 @@ import 'package:gap/gap.dart';
 import 'package:travego/core/utils/shared/components/components.dart';
 import 'package:travego/core/utils/shared/styles/colors.dart';
 import 'package:travego/core/widgets/alert_dialog/loading_alert_dialog.dart';
+import 'package:travego/core/widgets/custom_snack_bar/custom_snack_bar.dart';
 import 'package:travego/features/wallet/repo/wallet_repo_impl.dart';
 
 import '../../../../../core/utils/network/remote/service_locator.dart';
 import '../../../../../core/utils/shared/Widgets/default_button.dart';
-import '../../../../../core/utils/shared/constant.dart';
 import '../../../../../core/widgets/circled_form_field/circled_form_field.dart';
 import '../../../../auth/presentation/views/register_screen.dart';
 import '../../manger/wallet_cubit.dart';
@@ -16,11 +16,8 @@ import '../widgets/my_wallet_screen/my_wallet_screen.dart';
 
 
 class CreateWallet extends StatelessWidget {
-  CreateWallet({super.key});
+  const CreateWallet({super.key});
 
-  TextEditingController securityCodeController = TextEditingController();
-  TextEditingController securityCodeConfController = TextEditingController();
-  TextEditingController bankAccount = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +29,13 @@ class CreateWallet extends StatelessWidget {
             showDialog(context: context, builder: (context)=> const LoadingAlertDialog());
           }
           if(state is WalletCreateSuccess){
-            if(Navigator.canPop(context)){Navigator.pop(context);}
-            navigateTo(context,  MyWalletScreen(walletCubit: BlocProvider.of<WalletCubit>(context),));
+            navigateTo(context, MyWalletScreen());
+
+
           }
           if(state is WalletCreateFailure){
             if(Navigator.canPop(context)){Navigator.pop(context);}
-
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error.toString())));
+            customSnackBar(context, state.error);
           }
         },
         builder: (context, state) {
@@ -59,7 +56,7 @@ class CreateWallet extends StatelessWidget {
                   defaultCircleTextField(
                     hintText: 'Acc@gmail.com',
                     secure: false,
-                    controller: bankAccount,
+                    controller: walletCubit.bankAccount,
                     prefix: Icon(
                       Icons.email,
                       color: defaultSecondColor,
@@ -75,7 +72,7 @@ class CreateWallet extends StatelessWidget {
                   defaultCircleTextField(
                     hintText: '********',
                     secure: walletCubit.passwordIsSecure,
-                    controller: securityCodeConfController,
+                    controller: walletCubit.securityCodeConfController,
                     prefix: Icon(
                       Icons.lock,
                       color: defaultSecondColor,
@@ -97,7 +94,7 @@ class CreateWallet extends StatelessWidget {
                   defaultCircleTextField(
                     hintText: '*******',
                     secure: walletCubit.passConfIsSecure,
-                    controller: securityCodeController,
+                    controller: walletCubit.securityCodeController,
                     prefix: Icon(
                       Icons.lock,
                       color: defaultSecondColor,
@@ -115,12 +112,10 @@ class CreateWallet extends StatelessWidget {
                     height: 50,
                     child: DefaultElevated(
                       onPressed: () {
-                        print(token);
-                        // walletCubit.deleteMyWallet(token: token);
-                        walletCubit.createWallet(token: token,
-                            securityCode: securityCodeController.text,
-                            confSecurityCode: securityCodeConfController.text,
-                            bankAccount: bankAccount.text);
+                        walletCubit.createWallet(
+                            securityCode: walletCubit.securityCodeController.text,
+                            confSecurityCode: walletCubit.securityCodeConfController.text,
+                            bankAccount: walletCubit.bankAccount.text);
                       },
                       label: "Create Wallet",
                       fill: true,

@@ -29,7 +29,7 @@ class ErrorLoadingScreen extends StatelessWidget {
           title: Text(appBarTitle.tr()),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(18.0),
+          padding: const EdgeInsets.all(5.0),
           child: RefreshIndicator(
             color: Colors.white,
             backgroundColor: defaultColor,

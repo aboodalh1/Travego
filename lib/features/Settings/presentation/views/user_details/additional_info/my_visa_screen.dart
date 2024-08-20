@@ -22,6 +22,9 @@ class MyVisaScreen extends StatelessWidget {
           SettingsCubit(getIt.get<SettingsRepoImpl>())..getMyVisa(token: token),
       child: BlocConsumer<SettingsCubit, SettingsState>(
         listener: (context, state) {
+          if(state is GetInfoError){
+            customSnackBar(context, state.error);
+          }
           if (state is AddInfoError) {
             customSnackBar(context, state.error);
           }
@@ -67,6 +70,7 @@ class AddMyVisaCard extends StatelessWidget {
                       text:"Do you want to delete your Visa Information?",
                       function:(){
                         settingsCubit.deleteMyVisa(token: token);
+                        if(Navigator.canPop(context))Navigator.pop(context);
                       }
 
                   );
@@ -119,7 +123,7 @@ class AddMyVisaCard extends StatelessWidget {
                             firstDate: DateTime(2010),
                             lastDate: DateTime(2030));
                         if (picked != null) {
-                          settingsCubit.passportExpiredDate.text =
+                          settingsCubit.visaIssueDate.text =
                               DateFormat('yyyy-MM-dd').format(picked);
                         }
                       },
@@ -139,7 +143,7 @@ class AddMyVisaCard extends StatelessWidget {
                             firstDate: DateTime(2010),
                             lastDate: DateTime(2030));
                         if (picked != null) {
-                          settingsCubit.passportExpiredDate.text =
+                          settingsCubit.visaExpiredDate.text =
                               DateFormat('yyyy-MM-dd').format(picked);
                         }
                       },

@@ -48,7 +48,11 @@ class ChargeWallet extends StatelessWidget {
                     hintText: 'Code',
                     controller: walletCubit.chargeCodeController,
                     fill: false,
-                    secure: true,
+                    secure: walletCubit.passCodeIsSecure,
+                    suffix: IconButton(
+                      icon: walletCubit.passwordCodeSecureIcon,
+                      onPressed: (){walletCubit.passCodeChangeSecure();},
+                    ),
                   ),
                   const Gap(10),
                   Padding(

@@ -40,10 +40,12 @@ class LoginContainer extends StatelessWidget {
               child: Center(child: Image.asset('assets/images/ion_earth.png')),
             ),
             defaultCircleTextField(
+              cursorColor: Colors.white,
               secure: false,
               fill: true,
               hintText: LocaleKeys.Email.tr(),
               controller: usernameController,
+              keyboardType: TextInputType.emailAddress,
               prefix: const Icon(
                 CupertinoIcons.mail,
                 color: Colors.white,

@@ -36,97 +36,93 @@ class TripDetailScreen extends StatelessWidget {
                 title: Text('Trip details',
                     style: GoogleFonts.inter(fontWeight: FontWeight.w500)),
               ),
-              body: Container(
-                margin: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: ScreenSizeUtil.screenHeight * 0.5,
-                      child: ClipRect(
-                          child: Image.asset(
-                            'assets/images/lake_view.png',
-                            scale: .5,
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: ScreenSizeUtil.screenWidth * 0.65,
-                            child: Text(model.tripName!,
-                                style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.bold, fontSize: 20)),
-                          ),
-                          const Spacer(),
-                          const Icon(Icons.star, color: Color(0XFFE1D800)),
-                          Text(
-                            model.status!,
-                            style: GoogleFonts.inter(
-                                color: const Color(0xff636363),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
+              body: Column(
+                children: [
+                  SizedBox(
+                    height: ScreenSizeUtil.screenHeight * 0.5,
+                    child: ClipRect(
+                        child: Image.asset(
+                          'assets/images/lake_view.png',
+                          scale: .5,
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
                       children: [
-                        const Icon(
-                          Icons.place,
-                          color: Color(0xff636363),
+                        SizedBox(
+                          width: ScreenSizeUtil.screenWidth * 0.65,
+                          child: Text(model.tripName!,
+                              style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.bold, fontSize: 20)),
                         ),
+                        const Spacer(),
+                        const Icon(Icons.star, color: Color(0XFFE1D800)),
                         Text(
-                          model.country!,
+                          model.status!,
                           style: GoogleFonts.inter(
                               color: const Color(0xff636363),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
-                    SizedBox(
-                      child: Text(
-                        model.tripDescription!,
-                        style: GoogleFonts.inter(fontSize: 20),
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.place,
+                        color: Color(0xff636363),
                       ),
+                      Text(
+                        model.country!,
+                        style: GoogleFonts.inter(
+                            color: const Color(0xff636363),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    child: Text(
+                      model.tripDescription!,
+                      style: GoogleFonts.inter(fontSize: 20),
                     ),
-                    const Spacer(),
-                    Expanded(
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) =>
-                                Text(model.tripServices![index] +' | '),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                      child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) =>
+                              Text(model.tripServices![index] +' | '),
 
-                            itemCount: model.tripServices!.length)),
-                    const Spacer(),
-                    Row(children: [
-                      Expanded(
-                        child: DefaultElevated(
-                            label: 'Booking now \$ ${model.price}',
-                            fill: true,
-                            onPressed: () {
-                              navigateTo(context, const ReserveTripScreen());
-                            }),
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            cubit.isTripFavorite
-                                ? cubit.removeTripFromFavorite(
-                                token: token, id: model.tripId) : cubit
-                                .addTripToFavorite(
-                                token: token, id: model.tripId);
-                          },
-                          icon: Icon(
-                            true ? Icons.favorite : Icons
-                                .favorite_border,
-                            size: 35,
-                            color: defaultColor,
-                          ))
-                    ]),
-                  ],
-                ),
+                          itemCount: model.tripServices!.length)),
+                  const Spacer(),
+                  Row(children: [
+                    DefaultElevated(
+                        label: 'Booking now \$ ${model.price}',
+                        fill: true,
+                        onPressed: () {
+                          print(model.tripId);
+                          navigateTo(context, ReserveTripScreen(tripId: model.tripId,));
+                        }),
+                    IconButton(
+                        onPressed: () {
+                          model.isFavourite
+                              ? cubit.removeTripFromFavorite(
+                              token: token, id: model.tripId) : cubit
+                              .addTripToFavorite(
+                              token: token, id: model.tripId);
+                        },
+                        icon: Icon(
+                          model.isFavourite ? Icons.favorite : Icons
+                              .favorite_border,
+                          size: 35,
+                          color: defaultColor,
+                        ))
+                  ]),
+                ],
               ));
         },
       ),

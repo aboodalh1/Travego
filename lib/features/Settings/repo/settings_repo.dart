@@ -39,6 +39,15 @@ abstract class SettingsRepo {
     required String nationality,
     required String token,
   });
+  Future <Either<Failure,String>> addMyDetails({
+    required String fatherName,
+    required String motherName,
+    required String gender,
+    required String birthDate,
+    required String token,
+  });
+
+  Future <Either<Failure,Response>> getMyDetails({required String token});
   Future <Either<Failure,Response>> getMyPassport({required String token});
   Future <Either<Failure,Response>> getMyVisa({required String token,});
   Future <Either<Failure,Response>> getMyPersonalId({required String token});

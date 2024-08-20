@@ -1,6 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:travego/core/utils/shared/components/components.dart';
+import 'package:travego/features/wallet/presentation/view/widgets/my_wallet_screen/my_wallet_screen.dart';
+import 'package:travego/model/remote/wallet/transaction_history_model.dart';
 
+import '../../../../core/utils/shared/constant.dart';
 import '../../../../model/remote/wallet/wallet_model.dart';
 import '../../repo/wallet_repo.dart';
 
@@ -11,13 +15,22 @@ class WalletCubit extends Cubit<WalletState> {
   final WalletRepo walletRepo;
   WalletModel? walletModel;
 
+  TextEditingController securityCodeController = TextEditingController();
+  TextEditingController securityCodeConfController = TextEditingController();
+  TextEditingController bankAccount = TextEditingController();
+
   bool passwordIsSecure = true;
   bool passConfIsSecure = true;
+  bool passCodeIsSecure = true;
   TextEditingController chargeCodeController = TextEditingController();
 
   Icon passwordSecureIcon = const Icon(
     Icons.remove_red_eye_outlined,
     color: Colors.white,
+  );
+  Icon passwordCodeSecureIcon = Icon(
+    Icons.remove_red_eye_outlined,
+    color: defaultColor,
   );
   Icon passwordConfSecureIcon = const Icon(
     Icons.remove_red_eye_outlined,
@@ -37,6 +50,19 @@ class WalletCubit extends Cubit<WalletState> {
           );
     emit(ChangeSecure());
   }
+ void passCodeChangeSecure() {
+    passCodeIsSecure = !passCodeIsSecure;
+    passwordCodeSecureIcon = passCodeIsSecure
+        ?  Icon(
+            Icons.remove_red_eye_outlined,
+            color: defaultColor,
+          )
+        :  Icon(
+            Icons.visibility_off_outlined,
+            color: defaultColor,
+          );
+    emit(ChangeSecure());
+  }
 
   void passwordChangeSecure() {
     passwordIsSecure = !passwordIsSecure;
@@ -53,7 +79,7 @@ class WalletCubit extends Cubit<WalletState> {
   }
 
   Future<void> createWallet(
-      {required String token,
+      {
       required String securityCode,
       required String confSecurityCode,
       required String bankAccount}) async {
@@ -101,5 +127,16 @@ class WalletCubit extends Cubit<WalletState> {
     }, (message) {
       emit(WalletDeleteSuccess());
     });
+  }
+  TransactionHistoryModel? transactionHistoryModel ;
+  Future<void> getAllTransactionHistory({required String token})async{
+      emit(GetTransactionHistoryLoading());
+      var result = await walletRepo.getAllTransactionHistory(token: token);
+      result.fold((failure) {
+        emit(WalletCreateFailure(error: failure.errMessage));
+      }, (message) {
+        transactionHistoryModel = TransactionHistoryModel.fromJson(message.data);
+        emit(WalletDeleteSuccess());
+      });
   }
 }

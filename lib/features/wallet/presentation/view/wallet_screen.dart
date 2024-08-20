@@ -22,15 +22,15 @@ class WalletScreen extends StatelessWidget {
   create: (context) => WalletCubit(getIt.get<WalletRepoImpl>())..getMyWallet(token: token),
   child: BlocConsumer<WalletCubit, WalletState>(
   listener: (context, state) {
-
     if(state is WalletCreateFailure){
     customSnackBar(context, state.error);
     }
   },
   builder: (context, state) {
+    WalletCubit walletCubit= BlocProvider.of<WalletCubit>(context);
     if(state is WalletCreateSuccess){
 
-     return  MyWalletScreen(walletCubit: BlocProvider.of<WalletCubit>(context),);
+     return  MyWalletScreen();
     }
     if(state is WalletCreateLoading){
       return CustomProgressIndicator();

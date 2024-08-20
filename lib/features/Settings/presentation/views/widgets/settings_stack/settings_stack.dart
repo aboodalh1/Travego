@@ -14,7 +14,7 @@ import '../../edit_profile/edit_profile_screen.dart';
 import '../settings_container/settings_container.dart';
 
 class SettingsStack extends StatelessWidget {
-  const SettingsStack({
+const SettingsStack({
     super.key,
     required this.cubit,
   });
